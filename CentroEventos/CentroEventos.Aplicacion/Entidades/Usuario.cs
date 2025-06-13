@@ -32,8 +32,5 @@ public class Usuario
         this.Contraseña = contraseña;
         this.Permisos = lista;
     }
-    protected Usuario()
-    {
-        
-    }
+    protected Usuario() { }
 }
