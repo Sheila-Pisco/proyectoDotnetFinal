@@ -1,4 +1,9 @@
+using CentroEventos.Repositorios;
 using CentroEventos.UI.Components;
+
+CentroEventosSqlite.Inicializar(); //solo tiene efecto si la base de datos no existe
+using var context = new CentroEventoContext();
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,3 +26,6 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.Run();
+
+
+
