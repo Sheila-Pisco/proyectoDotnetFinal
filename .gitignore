@@ -41,7 +41,10 @@ ScaffoldingReadMe.txt
 *~
 CodeCoverage/
 bin/
-obj/
+CentroEventos/CentroEventos.Repositorios/obj/
+CentroEventos/CentroEventos.Aplicacion/obj/
+CentroEventos/CentroEventos.UI/obj/
+
 
 # MSBuild Binary and Structured Log
 *.binlog
