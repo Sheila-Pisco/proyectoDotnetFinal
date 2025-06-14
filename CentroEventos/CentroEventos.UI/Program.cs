@@ -1,4 +1,9 @@
+using CentroEventos.Repositorios;
 using CentroEventos.UI.Components;
+
+CentroEventosSqlite.Inicializar(); //solo tiene efecto si la base de datos no existe
+using var context = new CentroEventoContext();
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,11 +19,13 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
 }
 
-
+app.UseStaticFiles();
 app.UseAntiforgery();
 
-app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.Run();
+
+
+

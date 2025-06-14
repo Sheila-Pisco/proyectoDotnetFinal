@@ -4,13 +4,13 @@ namespace CentroEventos.Aplicacion.Entidades;
 
 public class EventoDeportivo
 {
-    private int _Id_evento; // único, debe ser autoincremental gestionado por el repositorio) 
-    private string? _Nombre;// ej: "Clase de Spinning Avanzado", "Partido final de Vóley"
-    private string? _Descripcion;
-    private DateTime _FechaHoraInicio = new DateTime(1,1,1,0,0,0) ; // DateTime - Fecha y hora exactas de inicio del evento
-    private double _DuracionHoras; // Duración del evento en horas, ej: 1.5 para una hora y media
-    private int _CupoMaximo; // Cantidad máxima de participantes permitidos
-    private int _ResponsableId; // Id de la Persona a cargo del evento
+    public int Id { get; private set; } // único, debe ser autoincremental gestionado por el repositorio) 
+    public string? Nombre{ get; private set; } // ej: "Clase de Spinning Avanzado", "Partido final de Vóley"
+    public string? Descripcion{ get; private set; }
+    public DateTime FechaHoraInicio{ get; private set; } = new DateTime(1,1,1,0,0,0) ; // DateTime - Fecha y hora exactas de inicio del evento
+    public double DuracionHoras{ get; private set; } // Duración del evento en horas, ej: 1.5 para una hora y media
+    public int CupoMaximo{ get; private set; } // Cantidad máxima de participantes permitidos
+    public int ResponsableId{ get; private set; } // Id de la Persona a cargo del evento
     public EventoDeportivo(string nombre, string descripcion, DateTime fecha_hora, double duracion, int cupo_max, int id_responsable)
     {
         if (string.IsNullOrWhiteSpace(nombre))
@@ -21,50 +21,15 @@ public class EventoDeportivo
         {
             throw new ArgumentException("El formato del email no es válido.");
         }
-        this._Nombre = nombre;
-        this._Descripcion = descripcion;
-        this._FechaHoraInicio = fecha_hora;
-        this._DuracionHoras = duracion;
-        this._CupoMaximo = cupo_max;
-        this._ResponsableId = id_responsable;
+        this.Nombre = nombre;
+        this.Descripcion = descripcion;
+        this.FechaHoraInicio = fecha_hora;
+        this.DuracionHoras = duracion;
+        this.CupoMaximo = cupo_max;
+        this.ResponsableId = id_responsable;
     }
     protected EventoDeportivo() { } //Constructor vacío, lo utilizará Entity Framework. 
-    public int Id_evento
-    {
-        get { return _Id_evento; }
-    }
-
-    public string? Nombre {
-        get { return _Nombre; }
-        set { _Nombre = value; }
-    }
-
-    public string? Descripcion {
-        get { return _Descripcion; }
-        set { _Descripcion = value; }
-    }
-
-    public DateTime FechaHoraInicio {
-        get { return _FechaHoraInicio; }
-        set { _FechaHoraInicio = value; }
-    }
-
-    public double DuracionHoras {
-        get { return _DuracionHoras; }
-        set { _DuracionHoras = value; }
-    }
-
-    public int CupoMaximo {
-        get { return _CupoMaximo; }
-        set { _CupoMaximo = value; }
-    }
-
-    public int ResponsableId { 
-        get { return _ResponsableId; }
-        set { _ResponsableId = value; }
-    }
-
     public override string ToString(){
-        return $" Evento {Id_evento}, nombre: '{Nombre}': \n Descripcion: {Descripcion} \n Fecha y Hora: {FechaHoraInicio.ToString()} , duración: {DuracionHoras}hs , cupo máximo: {CupoMaximo} , ID del responsable: {ResponsableId} ";
+        return $" Evento {Id}, nombre: '{Nombre}': \n Descripcion: {Descripcion} \n Fecha y Hora: {FechaHoraInicio.ToString()} , duración: {DuracionHoras}hs , cupo máximo: {CupoMaximo} , ID del responsable: {ResponsableId} ";
     }
 }
