@@ -1,0 +1,40 @@
+﻿@page "/listadoeventos"
+@rendermode InteractiveServer //Es necesario si queremos que el componente sea interactivo
+@inject EventoDeportivoListarUseCase EventoDeportivoListarUseCase
+<h3>Listado Eventos</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th> 
+            <th>Descripcion</th> 
+            <th>Fecha y Hora de Inicio</th>
+            <th>Duracion en Horas</th>
+            <th>Cupo Maximo</th>
+            <th>Id del Responsable</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var evento in _lista) // Utilizamos la @ para cambiar de código HTML a C#
+        {
+            <tr>
+                <td>@evento.Id</td>
+                <td>@evento.Nombre</td>
+                <td>@evento.Descripcion</td>
+                <td>@evento.FechaHoraInicio</td>
+                <td>@evento.DuracionHoras</td>
+                <td>@evento.CupoMaximo</td>
+                <td>@evento.ResponsableId</td>
+            </tr>    
+        }
+    </tbody>
+</table>
+
+@code { // Sección de código C#
+    List<EventoDeportivo> _lista = new List<EventoDeportivo>();
+    protected override void OnInitialized()
+    {
+        _lista = EventoDeportivoListarUseCase.Ejecutar();
+    }
+}
