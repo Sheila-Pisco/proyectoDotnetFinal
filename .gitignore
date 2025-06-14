@@ -40,6 +40,8 @@ ScaffoldingReadMe.txt
 ~$*
 *~
 CodeCoverage/
+bin/
+obj/
 
 # MSBuild Binary and Structured Log
 *.binlog
@@ -52,3 +54,10 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# Assembly
+*.assets.cache
+*.AssemblyInfo.cs
+*.AssemblyInfoInputs.cache
+*.AssemblyReference.cache
+*.GeneratedMSBuildEditorConfig.editorconfig
