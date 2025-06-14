@@ -40,6 +40,11 @@ ScaffoldingReadMe.txt
 ~$*
 *~
 CodeCoverage/
+bin/
+CentroEventos/CentroEventos.Repositorios/obj/
+CentroEventos/CentroEventos.Aplicacion/obj/
+CentroEventos/CentroEventos.UI/obj/
+
 
 # MSBuild Binary and Structured Log
 *.binlog
@@ -52,3 +57,10 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# Assembly
+*.assets.cache
+*.AssemblyInfo.cs
+*.AssemblyInfoInputs.cache
+*.AssemblyReference.cache
+*.GeneratedMSBuildEditorConfig.editorconfig
