@@ -11,33 +11,33 @@ public class ValidadorPersona (IRepositorioPersona repo_p)
         mensajeError ="";
         if (string.IsNullOrWhiteSpace(persona.Nombre))
         {
-            throw new ValidacionException(mensajeError); // mensajeError = "debe proporcionar un nombre valido";
+            mensajeError += "Debe proporcionar un Nombre valido"; // mensajeError = "debe proporcionar un nombre valido";
         }
         if (string.IsNullOrWhiteSpace(persona.Apellido))
         {
-            throw new ValidacionException(mensajeError);
+              mensajeError += "El campo apellido no puede estar vacio";
         }
         if (string.IsNullOrWhiteSpace(persona.Email))
         {
-            throw new ValidacionException(mensajeError);
+              mensajeError += "El campo email no puede estar vacio";
         }
         else
         {
             if (repo_p.ExisteEmail(persona.Email))
             {
-                throw new DuplicadoException(mensajeError);
+                mensajeError += $"Existe una persona asociada a este email{persona.Email}";
 
             }
         }
         if (string.IsNullOrWhiteSpace(persona.Dni))
         {
-            throw new ValidacionException(mensajeError);
+             mensajeError += "El campo dni no puede estar vacio";
         }
         else
         {
             if (repo_p.ExisteDniPersona(persona.Dni))
             {
-                throw new DuplicadoException(mensajeError) ;
+                 mensajeError += "Existe una persona con este dni asociado"; 
             }
         }
         return (mensajeError == "");
