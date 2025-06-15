@@ -7,7 +7,8 @@ using CentroEventos.Aplicacion.Validadores;
 using CentroEventos.Aplicacion.Excepciones_Personalizadas;
 namespace CentroEventos.Aplicacion.Casos_De_Uso;
 
-public class EventoDeportivoAltaUseCase(IRepositorioEventoDeportivo repoE,IServicioAutorizacion autorizacion,ValidadorEventoDeportivo validador)
+// Implementación correcta con validaciones:
+/*public class EventoDeportivoAltaUseCase(IRepositorioEventoDeportivo repoE, IServicioAutorizacion autorizacion, ValidadorEventoDeportivo validador)
 {
     public void Ejecutar(EventoDeportivo evento, int idUsuario)
     {
@@ -19,6 +20,15 @@ public class EventoDeportivoAltaUseCase(IRepositorioEventoDeportivo repoE,IServi
         {
             throw new ValidacionException(mensajeError);
         }
+        repoE.AgregarEvento(evento);
+    }
+}*/
+
+//Implementación para pruebas rápidas:
+public class EventoDeportivoAltaUseCase(IRepositorioEventoDeportivo repoE)
+{
+    public void Ejecutar(EventoDeportivo evento, int idUsuario)
+    {
         repoE.AgregarEvento(evento);
     }
 }

@@ -6,11 +6,12 @@ using CentroEventos.Aplicacion.Interfaces_Repositorios;
 
 namespace CentroEventos.Aplicacion.Casos_De_Uso;
 
-public class EventoDeportivoBajaUseCase(IRepositorioEventoDeportivo repoE, IServicioAutorizacion autorizacion,IRepositorioReserva repoR) //inyección de dependencias
+// Implementación correcta con validaciones:
+/*public class EventoDeportivoBajaUseCase(IRepositorioEventoDeportivo repoE, IServicioAutorizacion autorizacion, IRepositorioReserva repoR) //inyección de dependencias
 {
     public void Ejecutar(int idEvento, int idUsuario)
     {
-        if (!autorizacion.PoseeElPermiso(idUsuario,Permiso.EventoBaja))
+        if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.EventoBaja))
         {
             throw new FalloAutorizacionException();
         }
@@ -18,6 +19,15 @@ public class EventoDeportivoBajaUseCase(IRepositorioEventoDeportivo repoE, IServ
         {
             throw new Exception("No se puede eliminar el evento porque existen reservas asociadas.");
         }
+        repoE.EliminarEvento(idEvento);
+    }
+}*/
+
+//Implementación para pruebas rápidas:
+public class EventoDeportivoBajaUseCase(IRepositorioEventoDeportivo repoE)
+{
+    public void Ejecutar(int idEvento, int idUsuario)
+    {
         repoE.EliminarEvento(idEvento);
     }
 }

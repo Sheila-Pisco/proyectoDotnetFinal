@@ -9,4 +9,5 @@ public interface IRepositorioEventoDeportivo
     public void ModificarEvento(EventoDeportivo evento);
     public List<EventoDeportivo> ListarEventos();
     public bool EsResponsableDeEvento(int id_persona);
+    public EventoDeportivo ObtenerEvento(int? id_evento);
 }

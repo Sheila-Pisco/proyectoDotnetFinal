@@ -4,6 +4,7 @@ using CentroEventos.Aplicacion.Casos_De_Uso;
 using CentroEventos.Aplicacion.Interfaces_Repositorios;
 using CentroEventos.Repositorios;
 using CentroEventos.UI.Components;
+using CentroEventos.Aplicacion.Interfaces_Otros_Servicios;
 
 //Inicializa la base de datos:
 CentroEventosSqlite.Inicializar(); //solo tiene efecto si la base de datos no existe
@@ -20,9 +21,10 @@ context.Usuarios.Add(new Usuario("Juan", "Perez", "juanP@gmail", "123456", new L
 context.Usuarios.Add(new Usuario("Luciana", "Aimar", "luA@gmail", "234567", new List<Permiso> { }));
 context.Usuarios.Add(new Usuario("Paula", "Pareto", "pauP@gmail", "345678", new List<Permiso> { Permiso.EventoBaja }));
 context.Usuarios.Add(new Usuario("Leonel", "Messi", "leoM@gmail", "456789", new List<Permiso> { }));
-context.Usuarios.Add(new Usuario("Soledad", "Silveira", "soleS@gmail", "123456", new List<Permiso> {  }));
-            
+context.Usuarios.Add(new Usuario("Soledad", "Silveira", "soleS@gmail", "567891", new List<Permiso> {  }));
+
 context.Reservas.Add(new Reserva(3, 1, new DateTime(2025, 1, 1), Estado.Pendiente));
+
 context.Personas.Add(new Persona("123456","Jota", "Paula", "jotaP@gmail", "221567890") );
 
 context.SaveChanges();
@@ -30,38 +32,36 @@ context.SaveChanges();
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
-// Agregamos estos servicios al contener DI
+// Agregamos estos servicios al conteiner DI
 
-/*
-builder.Services.AddTransient<UsuarioAltaUseCase>();
+/*builder.Services.AddTransient<UsuarioAltaUseCase>();
 builder.Services.AddTransient<UsuarioBajaUseCase>();
 builder.Services.AddTransient<UsuarioModificacionUseCase>();
 builder.Services.AddTransient<UsuarioListarUseCase>();
-*/
+builder.Services.AddTransient<IRepositorioUsuario, RepositorioUsuario>();*/
 
-/*
 builder.Services.AddTransient<EventoDeportivoAltaUseCase>();
-builder.Services.AddTransient<EventoDeportivoBajaUseCase>();
 builder.Services.AddTransient<EventoDeportivoModificacionUseCase>();
-*/
+builder.Services.AddTransient<EventoDeportivoBajaUseCase>();
 builder.Services.AddTransient<EventoDeportivoListarUseCase>();
+builder.Services.AddTransient<EventoDeportivoObtenerUseCase>();
 builder.Services.AddTransient<IRepositorioEventoDeportivo, RepositorioEventoDeportivo>();
 
 /*builder.Services.AddTransient<PersonaAltaUseCase>();
 builder.Services.AddTransient<PersonaBajaUseCase>();
 builder.Services.AddTransient<PersonaModificacionUseCase>();
 builder.Services.AddTransient<PersonaListarUseCase>();
-*/
+builder.Services.AddTransient<IRepositorioPersona, RepositorioPersona>();*/
 
-/*
-builder.Services.AddTransient<ReservaAltaUseCase>();
+/*builder.Services.AddTransient<ReservaAltaUseCase>();
 builder.Services.AddTransient<ReservaBajaUseCase>();
 builder.Services.AddTransient<ReservaModificacionUseCase>();
-builder.Services.AddTransient<ReservaListarUseCase>();
-*/
+builder.Services.AddTransient<ReservaListarUseCase>();*/
+builder.Services.AddTransient<IRepositorioReserva, RepositorioReserva>();
+
+//builder.Services.AddTransient<IServicioAutorizacion, RepositorioServicioAutorizacion>();
 
 var app = builder.Build();
 
