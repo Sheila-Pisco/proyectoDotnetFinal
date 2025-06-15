@@ -6,11 +6,11 @@ namespace CentroEventos.Aplicacion.Entidades;
 public class Usuario
 {
     public int Id { get; private set; }
-    public string? Nombre { get; private set; }
-    public string? Apellido { get; private set; }
-    public string? Email { get; private set; }
-    public string? Contraseña { get; private set; }
-    public List<Permiso>? Permisos { get; private set; }
+    public string? Nombre { get;  set; }
+    public string? Apellido { get;  set; }
+    public string? Email { get;  set; }
+    public string? Contraseña { get;  set; }
+    public List<Permiso>? Permisos { get;  set; }
 
     public Usuario(string nombre, string apellido, string email, string contraseña, List<Permiso> lista)
     {

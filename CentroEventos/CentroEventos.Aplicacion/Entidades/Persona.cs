@@ -5,11 +5,11 @@ namespace CentroEventos.Aplicacion.Entidades;
 public class Persona
 {
     public int Id { get; private set; }
-    public string? Dni { get; private set; }
-    public string? Nombre { get; private set; }
-    public string? Apellido { get; private set; }
-    public string? Email { get; private set; }
-    public string? Telefono { get; private set; }
+    public string? Dni { get; set; }
+    public string? Nombre { get; set; }
+    public string? Apellido { get; set; }
+    public string? Email { get; set; }
+    public string? Telefono { get; set; }
 
     public Persona(string? dni ,string? ape,string? nom, string? email , string? tel)
     {
