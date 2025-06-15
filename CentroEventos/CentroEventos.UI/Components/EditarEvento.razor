@@ -1,0 +1,65 @@
+﻿@page "/evento/{Id:int?}"
+@rendermode InteractiveServer
+@inject NavigationManager Navegador; //Inyectamos un objeto Navigator que nos permite navegar entre las páginas
+@inject EventoDeportivoAltaUseCase EventoDeportivoAltaUseCase
+@inject EventoDeportivoModificacionUseCase EventoDeportivoModificacionUseCase
+@inject EventoDeportivoObtenerUseCase EventoDeportivoObtenerUseCase
+
+@if(_esNuevoEvento)
+{
+    <h3>Agregando un nuevo Evento Deportivo</h3>
+}
+else 
+{
+    <h3>Modificando el Evento Deportivo "@_evento.Nombre"</h3>
+}
+
+<input placeholder="Nombre" @bind="_evento.Nombre" class="form-control"> 
+<input placeholder="Descripcion" @bind="_evento.Descripcion" class="form-control">
+<input placeholder="Fecha y hora de inicio" @bind="_evento.FechaHoraInicio" class="form-control"> 
+<input placeholder="Duración (horas)" @bind="_evento.DuracionHoras" class="form-control"> 
+<input placeholder="Cupo máximo" @bind="_evento.CupoMaximo" class="form-control"> 
+<input placeholder="Id del reponsable" @bind="_evento.ResponsableId" class="form-control">  
+<button class="btn btn-primary" @onclick="Aceptar">Aceptar</button>
+
+@code {
+    EventoDeportivo _evento = new EventoDeportivo();
+    [Parameter] public int? Id {get; set;} //Debe coincidir con el parámetro de ruta de la directiva @page
+    bool _esNuevoEvento = true;
+    protected override void OnParametersSet() //Este método se invoca cuando el componente ha recibido parámetros y los valores entrantes se han asignado a las propiedades
+    {
+        if(Id != null)
+        {
+            var evento_hallado = EventoDeportivoObtenerUseCase.Ejecutar(Id);
+            if(evento_hallado != null)
+            {
+                _evento = evento_hallado;
+                _esNuevoEvento = false; 
+            } 
+        }
+    }
+    void Aceptar()
+    {
+        if(_esNuevoEvento)
+        {
+            EventoDeportivoAltaUseCase.Ejecutar(_evento,1);
+        }
+        else
+        {   
+            /*
+            <DialogoConfirmacion @ref=dialogo OnConfirmado="Editar" Mensaje="@_mensajeDialogo"/>
+             DialogoConfirmacion dialogo = null!;
+            EventoDeportivo? _eventoParaEditar = null; 
+            private void ConfirmarEdicion(EventoDeportivo evento)
+            {
+                _eventoParaEditar = evento;
+                _mensajeDialogo = $"¿Desea editar el evento {evento.Id} {evento.Nombre}?";
+                dialogo.Mostrar();
+            }
+            */
+            EventoDeportivoModificacionUseCase.Ejecutar(_evento,1);
+        }
+        _evento = new EventoDeportivo();
+        Navegador.NavigateTo("listadoeventos");
+    }
+}

@@ -41,6 +41,21 @@ public class RepositorioEventoDeportivo : IRepositorioEventoDeportivo
     }
     public void ModificarEvento(EventoDeportivo evento)
     {
-        throw new NotImplementedException();
+        var eventoExistente = context.EventosDeportivos.Find(evento.Id);
+        if (eventoExistente != null)
+        {
+            context.Entry(eventoExistente).CurrentValues.SetValues(evento);
+            context.SaveChanges();
+        }
+        else
+        {
+            throw new EntidadNotFoundException("El evento no existe."); 
+        }
+    }
+
+    public EventoDeportivo ObtenerEvento(int? id_evento)
+    {
+        var evento = context.EventosDeportivos.Find(id_evento);
+        return evento!; 
     }
 }
