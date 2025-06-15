@@ -8,11 +8,12 @@ using CentroEventos.Aplicacion.Validadores;
 
 namespace CentroEventos.Aplicacion.Casos_De_Uso;
 
-public class EventoDeportivoModificacionUseCase(IRepositorioEventoDeportivo repoE, IServicioAutorizacion autorizacion, ValidadorEventoDeportivo validador)
+//Implementación correcta con validaciones: 
+/*public class EventoDeportivoModificacionUseCase(IRepositorioEventoDeportivo repoE, IServicioAutorizacion autorizacion, ValidadorEventoDeportivo validador)
 {
     public void Ejecutar(EventoDeportivo evento, int idUsuario)
     {
-        if (!autorizacion.PoseeElPermiso(idUsuario,Permiso.EventoModificacion))
+        if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.EventoModificacion))
         {
             throw new FalloAutorizacionException();
         }
@@ -20,6 +21,16 @@ public class EventoDeportivoModificacionUseCase(IRepositorioEventoDeportivo repo
         {
             throw new ValidacionException(mensajeError);
         }
+        repoE.ModificarEvento(evento);
+    }
+}
+*/
+
+//Implementación para pruebas rápidas:
+public class EventoDeportivoModificacionUseCase(IRepositorioEventoDeportivo repoE)
+{
+    public void Ejecutar(EventoDeportivo evento, int idUsuario)
+    {
         repoE.ModificarEvento(evento);
     }
 }

@@ -5,12 +5,12 @@ namespace CentroEventos.Aplicacion.Entidades;
 public class EventoDeportivo
 {
     public int Id { get; private set; } // único, debe ser autoincremental gestionado por el repositorio) 
-    public string? Nombre{ get; private set; } // ej: "Clase de Spinning Avanzado", "Partido final de Vóley"
-    public string? Descripcion{ get; private set; }
-    public DateTime FechaHoraInicio{ get; private set; } = new DateTime(1,1,1,0,0,0) ; // DateTime - Fecha y hora exactas de inicio del evento
-    public double DuracionHoras{ get; private set; } // Duración del evento en horas, ej: 1.5 para una hora y media
-    public int CupoMaximo{ get; private set; } // Cantidad máxima de participantes permitidos
-    public int ResponsableId{ get; private set; } // Id de la Persona a cargo del evento
+    public string? Nombre{ get; set; } // ej: "Clase de Spinning Avanzado", "Partido final de Vóley"
+    public string? Descripcion{ get; set; }
+    public DateTime FechaHoraInicio{ get; set; } = new DateTime(1,1,1,0,0,0) ; // DateTime - Fecha y hora exactas de inicio del evento
+    public double DuracionHoras{ get; set; } // Duración del evento en horas, ej: 1.5 para una hora y media
+    public int CupoMaximo{ get; set; } // Cantidad máxima de participantes permitidos
+    public int ResponsableId{ get; set; } // Id de la Persona a cargo del evento
     public EventoDeportivo(string nombre, string descripcion, DateTime fecha_hora, double duracion, int cupo_max, int id_responsable)
     {
         if (string.IsNullOrWhiteSpace(nombre))
@@ -28,7 +28,7 @@ public class EventoDeportivo
         this.CupoMaximo = cupo_max;
         this.ResponsableId = id_responsable;
     }
-    protected EventoDeportivo() { } //Constructor vacío, lo utilizará Entity Framework. 
+    public EventoDeportivo() { } //Constructor vacío, lo utilizará Entity Framework. 
     public override string ToString(){
         return $" Evento {Id}, nombre: '{Nombre}': \n Descripcion: {Descripcion} \n Fecha y Hora: {FechaHoraInicio.ToString()} , duración: {DuracionHoras}hs , cupo máximo: {CupoMaximo} , ID del responsable: {ResponsableId} ";
     }
