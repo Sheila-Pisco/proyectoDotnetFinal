@@ -1,0 +1,64 @@
+﻿@page "/listadousuarios"
+@rendermode InteractiveServer
+@inject UsuarioListarUseCase usuarioListarUseCase
+@inject IJSRuntime JSRuntime;
+@inject UsuarioBajaUseCase usuarioBajaUseCase
+@inject NavigationManager Navegador
+
+<h2>Listado de Personas</h2>
+<DialogoConfirmacion @ref="dialogo" OnConfirmado="Eliminar"/>
+<div class="table-responsive-md">
+  <table class="table">
+    <thead>
+        <tr class="table-info">
+            <th >#</th>
+            <th> Nombre</th>
+            <th>Apellido</th>
+            <th> Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var usuario in listaus ){
+            <tr>
+                <td> @usuario.Id </td>
+                <td>@usuario.Nombre</td>
+                <td>@usuario.Apellido</td>
+                <td>@usuario.Email</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="()=>ModificarUsuario(usuario)">
+                    Editar
+                    </button>
+                    <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(usuario)">
+                    Eliminar
+                    </button>
+                </td>
+            </tr>
+
+        }
+    </tbody>
+  </table>
+</div>
+
+@code{
+    List<Usuario> listaus = new List<Usuario>();
+    protected override void OnInitialized(){
+        listaus = usuarioListarUseCase.Ejecutar();   
+    }
+    DialogoConfirmacion dialogo =null!;
+    Usuario? _usEliminar = null;
+    private void ConfirmarEliminacion(Usuario usuario){
+        
+        _usEliminar = usuario;
+        dialogo.Mensaje = $"Desea Eliminar al usuario {usuario.Nombre} {usuario.Apellido }?";
+        dialogo.Mostrar();
+    }
+    private void Eliminar(){
+        if(_usEliminar !=null){
+            usuarioBajaUseCase.Ejecutar(_usEliminar.Id);
+            listaus = usuarioListarUseCase.Ejecutar();
+        }
+    }
+    void ModificarUsuario(Usuario usuario){
+        Navegador.NavigateTo($"usuario/{usuario.Id}");
+    }
+}

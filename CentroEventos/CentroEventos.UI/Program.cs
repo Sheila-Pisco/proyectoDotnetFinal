@@ -38,12 +38,13 @@ builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
 // Agregamos estos servicios al conteiner DI
 
-/*builder.Services.AddTransient<UsuarioAltaUseCase>();
+builder.Services.AddTransient<UsuarioAltaUseCase>();
 builder.Services.AddTransient<UsuarioBajaUseCase>();
-builder.Services.AddTransient<UsuarioModificacionUseCase>();
+builder.Services.AddTransient<UsuarioModificacionesUseCase>();
 builder.Services.AddTransient<UsuarioListarUseCase>();
+builder.Services.AddTransient<ValidadorUsuario>();
+builder.Services.AddTransient<UsuarioObtenerUseCase>();
 builder.Services.AddTransient<IRepositorioUsuario, RepositorioUsuario>();
-builder.Services.AddTransient<ValidadorUsuario>();*/
 
 builder.Services.AddTransient<EventoDeportivoAltaUseCase>();
 builder.Services.AddTransient<EventoDeportivoModificacionUseCase>();

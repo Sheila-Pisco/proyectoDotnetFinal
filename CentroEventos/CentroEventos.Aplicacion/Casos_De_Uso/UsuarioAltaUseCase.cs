@@ -8,18 +8,22 @@ using CentroEventos.Aplicacion.Entidades;
 
 namespace CentroEventos.Aplicacion.Casos_De_Uso;
 
-public class UsuarioAltaUseCase(IRepositorioUsuario repo , IServicioAutorizacion autorizacion, ValidadorUsuario validador)
+public class UsuarioAltaUseCase(IRepositorioUsuario repo, IServicioAutorizacion autorizacion, ValidadorUsuario validador)
 {
-    public void Ejecutar(Usuario usuario, int IdUsuario)
+    /* public void Ejecutar(Usuario usuario, int IdUsuario)
+     {
+         if (!autorizacion.PoseeElPermiso(IdUsuario, Permiso.UsuarioAlta))
+         {
+             throw new FalloAutorizacionException();  
+         }
+         if (!validador.Validador(usuario, out string mensajeError))
+         {
+             throw new ValidacionException(mensajeError);
+         }
+         repo.AgregarUsuario(usuario);
+     }*/
+    public void Ejecutar(Usuario usuario)
     {
-        if (!autorizacion.PoseeElPermiso(IdUsuario, Permiso.UsuarioAlta))
-        {
-            throw new FalloAutorizacionException();
-        }
-        if (!validador.Validador(usuario, out string mensajeError))
-        {
-            throw new ValidacionException(mensajeError);
-        }
         repo.AgregarUsuario(usuario);
     }
     
