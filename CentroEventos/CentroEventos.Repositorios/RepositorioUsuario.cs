@@ -49,4 +49,10 @@ public class RepositorioUsuario : IRepositorioUsuario
         usu.Contraseña = usuario.Contraseña;
         usu.Permisos = usuario.Permisos;
     }
+
+    public Usuario ObtenerUsuario(int id_Usuario)
+    {
+        var usu = _context.Usuarios.Find(id_Usuario);
+        return usu!;
+    }
 }
