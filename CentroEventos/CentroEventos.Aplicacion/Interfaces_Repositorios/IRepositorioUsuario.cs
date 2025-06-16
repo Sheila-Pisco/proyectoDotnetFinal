@@ -9,5 +9,6 @@ public interface IRepositorioUsuario
     public List<Usuario> GetUsuarios();
     public void EliminarUsuario(int id);
     public void ModificarUsuario(Usuario usuario);
+    public Usuario ObtenerUsuario(int id_Usuario);
     
 }

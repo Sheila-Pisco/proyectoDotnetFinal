@@ -1,0 +1,45 @@
+﻿@page "/usuario/{Id:int?}"
+@rendermode InteractiveServer
+@inject NavigationManager Navegador;
+@inject UsuarioObtenerUseCase UsuariobtenerUseCase
+@inject UsuarioModificacionesUseCase UsuarioModificacionesUseCase
+@inject UsuarioAltaUseCase UsuarioAltaUseCase
+
+@if(_esNuevo){
+    <h3>Agregar Usuario</h3>
+}else{
+    <h3>Modificando Usuario: @_usuario.Nombre</h3>
+}
+
+<input placeholder="Nombre" @bind="_usuario.Nombre" class="form-control">
+<input placeholder="Apellido" @bind="_usuario.Apellido" class="form-control">
+<input placeholder="Apellido" @bind="_usuario.Email" class="form-control">
+
+<button class="btn btn-primary" @onclick="Aceptar">Aceptar</button>
+
+@code {
+    Usuario _usuario = new Usuario();
+    [Parameter] public int? Id { get; set; }
+    bool _esNuevo = true;
+    protected override void OnParametersSet(){
+        if(Id !=null){
+            var usObtenido = UsuariobtenerUseCase.Ejecutar(Id.Value);
+            if(usObtenido != null){
+                _usuario = usObtenido;
+                _esNuevo = false;
+            }
+        }
+    
+    }
+    void Aceptar(){
+        if(_esNuevo){
+            UsuarioAltaUseCase.Ejecutar(_usuario);
+        }else{
+            UsuarioModificacionesUseCase.Ejecutar(_usuario,2);
+        }
+        
+        _usuario = new Usuario();
+        Navegador.NavigateTo("listadoUsuarios");
+
+    }
+}
