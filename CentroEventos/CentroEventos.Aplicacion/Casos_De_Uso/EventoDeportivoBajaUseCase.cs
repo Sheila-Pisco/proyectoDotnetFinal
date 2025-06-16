@@ -7,7 +7,7 @@ using CentroEventos.Aplicacion.Interfaces_Repositorios;
 namespace CentroEventos.Aplicacion.Casos_De_Uso;
 
 // Implementación correcta con validaciones:
-/*public class EventoDeportivoBajaUseCase(IRepositorioEventoDeportivo repoE, IServicioAutorizacion autorizacion, IRepositorioReserva repoR) //inyección de dependencias
+public class EventoDeportivoBajaUseCase(IRepositorioEventoDeportivo repoE, IServicioAutorizacion autorizacion, IRepositorioReserva repoR) //inyección de dependencias
 {
     public void Ejecutar(int idEvento, int idUsuario)
     {
@@ -21,13 +21,13 @@ namespace CentroEventos.Aplicacion.Casos_De_Uso;
         }
         repoE.EliminarEvento(idEvento);
     }
-}*/
+}
 
 //Implementación para pruebas rápidas:
-public class EventoDeportivoBajaUseCase(IRepositorioEventoDeportivo repoE)
+/*public class EventoDeportivoBajaUseCase(IRepositorioEventoDeportivo repoE)
 {
     public void Ejecutar(int idEvento, int idUsuario)
     {
         repoE.EliminarEvento(idEvento);
     }
-}
+}*/

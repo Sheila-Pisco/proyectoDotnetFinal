@@ -9,7 +9,7 @@ using CentroEventos.Aplicacion.Validadores;
 namespace CentroEventos.Aplicacion.Casos_De_Uso;
 
 //Implementación correcta con validaciones: 
-/*public class EventoDeportivoModificacionUseCase(IRepositorioEventoDeportivo repoE, IServicioAutorizacion autorizacion, ValidadorEventoDeportivo validador)
+public class EventoDeportivoModificacionUseCase(IRepositorioEventoDeportivo repoE, IServicioAutorizacion autorizacion, ValidadorEventoDeportivo validador)
 {
     public void Ejecutar(EventoDeportivo evento, int idUsuario)
     {
@@ -24,13 +24,12 @@ namespace CentroEventos.Aplicacion.Casos_De_Uso;
         repoE.ModificarEvento(evento);
     }
 }
-*/
 
-//Implementación para pruebas rápidas:
+/*//Implementación para pruebas rápidas:
 public class EventoDeportivoModificacionUseCase(IRepositorioEventoDeportivo repoE)
 {
     public void Ejecutar(EventoDeportivo evento, int idUsuario)
     {
         repoE.ModificarEvento(evento);
     }
-}
+}*/

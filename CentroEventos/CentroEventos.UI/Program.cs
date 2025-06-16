@@ -5,16 +5,18 @@ using CentroEventos.Aplicacion.Interfaces_Repositorios;
 using CentroEventos.Repositorios;
 using CentroEventos.UI.Components;
 using CentroEventos.Aplicacion.Interfaces_Otros_Servicios;
+using CentroEventos.Aplicacion.Validadores;
+using CentroEventos.Aplicacion.Servicio_Autorizacion;
 
 //Inicializa la base de datos:
 CentroEventosSqlite.Inicializar(); //solo tiene efecto si la base de datos no existe
 using var context = new CentroEventoContext();
 
 //Agrego algunos datos
-context.EventosDeportivos.Add(new EventoDeportivo("Aerobicos", "Muevete", new DateTime(2025, 1, 1), 1.5, 15, 2));
-context.EventosDeportivos.Add(new EventoDeportivo("Zumba", "Baila", new DateTime(2025, 7, 7), 1.5, 25, 3));
-context.EventosDeportivos.Add(new EventoDeportivo("Funcional", "Desafiate", new DateTime(2025, 8, 9), 1.5, 10, 4));
-context.EventosDeportivos.Add(new EventoDeportivo("G.A.P", "Muevete", new DateTime(2025, 9, 1), 1.5, 20, 5));
+context.EventosDeportivos.Add(new EventoDeportivo("Aerobicos", "Movimiento", new DateTime(2025, 1, 1), 1.5, 15, 2));
+context.EventosDeportivos.Add(new EventoDeportivo("Zumba", "Baile", new DateTime(2025, 7, 7), 1.5, 25, 3));
+context.EventosDeportivos.Add(new EventoDeportivo("Funcional", "Desafío", new DateTime(2025, 8, 9), 1.5, 10, 4));
+context.EventosDeportivos.Add(new EventoDeportivo("G.A.P", "Movimiento", new DateTime(2025, 9, 1), 1.5, 20, 5));
 context.EventosDeportivos.Add(new EventoDeportivo("Judo", "Lucha", new DateTime(2025, 8, 9), 1.5, 10, 6));
 
 context.Usuarios.Add(new Usuario("Juan", "Perez", "juanP@gmail", "123456", new List<Permiso> { Permiso.EventoAlta }));
@@ -40,7 +42,8 @@ builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 builder.Services.AddTransient<UsuarioBajaUseCase>();
 builder.Services.AddTransient<UsuarioModificacionUseCase>();
 builder.Services.AddTransient<UsuarioListarUseCase>();
-builder.Services.AddTransient<IRepositorioUsuario, RepositorioUsuario>();*/
+builder.Services.AddTransient<IRepositorioUsuario, RepositorioUsuario>();
+builder.Services.AddTransient<ValidadorUsuario>();*/
 
 builder.Services.AddTransient<EventoDeportivoAltaUseCase>();
 builder.Services.AddTransient<EventoDeportivoModificacionUseCase>();
@@ -48,20 +51,24 @@ builder.Services.AddTransient<EventoDeportivoBajaUseCase>();
 builder.Services.AddTransient<EventoDeportivoListarUseCase>();
 builder.Services.AddTransient<EventoDeportivoObtenerUseCase>();
 builder.Services.AddTransient<IRepositorioEventoDeportivo, RepositorioEventoDeportivo>();
+builder.Services.AddTransient<ValidadorEventoDeportivo>();
 
 /*builder.Services.AddTransient<PersonaAltaUseCase>();
 builder.Services.AddTransient<PersonaBajaUseCase>();
 builder.Services.AddTransient<PersonaModificacionUseCase>();
 builder.Services.AddTransient<PersonaListarUseCase>();
-builder.Services.AddTransient<IRepositorioPersona, RepositorioPersona>();*/
+builder.Services.AddTransient<ValidadorPersona>();*/
+builder.Services.AddTransient<IRepositorioPersona, RepositorioPersona>();
 
 /*builder.Services.AddTransient<ReservaAltaUseCase>();
 builder.Services.AddTransient<ReservaBajaUseCase>();
 builder.Services.AddTransient<ReservaModificacionUseCase>();
-builder.Services.AddTransient<ReservaListarUseCase>();*/
+builder.Services.AddTransient<ReservaListarUseCase>();
+builder.Services.AddTransient<ValidadorReserva>();*/
 builder.Services.AddTransient<IRepositorioReserva, RepositorioReserva>();
 
-//builder.Services.AddTransient<IServicioAutorizacion, RepositorioServicioAutorizacion>();
+builder.Services.AddTransient<CentroEventoContext>();
+builder.Services.AddTransient<IServicioAutorizacion, ServicioAutorizacion>();
 
 var app = builder.Build();
 
@@ -73,10 +80,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 app.UseAntiforgery();
-
-app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
-
+app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 app.Run();
 
 
