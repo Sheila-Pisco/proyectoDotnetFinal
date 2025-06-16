@@ -8,13 +8,13 @@ namespace CentroEventos.Aplicacion.Casos_De_Uso;
 
 public class UsuarioBajaUseCase(IRepositorioUsuario repoUs , IServicioAutorizacion autorizacion)
 {
-    public void Ejecutar(int idPersona, int idUsuario)
+    public void Ejecutar( int idUsuario)
     {
-        if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioBaja))
+       /* if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioBaja))
         {
             throw new FalloAutorizacionException();
-        }
+        }*/
 
-        repoUs.EliminarUsuario(idPersona);
+        repoUs.EliminarUsuario(idUsuario);
     }
 }
