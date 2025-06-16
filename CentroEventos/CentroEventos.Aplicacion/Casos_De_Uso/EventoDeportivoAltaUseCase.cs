@@ -8,7 +8,7 @@ using CentroEventos.Aplicacion.Excepciones_Personalizadas;
 namespace CentroEventos.Aplicacion.Casos_De_Uso;
 
 // Implementación correcta con validaciones:
-/*public class EventoDeportivoAltaUseCase(IRepositorioEventoDeportivo repoE, IServicioAutorizacion autorizacion, ValidadorEventoDeportivo validador)
+public class EventoDeportivoAltaUseCase(IRepositorioEventoDeportivo repoE, IServicioAutorizacion autorizacion, ValidadorEventoDeportivo validador)
 {
     public void Ejecutar(EventoDeportivo evento, int idUsuario)
     {
@@ -22,9 +22,9 @@ namespace CentroEventos.Aplicacion.Casos_De_Uso;
         }
         repoE.AgregarEvento(evento);
     }
-}*/
+}
 
-//Implementación para pruebas rápidas:
+/*//Implementación para pruebas rápidas:
 public class EventoDeportivoAltaUseCase(IRepositorioEventoDeportivo repoE)
 {
     public void Ejecutar(EventoDeportivo evento, int idUsuario)
@@ -32,3 +32,4 @@ public class EventoDeportivoAltaUseCase(IRepositorioEventoDeportivo repoE)
         repoE.AgregarEvento(evento);
     }
 }
+*/
