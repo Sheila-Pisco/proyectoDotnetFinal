@@ -25,7 +25,7 @@ public class EventoDeportivoModificacionUseCase(IRepositorioEventoDeportivo repo
     }
 }
 
-/*//Implementación para pruebas rápidas:
+/*Implementación para pruebas rápidas:
 public class EventoDeportivoModificacionUseCase(IRepositorioEventoDeportivo repoE)
 {
     public void Ejecutar(EventoDeportivo evento, int idUsuario)

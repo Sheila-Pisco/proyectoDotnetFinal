@@ -52,7 +52,7 @@
     }
     DialogoConfirmacion dialogo = null!;
     EventoDeportivo? _eventoParaEliminar = null;
-    string _mensajeDialogo = string.Empty;
+    
     private void Editar(EventoDeportivo evento)
     {
         Navegador.NavigateTo($"evento/{evento.Id}");
@@ -60,14 +60,14 @@
     private void ConfirmarEliminacion(EventoDeportivo evento)
     {
         _eventoParaEliminar = evento;
-        _mensajeDialogo = $"¿Desea eliminar el evento {evento.Id} {evento.Nombre}?";
+        dialogo.Mensaje = $"¿Desea eliminar el evento {evento.Id} {evento.Nombre}?";
         dialogo.Mostrar();
     }
     private void Eliminar()
     {
         if(_eventoParaEliminar != null)
         {
-            EventoDeportivoBajaUseCase.Ejecutar(_eventoParaEliminar.Id,1);
+            EventoDeportivoBajaUseCase.Ejecutar(_eventoParaEliminar.Id,1); //En lugar de 1, debería pasarle el id del usuario actual.
             _lista = EventoDeportivoListarUseCase.Ejecutar(); //Se actualiza la lista de eventos
         }
     }

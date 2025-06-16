@@ -2,6 +2,8 @@ using System;
 using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Interfaces_Repositorios;
 using CentroEventos.Aplicacion.Excepciones_Personalizadas;
+using CentroEventos.Aplicacion.Enumerativos;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace CentroEventos.Repositorios;
 
@@ -54,5 +56,11 @@ public class RepositorioUsuario : IRepositorioUsuario
     {
         var usu = _context.Usuarios.Find(id_Usuario);
         return usu!;
+    }
+
+    public bool BuscarPermiso(int id_Usuario, Permiso permiso)
+    {
+        var usuario = ObtenerUsuario(id_Usuario);
+        return usuario?.Permisos != null && usuario.Permisos.Contains(permiso);
     }
 }

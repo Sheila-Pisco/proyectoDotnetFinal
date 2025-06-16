@@ -1,12 +1,13 @@
 using System;
 using CentroEventos.Aplicacion.Enumerativos;
 using CentroEventos.Aplicacion.Interfaces_Otros_Servicios;
+using CentroEventos.Aplicacion.Interfaces_Repositorios;
 namespace CentroEventos.Aplicacion.Servicio_Autorizacion;
 
-public class ServicioAutorizacion : IServicioAutorizacion
+public class ServicioAutorizacion(IRepositorioUsuario repoU):IServicioAutorizacion
 {
     public bool PoseeElPermiso(int IdUsuario, Permiso permiso)
     {
-        throw new NotImplementedException();
+        return repoU.BuscarPermiso(IdUsuario, permiso); 
     }
 }
