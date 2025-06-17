@@ -31,6 +31,11 @@ public class RepositorioReserva : IRepositorioReserva
         return cantReservas;
     }
 
+    public Reserva ObtenerReserva(int id_reserva)
+    {
+        var lareserva = context.Reservas.Find(id_reserva);
+        return lareserva!;
+    }
 
     public bool ExisteCupo(int idEvento)
     {

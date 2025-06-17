@@ -5,10 +5,10 @@ namespace CentroEventos.Aplicacion.Entidades;
 public class Reserva
 {
     public int Id { get; private set; } //autoincremental y unico
-    public int Persona_id { get; private set; } //responsable de la reserva
-    public int EventoDeportivo_id { get; private set; } //evento asignado a la reserva
-    public DateTime? FechaAltaReserva { get; private set; } //fecha en la que se realizo
-    public Estado? EstadoAsistencia { get; private set; } = Estado.Pendiente;//asistencia (Pendiente/Presente/Ausente)
+    public int Persona_id { get; set; } //responsable de la reserva
+    public int EventoDeportivo_id { get; set; } //evento asignado a la reserva
+    public DateTime? FechaAltaReserva { get; set; } //fecha en la que se realizo
+    public Estado? EstadoAsistencia { get; set; } = Estado.Pendiente;//asistencia (Pendiente/Presente/Ausente)
     public Reserva (int idpersona, int eventoid, DateTime? Fecha, Estado estado){
 
 

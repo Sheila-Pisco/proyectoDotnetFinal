@@ -13,7 +13,7 @@ public class ValidadorReserva (IRepositorioReserva repoReserva, IRepositorioPers
         {
             mensajeError += "No existe persona con id";
         }
-        if (!repoReserva.ExisteResposable(reserva.Persona_id))
+        if (!repoReserva.ExisteReservaAsociadaPersona(reserva.Persona_id))
         {
             mensajeError += "La persona no reservo";
         }
