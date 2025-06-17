@@ -23,8 +23,8 @@ public class EventoDeportivoBajaUseCase(IRepositorioEventoDeportivo repoE, IServ
     }
 }
 
-//Implementación para pruebas rápidas:
-/*public class EventoDeportivoBajaUseCase(IRepositorioEventoDeportivo repoE)
+/*Implementación para pruebas rápidas:
+public class EventoDeportivoBajaUseCase(IRepositorioEventoDeportivo repoE)
 {
     public void Ejecutar(int idEvento, int idUsuario)
     {
