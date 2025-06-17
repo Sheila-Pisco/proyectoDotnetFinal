@@ -1,0 +1,72 @@
+@page "/listadopersonas"
+@rendermode InteractiveServer
+@inject IJSRuntime JSRuntime
+@inject NavigationManager Navegador
+@inject PersonaListarUseCase personaListarUseCase
+@inject PersonaBajaUseCase personaBajaUseCase
+
+<h2>Listado de Personas</h2>
+<DialogoConfirmacion @ref="dialogo" OnConfirmado="Eliminar"/>
+<div class="table-responsive-lg">
+  <table class="table">
+    <thead>
+        <tr class="table-info">
+            <th >#</th>
+            <th>DNI</th>
+            <th> Nombre</th>
+            <th>Apellido</th>
+            <th> Email</th>
+            <th> Telefono</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach(var persona in _listaper ){
+            <tr class="table-info">
+                <td> @persona.Id </td>
+                <td>@persona.Dni</td>
+                <td>@persona.Nombre</td>
+                <td>@persona.Apellido</td>
+                <td>@persona.Email</td>
+                <td>@persona.Telefono</td>
+                <td class="button-container">    
+                        <button class="btn btn-primary" @onclick="()=>ModificarPersona(persona)">
+                        Editar
+                        </button>
+                        <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(persona)">
+                        Eliminar
+                        </button>          
+                    
+                </td>
+            </tr>
+
+        }
+    </tbody>
+  </table>
+</div>
+@code{
+    List<Persona> _listaper = new List<Persona>();
+    protected override void OnInitialized(){
+        _listaper = personaListarUseCase.Ejecutar();
+    }
+    DialogoConfirmacion dialogo = null!;
+    Persona? _perEliminar= null;
+    
+    
+    private void ConfirmarEliminacion(Persona persona){
+        _perEliminar= persona;
+        
+        dialogo.Mensaje = $"Seguro quiere Eliminar a {persona.Nombre} {persona.Apellido}";
+        dialogo.Mostrar();
+    }
+    private void Eliminar(){
+        if(_perEliminar !=null){
+            personaBajaUseCase.Ejecutar(_perEliminar.Id);
+            _listaper = personaListarUseCase.Ejecutar();
+        }
+    }
+    void ModificarPersona(Persona persona){
+        Navegador.NavigateTo($"persona/{persona.Id}");
+    }
+}

@@ -5,9 +5,9 @@
 @inject UsuarioBajaUseCase usuarioBajaUseCase
 @inject NavigationManager Navegador
 
-<h2>Listado de Personas</h2>
+<h2>Listado de Usuarios</h2>
 <DialogoConfirmacion @ref="dialogo" OnConfirmado="Eliminar"/>
-<div class="table-responsive-md">
+<div class="table-responsive-lg">
   <table class="table">
     <thead>
         <tr class="table-info">
@@ -15,22 +15,25 @@
             <th> Nombre</th>
             <th>Apellido</th>
             <th> Email</th>
+            <th> Acciones</th>
         </tr>
     </thead>
     <tbody>
+
         @foreach(var usuario in listaus ){
-            <tr>
+            <tr class="table-info">
                 <td> @usuario.Id </td>
                 <td>@usuario.Nombre</td>
                 <td>@usuario.Apellido</td>
                 <td>@usuario.Email</td>
-                <td>
-                    <button class="btn btn-primary" @onclick="()=>ModificarUsuario(usuario)">
-                    Editar
-                    </button>
-                    <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(usuario)">
-                    Eliminar
-                    </button>
+                <td class="button-container">    
+                        <button class="btn btn-primary" @onclick="()=>ModificarUsuario(usuario)">
+                        Editar
+                        </button>
+                        <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(usuario)">
+                        Eliminar
+                        </button>          
+                    
                 </td>
             </tr>
 
