@@ -1,11 +1,11 @@
-@page "/listadoeventos"
+@page "/listadoreserva"
 @rendermode InteractiveServer //Es necesario si queremos que el componente sea interactivo
-@inject ListarReservas ListarReserva
-@inject ReservaModificacionUseCase ModificarReserva
-@inject ReservaBajaUseCase BajarReserva
+@inject ListarReservaUseCase ListarReservaUseCase
+@inject ReservaModificacionUseCase ReservaModificacionUseCase
+@inject ReservaBajaUseCase ReservaBajaUseCase
 @inject NavigationManager Navegador
 
-<h3>Listado Eventos</h3>
+<h3>Listado Reservas</h3>
 
 <table class="table">
     <thead>
@@ -46,7 +46,7 @@
         _lista = ListarReservaUseCase.Ejecutar();
     }
     DialogoConfirmacion dialogo = null!;
-    EventoDeportivo? _EliminarReserva = null;
+    Reserva? _EliminarReserva = null;
     string _mensajeDialogo = string.Empty;
     private void Editar(Reserva reserva)
     {
