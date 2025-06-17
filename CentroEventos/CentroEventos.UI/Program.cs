@@ -13,6 +13,7 @@ CentroEventosSqlite.Inicializar(); //solo tiene efecto si la base de datos no ex
 using var context = new CentroEventoContext();
 
 //Agrego algunos datos
+
 context.EventosDeportivos.Add(new EventoDeportivo("Aerobicos", "Movimiento", new DateTime(2025, 1, 1), 1.5, 15, 2));
 context.EventosDeportivos.Add(new EventoDeportivo("Zumba", "Baile", new DateTime(2025, 7, 7), 1.5, 25, 3));
 context.EventosDeportivos.Add(new EventoDeportivo("Funcional", "Desafío", new DateTime(2025, 8, 9), 1.5, 10, 4));

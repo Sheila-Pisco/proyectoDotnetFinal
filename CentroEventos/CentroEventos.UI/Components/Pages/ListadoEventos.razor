@@ -1,9 +1,11 @@
 ﻿@page "/listadoeventos"
+@using CentroEventos.UI.Components.Pages
 @rendermode InteractiveServer //Es necesario si queremos que el componente sea interactivo
 @inject EventoDeportivoListarUseCase EventoDeportivoListarUseCase
 @inject EventoDeportivoModificacionUseCase EventoDeportivoModificacionUseCase
 @inject EventoDeportivoBajaUseCase EventoDeportivoBajaUseCase
 @inject NavigationManager Navegador
+<DialogoConfirmacion @ref="dialogo"/>
 
 <h3>Listado Eventos</h3>
 
@@ -35,7 +37,6 @@
                     <button class="btn btn-primary" @onclick="()=>Editar(evento)">Editar</button>
 
                     <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(evento)">Eliminar</button>
-                    <DialogoConfirmacion @ref=dialogo OnConfirmado="Eliminar" Mensaje="@_mensajeDialogo"/>
 
                 </td>
             </tr>    
@@ -51,7 +52,6 @@
         _lista = EventoDeportivoListarUseCase.Ejecutar();
     }
     DialogoConfirmacion dialogo = null!;
-    EventoDeportivo? _eventoParaEliminar = null;
     
     private void Editar(EventoDeportivo evento)
     {
@@ -59,16 +59,13 @@
     }
     private void ConfirmarEliminacion(EventoDeportivo evento)
     {
-        _eventoParaEliminar = evento;
         dialogo.Mensaje = $"¿Desea eliminar el evento {evento.Id} {evento.Nombre}?";
+        dialogo.OnConfirmado = EventCallback.Factory.Create(this,()=>Eliminar(evento));
         dialogo.Mostrar();
     }
-    private void Eliminar()
+    private void Eliminar(EventoDeportivo evento)
     {
-        if(_eventoParaEliminar != null)
-        {
-            EventoDeportivoBajaUseCase.Ejecutar(_eventoParaEliminar.Id,1); //En lugar de 1, debería pasarle el id del usuario actual.
-            _lista = EventoDeportivoListarUseCase.Ejecutar(); //Se actualiza la lista de eventos
-        }
+        EventoDeportivoBajaUseCase.Ejecutar(evento.Id,1); //En lugar de 1, debería pasarle el id del usuario actual.
+        _lista = EventoDeportivoListarUseCase.Ejecutar(); //Se actualiza la lista de eventos
     }
 }
