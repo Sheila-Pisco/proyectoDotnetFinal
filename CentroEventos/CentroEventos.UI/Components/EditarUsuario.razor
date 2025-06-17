@@ -5,17 +5,30 @@
 @inject UsuarioModificacionesUseCase UsuarioModificacionesUseCase
 @inject UsuarioAltaUseCase UsuarioAltaUseCase
 
+
 @if(_esNuevo){
-    <h3>Agregar Usuario</h3>
+    <h3 class="mx-auto" style="width: fit-content;" >Agregar Usuario</h3>
 }else{
     <h3>Modificando Usuario: @_usuario.Nombre</h3>
 }
+<div class="container-fluid justify-content-center align-items-center min-vh-100 p-5" style="max-width: 900px;">
+    <div class="text-center border p-4 rounded shadow-sm bg-light" >
+        <div class="mb-3">
+            <input placeholder="Nombre" @bind="_usuario.Nombre" class="form-control w-70 mb-2 ">
+            <input placeholder="Apellido" @bind="_usuario.Apellido" class="form-control w-70 mb-2">
+            <input placeholder="Email" @bind="_usuario.Email" class="form-control w-70 mb-2">
+        </div>
+        <div class="boton mb-3">
+            <button class="btn btn-primary me-2" @onclick="Aceptar">Aceptar</button>
+            <button class="btn btn-secondary me-2" @onclick="Cancelar">Cancelar</button>
+        </div>
+        
+    </div>
+</div>
 
-<input placeholder="Nombre" @bind="_usuario.Nombre" class="form-control">
-<input placeholder="Apellido" @bind="_usuario.Apellido" class="form-control">
-<input placeholder="Apellido" @bind="_usuario.Email" class="form-control">
 
-<button class="btn btn-primary" @onclick="Aceptar">Aceptar</button>
+
+
 
 @code {
     Usuario _usuario = new Usuario();
@@ -39,7 +52,10 @@
         }
         
         _usuario = new Usuario();
-        Navegador.NavigateTo("listadoUsuarios");
+        Navegador.NavigateTo("listadousuarios");
 
+    }
+    void Cancelar(){
+        Navegador.NavigateTo("listadousuarios");
     }
 }

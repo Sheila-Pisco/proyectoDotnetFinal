@@ -57,11 +57,12 @@ builder.Services.AddTransient<EventoDeportivoObtenerUseCase>();
 builder.Services.AddTransient<IRepositorioEventoDeportivo, RepositorioEventoDeportivo>();
 builder.Services.AddTransient<ValidadorEventoDeportivo>();
 
-/*builder.Services.AddTransient<PersonaAltaUseCase>();
+builder.Services.AddTransient<PersonaAltaUseCase>();
 builder.Services.AddTransient<PersonaBajaUseCase>();
 builder.Services.AddTransient<PersonaModificacionUseCase>();
 builder.Services.AddTransient<PersonaListarUseCase>();
-builder.Services.AddTransient<ValidadorPersona>();*/
+builder.Services.AddTransient<PersonaObtenerUseCase>();
+builder.Services.AddTransient<ValidadorPersona>();
 builder.Services.AddTransient<IRepositorioPersona, RepositorioPersona>();
 
 /*builder.Services.AddTransient<ReservaAltaUseCase>();

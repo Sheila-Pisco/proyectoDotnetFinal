@@ -10,7 +10,7 @@ namespace CentroEventos.Aplicacion.Casos_De_Uso;
 
 public class PersonaAltaUseCase(IRepositorioPersona repoPersona, IServicioAutorizacion autorizacion, ValidadorPersona validador)
 {
-    public void Ejecutar(Persona persona, int idUsuario)
+    /*public void Ejecutar(Persona persona, int idUsuario)
     {
         if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioAlta))
         {
@@ -20,6 +20,10 @@ public class PersonaAltaUseCase(IRepositorioPersona repoPersona, IServicioAutori
         {
             throw new ValidacionException(mensajeError);
         }
+        repoPersona.AgregarPersona(persona);
+    }*/
+    public void Ejecutar(Persona persona)
+    {
         repoPersona.AgregarPersona(persona);
     }
 }

@@ -8,7 +8,7 @@ namespace CentroEventos.Aplicacion.Casos_De_Uso;
 
 public class PersonaBajaUseCase(IRepositorioPersona repoP, IRepositorioReserva repoR, IRepositorioEventoDeportivo repoE, IServicioAutorizacion autorizacion)
 {
-    public void Ejecutar(int idPersona, int idUsuario)
+    /*public void Ejecutar(int idPersona, int idUsuario)
     {
         if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioBaja))
         {
@@ -18,6 +18,10 @@ public class PersonaBajaUseCase(IRepositorioPersona repoP, IRepositorioReserva r
         {
             throw new Exception("No se puede eliminar una persona porque tiene una reserva asociada");
         }
+        repoP.EliminarPersona(idPersona);
+    }*/
+    public void Ejecutar(int idPersona)
+    {
         repoP.EliminarPersona(idPersona);
     }
 }

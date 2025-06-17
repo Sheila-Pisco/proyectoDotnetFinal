@@ -14,12 +14,20 @@ public class RepositorioUsuario : IRepositorioUsuario
     {
         _context = context;
     }
-    public void AgregarUsuario(Usuario usuario)
+public void AgregarUsuario(Usuario usuario)
+{
+    var existe = _context.Usuarios.Any(u => u.Email == usuario.Email);
+    if (!existe)
     {
         _context.Usuarios.Add(usuario);
         _context.SaveChanges();
-        Console.WriteLine("Usuario Agregado con Exito");
+        Console.WriteLine("Usuario Agregado con Éxito");
     }
+    else
+    {
+        Console.WriteLine("El usuario ya existe");
+    }
+}
 
     public void EliminarUsuario(int id)
     {

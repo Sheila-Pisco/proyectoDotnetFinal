@@ -1,0 +1,55 @@
+@page "/persona/{Id:int?}"
+@rendermode InteractiveServer
+@inject NavigationManager Navegador
+@inject PersonaObtenerUseCase personaObtenerUseCase
+@inject PersonaAltaUseCase personaAltaUseCase
+@inject PersonaModificacionUseCase personaModificacionUseCase
+
+@if(nueva){
+    <h3 class="mx-auto" style="width: fit-content;" >Agregar Persona</h3>
+}else{
+    <h3>Modificando Persona: @_persona.Nombre</h3>
+}
+<div class="container-fluid justify-content-center align-items-center min-vh-100 p-5" style="max-width: 900px;">
+    <div class="text-center border p-4 rounded shadow-sm bg-light" >
+        <div class="mb-3">
+            <input placeholder="Nombre" @bind="_persona.Nombre" class="form-control w-70 mb-2 ">
+            <input placeholder="Apellido" @bind="_persona.Apellido" class="form-control w-70 mb-2">
+            <input placeholder="Email" @bind="_persona.Email" class="form-control w-70 mb-2">
+        </div>
+        <div class="boton mb-3">
+            <button class="btn btn-primary me-2" @onclick="Aceptar">Aceptar</button>
+            <button class="btn btn-secondary me-2" @onclick="Cancelar">Cancelar</button>
+        </div>
+        
+    </div>
+</div>
+
+
+@code{
+    Persona _persona = new Persona();
+    [Parameter] public int? Id {get;set;}
+    bool nueva= true;
+    protected override void OnParametersSet(){
+        if(Id !=null){
+            var perObt = personaObtenerUseCase.Ejecutar(Id.Value);
+            if(perObt !=null){
+                _persona = perObt;
+                nueva =false;
+            }
+        }
+    }
+    void Aceptar(){
+        if(nueva){
+            personaAltaUseCase.Ejecutar(_persona);
+
+        }else{
+            personaModificacionUseCase.Ejecutar(_persona,2);
+        }
+        _persona = new Persona();
+        Navegador.NavigateTo("listadopersonas");
+    }
+    void Cancelar(){
+        Navegador.NavigateTo("/");
+    }
+}

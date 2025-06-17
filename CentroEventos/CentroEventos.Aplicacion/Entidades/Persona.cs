@@ -21,7 +21,7 @@ public class Persona
         this.Email = email; 
         this.Telefono = tel;
     }
-    protected Persona() { } // Constructor vacío (lo utilizará EntityFramework)
+    public Persona() { } // Constructor vacío (lo utilizará EntityFramework)
     public override string ToString(){
         string aux="";
         aux+= $"Persona: {this.Id} , dni: {this.Dni} , nombre: {this.Nombre} , apellido: {this.Apellido} , email: {this.Email} , telefono: {this.Telefono}";

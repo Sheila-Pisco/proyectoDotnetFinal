@@ -12,12 +12,20 @@ public class RepositorioPersona : IRepositorioPersona
         _context = context;
     }
 
-    public void AgregarPersona(Persona Persona)
+   public void AgregarPersona(Persona persona)
+{
+    var existe = _context.Personas.Any(per => per.Id == persona.Id);
+    if (!existe)
     {
-        _context.Personas.Add(Persona);
+        _context.Personas.Add(persona);
         _context.SaveChanges();
-        Console.WriteLine("Persona Agregada con Exito");
+        Console.WriteLine("Usuario Agregado con Éxito");
     }
+    else
+    {
+        Console.WriteLine("El usuario ya existe con ese email.");
+    }
+}
 
     public void EliminarPersona(int id)
     {
@@ -65,5 +73,10 @@ public class RepositorioPersona : IRepositorioPersona
         existePersona.Email = persona.Email;
         existePersona.Telefono = persona.Telefono;
         _context.SaveChanges();
+    }
+      public Persona ObtenerPersona(int idPersona)
+    {
+        var per = _context.Personas.Find(idPersona);
+        return per!;
     }
 }
