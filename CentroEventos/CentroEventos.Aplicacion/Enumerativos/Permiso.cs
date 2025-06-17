@@ -7,6 +7,9 @@ public enum Permiso
     EventoBaja,         ///eliminar un evento
     ReservaAlta,        //crear reservas
     ReservaModificacion,
+    PersonaAlta,
+    PersonaBaja,
+    PersonaModificacion,
     ReservaBaja,
     UsuarioAlta,
     UsuarioModificacion,

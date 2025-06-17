@@ -41,7 +41,7 @@
     }
     void Aceptar(){
         if(nueva){
-            personaAltaUseCase.Ejecutar(_persona);
+            personaAltaUseCase.Ejecutar(_persona,1);
 
         }else{
             personaModificacionUseCase.Ejecutar(_persona,2);

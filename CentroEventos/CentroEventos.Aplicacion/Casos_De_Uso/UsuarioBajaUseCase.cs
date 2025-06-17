@@ -10,10 +10,10 @@ public class UsuarioBajaUseCase(IRepositorioUsuario repoUs , IServicioAutorizaci
 {
     public void Ejecutar( int idUsuario)
     {
-       /* if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioBaja))
+       if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioBaja))
         {
             throw new FalloAutorizacionException();
-        }*/
+        }
 
         repoUs.EliminarUsuario(idUsuario);
     }
