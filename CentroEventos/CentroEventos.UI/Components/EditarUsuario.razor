@@ -46,7 +46,7 @@
     }
     void Aceptar(){
         if(_esNuevo){
-            UsuarioAltaUseCase.Ejecutar(_usuario);
+            UsuarioAltaUseCase.Ejecutar(_usuario,1);
         }else{
             UsuarioModificacionesUseCase.Ejecutar(_usuario,2);
         }

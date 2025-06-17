@@ -13,14 +13,14 @@ public class UsuarioModificacionesUseCase(IRepositorioUsuario repo, IServicioAut
 {
      public void Ejecutar( Usuario usuario,int idUsuario)
     {
-       /* if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioBaja))
+        if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioBaja))
         {
             throw new FalloAutorizacionException();
         }
         if (!validador.Validador(usuario, out string mensajeError))
         {
             throw new ValidacionException(mensajeError);
-        }*/
+        }
         repo.ModificarUsuario(usuario);
     }
 }
