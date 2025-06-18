@@ -11,32 +11,31 @@
   <table class="table">
     <thead>
         <tr class="table-info">
-            <th >#</th>
-            <th> Nombre</th>
+            <th>#</th>
+            <th>Nombre</th>
             <th>Apellido</th>
-            <th> Email</th>
-            <th> Acciones</th>
+            <th>Email</th>
+            <th>Permisos</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
-
         @foreach(var usuario in listaus ){
             <tr class="table-info">
                 <td>@usuario.Id </td>
                 <td>@usuario.Nombre</td>
                 <td>@usuario.Apellido</td>
                 <td>@usuario.Email</td>
+                <td>
+                    @foreach(var permiso in usuario.Permisos){ 
+                        <div>@permiso</div>
+                    }
+                </td>
                 <td class="button-container">    
-                        <button class="btn btn-primary" @onclick="()=>ModificarUsuario(usuario)">
-                        Editar
-                        </button>
-                        <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(usuario)">
-                        Eliminar
-                        </button>          
-                    
+                        <button class="btn btn-primary" @onclick="()=>ModificarUsuario(usuario)">Editar</button>
+                        <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(usuario)">Eliminar</button>          
                 </td>
             </tr>
-
         }
     </tbody>
   </table>
@@ -57,7 +56,7 @@
     }
     private void Eliminar(){
         if(_usEliminar !=null){
-            usuarioBajaUseCase.Ejecutar(_usEliminar.Id);
+            usuarioBajaUseCase.Ejecutar(_usEliminar.Id, 1);
             listaus = usuarioListarUseCase.Ejecutar();
         }
     }
