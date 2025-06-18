@@ -48,16 +48,13 @@ public void AgregarUsuario(Usuario usuario)
 
     public void ModificarUsuario(Usuario usuario)
     {
-        var usu = _context.Usuarios.Find(usuario.Id);
-        if (usu == null)
+        var usuarioExistente = _context.Usuarios.Find(usuario.Id);
+        if (usuarioExistente == null)
         {
             throw new EntidadNotFoundException();
         }
-        usu.Nombre = usuario.Nombre;
-        usu.Apellido = usuario.Apellido;
-        usu.Email = usuario.Email;
-        usu.Contraseña = usuario.Contraseña;
-        usu.Permisos = usuario.Permisos;
+        _context.Entry(usuarioExistente).CurrentValues.SetValues(usuario);
+        _context.SaveChanges();
     }
 
     public Usuario ObtenerUsuario(int id_Usuario)

@@ -21,8 +21,8 @@
         </tr>
     </thead>
     <tbody>
-
-        @foreach(var persona in _listaper ){
+        @foreach(var persona in _listaper ?? new List<Persona>())
+        {
             <tr class="table-info">
                 <td> @persona.Id </td>
                 <td>@persona.Dni</td>
@@ -31,40 +31,41 @@
                 <td>@persona.Email</td>
                 <td>@persona.Telefono</td>
                 <td class="button-container">    
-                        <button class="btn btn-primary" @onclick="()=>ModificarPersona(persona)">
-                        Editar
-                        </button>
-                        <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(persona)">
-                        Eliminar
-                        </button>          
-                    
+                    <button class="btn btn-primary" @onclick="()=>ModificarPersona(persona)">Editar</button>
+                    <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(persona)">Eliminar</button>          
                 </td>
             </tr>
-
         }
     </tbody>
   </table>
 </div>
 @code{
-    List<Persona> _listaper = new List<Persona>();
+    public List<Persona> _listaper = new List<Persona>();
     protected override void OnInitialized(){
-        _listaper = personaListarUseCase.Ejecutar();
+        _listaper = personaListarUseCase.Ejecutar() ?? new List<Persona>();
     }
     DialogoConfirmacion dialogo = null!;
-    Persona? _perEliminar= null;
-    
+    Persona? personaElim = null;
     
     private void ConfirmarEliminacion(Persona persona){
-        _perEliminar= persona;
-        
-        dialogo.Mensaje = $"Seguro quiere Eliminar a {persona.Nombre} {persona.Apellido}";
+
+       if (dialogo == null)
+        {
+            Console.WriteLine("DialogoConfirmacion no está inicializado todavía.");
+            return;
+        }
+        personaElim = persona;
+        dialogo.Mensaje = $"¿Seguro que desea eliminar a {persona.Nombre} {persona.Apellido}?";
         dialogo.Mostrar();
     }
     private void Eliminar(){
-        if(_perEliminar !=null){
-            personaBajaUseCase.Ejecutar(_perEliminar.Id);
+        
+        if(personaElim != null){
+            personaBajaUseCase.Ejecutar(personaElim.Id, 1);
             _listaper = personaListarUseCase.Ejecutar();
         }
+        
+        
     }
     void ModificarPersona(Persona persona){
         Navegador.NavigateTo($"persona/{persona.Id}");

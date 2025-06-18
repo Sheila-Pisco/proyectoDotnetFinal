@@ -10,7 +10,7 @@ public class Usuario
     public string? Apellido { get;  set; }
     public string? Email { get;  set; }
     public string? Contraseña { get;  set; }
-    public List<Permiso>? Permisos { get;  set; }
+    public List<Permiso> Permisos { get; set; } = []; //garantiza que la lista nunca será nula y elimina la necesidad de comprobaciones adicionales y advertencias
 
     public Usuario(string nombre, string apellido, string email, string contraseña, List<Permiso> lista)
     {

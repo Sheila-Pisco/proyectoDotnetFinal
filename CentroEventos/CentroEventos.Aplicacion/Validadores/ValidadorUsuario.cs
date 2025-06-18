@@ -20,6 +20,7 @@ public class ValidadorUsuario
         {
             mensajeError="el campo Email no puede estar Vacio";
         }
-        return (mensajeError == "");
+        
+        return mensajeError == "";
     }
 }
