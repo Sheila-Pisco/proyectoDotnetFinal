@@ -52,7 +52,7 @@
     }
     DialogoConfirmacion dialogo = null!;
     EventoDeportivo? _eventoParaEliminar = null;
-    
+    string _mensajeDialogo = string.Empty;
     private void Editar(EventoDeportivo evento)
     {
         Navegador.NavigateTo($"evento/{evento.Id}");
