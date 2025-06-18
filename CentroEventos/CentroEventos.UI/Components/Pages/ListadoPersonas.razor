@@ -31,8 +31,8 @@
                 <td>@persona.Email</td>
                 <td>@persona.Telefono</td>
                 <td class="button-container">    
-                    <button class="btn btn-primary" @onclick="()=>ModificarPersona(persona)">Editar</button>
-                    <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(persona)">Eliminar</button>
+                    <button class="btn btn-outline-primary" @onclick="()=>ModificarPersona(persona)">Editar</button>
+                    <button class="btn btn-outline-danger" @onclick="()=>ConfirmarEliminacion(persona)">Eliminar</button>
                     <DialogoConfirmacion @ref="dialogo" OnConfirmado="Eliminar" Mensaje="@_mensaje"/>          
                 </td>
             </tr>

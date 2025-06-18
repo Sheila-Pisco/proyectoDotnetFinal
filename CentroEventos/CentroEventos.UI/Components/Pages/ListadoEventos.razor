@@ -33,8 +33,8 @@
                 <td>@evento.ResponsableId</td>
                 @if(UsuarioSesionId == 1) {
                     <td>
-                        <button class="btn btn-primary" @onclick="()=>Editar(evento)">Editar</button>
-                        <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(evento)">Eliminar</button>
+                        <button class="btn btn-outline-primary" @onclick="()=>Editar(evento)">Editar</button>
+                        <button class="btn btn-outline-danger" @onclick="()=>ConfirmarEliminacion(evento)">Eliminar</button>
                         <DialogoConfirmacion @ref=dialogo OnConfirmado="Eliminar" Mensaje="@_mensajeDialogo"/>
                     </td>
                 }
