@@ -1,11 +1,9 @@
 ﻿@page "/listadoeventos"
-@using CentroEventos.UI.Components.Pages
 @rendermode InteractiveServer //Es necesario si queremos que el componente sea interactivo
 @inject EventoDeportivoListarUseCase EventoDeportivoListarUseCase
 @inject EventoDeportivoModificacionUseCase EventoDeportivoModificacionUseCase
 @inject EventoDeportivoBajaUseCase EventoDeportivoBajaUseCase
 @inject NavigationManager Navegador
-<DialogoConfirmacion @ref="dialogo"/>
 
 <h3>Listado Eventos</h3>
 
@@ -37,6 +35,7 @@
                     <button class="btn btn-primary" @onclick="()=>Editar(evento)">Editar</button>
 
                     <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(evento)">Eliminar</button>
+                    <DialogoConfirmacion @ref=dialogo OnConfirmado="Eliminar" Mensaje="@_mensajeDialogo"/>
                 </td>
             </tr>    
         }
@@ -51,20 +50,24 @@
         _lista = EventoDeportivoListarUseCase.Ejecutar();
     }
     DialogoConfirmacion dialogo = null!;
-    
+    EventoDeportivo? _EliminarEvento = null;
+    string _mensajeDialogo = string.Empty;
     private void Editar(EventoDeportivo evento)
     {
         Navegador.NavigateTo($"evento/{evento.Id}");
     }
     private void ConfirmarEliminacion(EventoDeportivo evento)
     {
-        dialogo.Mensaje = $"¿Desea eliminar el evento {evento.Id} {evento.Nombre}?";
-        dialogo.OnConfirmado = EventCallback.Factory.Create(this,()=>Eliminar(evento));
+        _EliminarEvento = evento;
+        _mensajeDialogo = $"¿Desea eliminar el evento {evento.Id} {evento.Nombre}?";
         dialogo.Mostrar();
     }
-    private void Eliminar(EventoDeportivo evento)
+    private void Eliminar()
     {
-        EventoDeportivoBajaUseCase.Ejecutar(evento.Id,1); //En lugar de 1, debería pasarle el id del usuario actual.
-        _lista = EventoDeportivoListarUseCase.Ejecutar(); //Se actualiza la lista de eventos
+        if(_EliminarEvento != null){
+            EventoDeportivoBajaUseCase.Ejecutar(_EliminarEvento.Id,1); //En lugar de 1, debería pasarle el id del usuario actual.
+            _lista = EventoDeportivoListarUseCase.Ejecutar(); //Se actualiza la lista de eventos
+        }
+        
     }
 }

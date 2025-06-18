@@ -15,7 +15,7 @@ public class EventoDeportivoBajaUseCase(IRepositorioEventoDeportivo repoE, IServ
         {
             throw new FalloAutorizacionException();
         }
-        if (!repoR.ExisteReservaAsociadaEvento(idEvento))
+        if (repoR.ExisteReservaAsociadaEvento(idEvento))
         {
             throw new Exception("No se puede eliminar el evento porque existen reservas asociadas.");
         }
