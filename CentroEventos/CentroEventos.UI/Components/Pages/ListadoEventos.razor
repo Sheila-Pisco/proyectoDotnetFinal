@@ -31,12 +31,13 @@
                 <td>@evento.DuracionHoras</td>
                 <td>@evento.CupoMaximo</td>
                 <td>@evento.ResponsableId</td>
-                <td>
-                    <button class="btn btn-primary" @onclick="()=>Editar(evento)">Editar</button>
-
-                    <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(evento)">Eliminar</button>
-                    <DialogoConfirmacion @ref=dialogo OnConfirmado="Eliminar" Mensaje="@_mensajeDialogo"/>
-                </td>
+                @if(UsuarioSesionId == 1) {
+                    <td>
+                        <button class="btn btn-primary" @onclick="()=>Editar(evento)">Editar</button>
+                        <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(evento)">Eliminar</button>
+                        <DialogoConfirmacion @ref=dialogo OnConfirmado="Eliminar" Mensaje="@_mensajeDialogo"/>
+                    </td>
+                }
             </tr>    
         }
     </tbody>
@@ -45,6 +46,9 @@
 @code { // Sección de código C#
 
     List<EventoDeportivo> _lista = new List<EventoDeportivo>();
+    [Parameter]
+    public bool SoloLectura {get; set;} = false; 
+    int UsuarioSesionId = 1; 
     protected override void OnInitialized()
     {
         _lista = EventoDeportivoListarUseCase.Ejecutar();
@@ -65,7 +69,7 @@
     private void Eliminar()
     {
         if(_EliminarEvento != null){
-            EventoDeportivoBajaUseCase.Ejecutar(_EliminarEvento.Id,1); //En lugar de 1, debería pasarle el id del usuario actual.
+            EventoDeportivoBajaUseCase.Ejecutar(_EliminarEvento.Id, UsuarioSesionId); //En lugar de 1, debería pasarle el id del usuario actual.
             _lista = EventoDeportivoListarUseCase.Ejecutar(); //Se actualiza la lista de eventos
         }
         

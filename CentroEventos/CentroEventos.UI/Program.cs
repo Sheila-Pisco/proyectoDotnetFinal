@@ -13,7 +13,7 @@ CentroEventosSqlite.Inicializar(); //solo tiene efecto si la base de datos no ex
 using var context = new CentroEventoContext();
 
 //Agrego algunos datos
-/*
+
 context.EventosDeportivos.Add(new EventoDeportivo("Aerobicos", "Movimiento", new DateTime(2025, 1, 1), 1.5, 15, 2));
 context.EventosDeportivos.Add(new EventoDeportivo("Zumba", "Baile", new DateTime(2025, 7, 7), 1.5, 25, 3));
 context.EventosDeportivos.Add(new EventoDeportivo("Funcional", "Desafío", new DateTime(2025, 8, 9), 1.5, 10, 4));
@@ -37,7 +37,8 @@ context.Personas.Add(new Persona("15870", "Jurez", "Paola", "janjiP@gmail", "111
 context.Personas.Add(new Persona("233569", "Ceballo", "Julia", "taPbh@gmail", "157896290"));
 context.Personas.Add(new Persona("785426","Jota", "Paula", "jotaP@gmail", "221567890") );
 
-context.SaveChanges();*/
+
+context.SaveChanges();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -74,6 +75,7 @@ builder.Services.AddTransient<ReservaAltaUseCase>();
 builder.Services.AddTransient<ReservaBajaUseCase>();
 builder.Services.AddTransient<ReservaModificacionUseCase>();
 builder.Services.AddTransient<ReservaListarUseCase>();
+builder.Services.AddTransient<ReservaObtenerUseCase>(); 
 builder.Services.AddTransient<ValidadorReserva>();
 builder.Services.AddTransient<IRepositorioReserva, RepositorioReserva>();
 
