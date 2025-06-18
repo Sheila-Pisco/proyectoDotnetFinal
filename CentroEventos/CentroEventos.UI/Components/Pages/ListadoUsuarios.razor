@@ -6,7 +6,7 @@
 @inject NavigationManager Navegador
 
 <h2>Listado de Usuarios</h2>
-<DialogoConfirmacion @ref="dialogo" OnConfirmado="Eliminar"/>
+<DialogoConfirmacion @ref="dialogo" OnConfirmado="Eliminar" Mensaje="@Mensaje"/>
 <div class="table-responsive-lg">
   <table class="table">
     <thead>
@@ -48,10 +48,11 @@
     }
     DialogoConfirmacion dialogo =null!;
     Usuario? _usEliminar = null;
+    string Mensaje=string.Empty;
     private void ConfirmarEliminacion(Usuario usuario){
         
         _usEliminar = usuario;
-        dialogo.Mensaje = $"Desea Eliminar al usuario {usuario.Nombre} {usuario.Apellido }?";
+        Mensaje = $"Desea Eliminar al usuario {usuario.Nombre} {usuario.Apellido }?";
         dialogo.Mostrar();
     }
     private void Eliminar(){

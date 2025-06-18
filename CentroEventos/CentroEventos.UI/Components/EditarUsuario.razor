@@ -166,9 +166,9 @@
     }
     void Aceptar(){
         if(_esNuevo){
-            UsuarioAltaUseCase.Ejecutar(_usuario,1);
+            UsuarioAltaUseCase.Ejecutar(_usuario,1,true);
         }else{
-            UsuarioModificacionesUseCase.Ejecutar(_usuario,1);
+            UsuarioModificacionesUseCase.Ejecutar(_usuario,1,true);
         }
         _usuario = new Usuario();
         Navegador.NavigateTo("listadousuarios");
