@@ -4,15 +4,14 @@ namespace CentroEventos.Aplicacion.Entidades;
 
 public class Reserva
 {
-    public int Id { get; private set; } //gestionado por el repositorio
-    public int Persona_id { get; private set; }
-    public int EventoDeportivo_id { get; private set; }
-    public DateTime? FechaAltaReserva { get; private set; }
-    public Estado? EstadoAsistencia { get; private set; }
+    public int Id { get; private set; } //autoincremental y unico
+    public int Persona_id { get; set; } //responsable de la reserva
+    public int EventoDeportivo_id { get; set; } //evento asignado a la reserva
+    public DateTime? FechaAltaReserva { get; set; } //fecha en la que se realizo
+    public Estado? EstadoAsistencia { get; set; } = Estado.Pendiente;//asistencia (Pendiente/Presente/Ausente)
     public Reserva (int idpersona, int eventoid, DateTime? Fecha, Estado estado){
 
-        // completar aquí las validaciones que aseguren la consistencia de la entidad
-        
+
         this.Persona_id = idpersona;
         this.EventoDeportivo_id = eventoid;
         this.FechaAltaReserva = Fecha;

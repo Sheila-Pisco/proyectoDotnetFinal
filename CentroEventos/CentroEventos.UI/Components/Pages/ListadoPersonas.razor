@@ -4,7 +4,6 @@
 @inject NavigationManager Navegador
 @inject PersonaListarUseCase personaListarUseCase
 @inject PersonaBajaUseCase personaBajaUseCase
-@using  CentroEventos.UI.Components.Pages;
 
 <h2>Listado de Personas</h2>
 <DialogoConfirmacion @ref="dialogo" OnConfirmado="Eliminar"/>
@@ -22,8 +21,8 @@
         </tr>
     </thead>
     <tbody>
-
-        @foreach(var persona in _listaper ?? new List<Persona>()){
+        @foreach(var persona in _listaper ?? new List<Persona>())
+        {
             <tr class="table-info">
                 <td> @persona.Id </td>
                 <td>@persona.Dni</td>
@@ -32,16 +31,10 @@
                 <td>@persona.Email</td>
                 <td>@persona.Telefono</td>
                 <td class="button-container">    
-                        <button class="btn btn-primary" @onclick="()=>ModificarPersona(persona)">
-                        Editar
-                        </button>
-                        <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(persona)">
-                        Eliminar
-                        </button>          
-                    
+                    <button class="btn btn-primary" @onclick="()=>ModificarPersona(persona)">Editar</button>
+                    <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(persona)">Eliminar</button>          
                 </td>
             </tr>
-
         }
     </tbody>
   </table>
@@ -52,8 +45,7 @@
         _listaper = personaListarUseCase.Ejecutar() ?? new List<Persona>();
     }
     DialogoConfirmacion dialogo = null!;
-    
-    Persona personaElim = null;
+    Persona? personaElim = null;
     
     private void ConfirmarEliminacion(Persona persona){
 
@@ -70,7 +62,7 @@
         
         if(personaElim != null){
             personaBajaUseCase.Ejecutar(personaElim.Id, 1);
-         _listaper = personaListarUseCase.Ejecutar();
+            _listaper = personaListarUseCase.Ejecutar();
         }
         
         

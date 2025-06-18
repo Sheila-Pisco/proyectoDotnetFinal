@@ -1,0 +1,69 @@
+@page "/listadoreserva"
+@rendermode InteractiveServer //Es necesario si queremos que el componente sea interactivo
+@inject ReservaListarUseCase ReservaListarUseCase
+@inject ReservaModificacionUseCase ReservaModificacionUseCase
+@inject ReservaBajaUseCase ReservaBajaUseCase
+@inject NavigationManager Navegador
+
+<h3>Listado Reservas</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Id Persona</th> 
+            <th>Id Eventos Deportivo</th> 
+            <th>Fecha de alta</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var reserva in _lista) // Utilizamos la @ para cambiar de código HTML a C#
+        {
+            <tr>
+                <td>@reserva.Id</td>
+                <td>@reserva.Persona_id</td>
+                <td>@reserva.EventoDeportivo_id</td>
+                <td>@reserva.FechaAltaReserva</td>
+                <td>@reserva.EstadoAsistencia</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="()=>Editar(reserva)">Editar</button>
+
+                    <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(reserva)">Eliminar</button>
+                    <DialogoConfirmacion @ref=dialogo OnConfirmado="Eliminar" Mensaje="@_mensajeDialogo"/>
+
+                </td>
+            </tr>    
+        }
+    </tbody>
+</table>
+
+@code { // Sección de código C#
+
+    List<Reserva> _lista = new List<Reserva>();
+    protected override void OnInitialized()
+    {
+        _lista = ReservaListarUseCase.Ejecutar();
+    }
+    DialogoConfirmacion dialogo = null!;
+    Reserva? _EliminarReserva = null;
+    string _mensajeDialogo = string.Empty;
+    private void Editar(Reserva reserva)
+    {
+        Navegador.NavigateTo($"evento/{reserva.Id}");
+    }
+    private void ConfirmarEliminacion(Reserva reserva)
+    {
+        _EliminarReserva = reserva;
+        _mensajeDialogo = $"¿Desea eliminar la reserva {reserva.Id} {reserva.Persona_id}?";
+        dialogo.Mostrar();
+    }
+    private void Eliminar()
+    {
+        if(_EliminarReserva != null)
+        {
+            ReservaBajaUseCase.Ejecutar(_EliminarReserva.Id,1);
+            _lista = ReservaListarUseCase.Ejecutar(); //Se actualiza la lista de eventos
+        }
+    }
+}

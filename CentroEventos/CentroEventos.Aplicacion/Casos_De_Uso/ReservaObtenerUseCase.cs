@@ -4,10 +4,10 @@ using CentroEventos.Aplicacion.Interfaces_Repositorios;
 
 namespace CentroEventos.Aplicacion.Casos_De_Uso;
 
-public class ListarEventosConCupoDisponibleUseCase(IRepositorioReserva repoR)
+public class ReservaObtenerUseCase(IRepositorioReserva repoR)
 {
-    public List<EventoDeportivo> Ejecutar()
+    public Reserva Ejecutar(int idReserva)
     {
-        return repoR.ListarEventosConCupo();
+        return repoR.ObtenerReserva(idReserva);
     }
 }

@@ -8,22 +8,22 @@ public class ValidadorReserva (IRepositorioReserva repoReserva, IRepositorioPers
     public bool Validar(Reserva reserva, out string mensajeError){
 
         mensajeError = "";
-        Console.WriteLine("Validando...");
+
         if (!repoPersona.ExisteIdPersona(reserva.Persona_id))
         {
-            mensajeError = $"No existe persona con id {reserva.Persona_id}";
+            mensajeError += "No existe persona con id";
         }
-        if (!repoReserva.ExisteResposable(reserva.Persona_id))
+        if (!repoReserva.ExisteReservaAsociadaPersona(reserva.Persona_id))
         {
-            mensajeError = "La persona no reservo. \n";
+            mensajeError += "La persona no reservo";
         }
         if (repoReserva.ExisteReserva(reserva.Persona_id, reserva.EventoDeportivo_id))
         {
-            mensajeError = "La persona ingresada ya posee una reserva para este evento /n";
+            mensajeError += "La persona ingresada ya posee una reserva para este evento";
         }
         if (!repoReserva.ExisteCupo(reserva.EventoDeportivo_id))
         {
-            mensajeError = "No hay cupo en este evento";
+            mensajeError += "No hay cupo en este evento";
         }
         return (mensajeError == "");
     }
