@@ -1,0 +1,56 @@
+@page "/reserva/{Id:int?}"
+@rendermode InteractiveServer
+@inject NavigationManager Navegador
+@inject ReservaObtenerUseCase ReservaObtenerUseCase
+@inject ReservaAltaUseCase ReservaAltaUseCase
+@inject ReservaModificacionUseCase ReservaModificacionUseCase
+
+@if(nueva){
+    <h3 class="mx-auto" style="width: fit-content;" >Agregar Reserva</h3>
+}else{
+    <h3>Modificando Reserva: @_reserva.Id</h3>
+}
+<div class="container-fluid justify-content-center align-items-center min-vh-100 p-5" style="max-width: 900px;">
+    <div class="text-center border p-4 rounded shadow-sm bg-light" >
+        <div class="mb-3">
+            <input placeholder="Evento" @bind="_reserva.EventoDeportivo_id" class="form-control w-70 mb-2 ">
+            <input placeholder="Reservante" @bind="_reserva.Persona_id" class="form-control w-70 mb-2">
+            <input placeholder="Estado" @bind="_reserva.EstadoAsistencia" class="form-control w-70 mb-2">
+            <input placeholder="Fecha" @bind="_reserva.FechaAltaReserva" class="form-control w-70 mb-2">
+        </div>
+        <div class="boton mb-3">
+            <button class="btn btn-primary me-2" @onclick="Aceptar">Aceptar</button>
+            <button class="btn btn-secondary me-2" @onclick="Cancelar">Cancelar</button>
+        </div>
+        
+    </div>
+</div>
+
+
+@code{
+    Reserva _reserva = new Reserva();
+    [Parameter] public int? Id {get;set;}
+    bool nueva= true;
+    protected override void OnParametersSet(){
+        if(Id !=null){
+            var r = ReservaObtenerUseCase.Ejecutar(Id.Value);
+            if(r !=null){
+                _reserva = r;
+                nueva =false;
+            }
+        }
+    }
+    void Aceptar(){
+        if(nueva){
+            ReservaAltaUseCase.Ejecutar(_reserva,1); //si tira error puede ser el 1 XD
+
+        }else{
+            ReservaModificacionUseCase.Ejecutar(_reserva,1);
+        }
+        _reserva = new Reserva();
+        Navegador.NavigateTo("listadoreseva");
+    }
+    void Cancelar(){
+        Navegador.NavigateTo("/");
+    }
+}
