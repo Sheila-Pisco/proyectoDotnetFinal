@@ -13,10 +13,6 @@ public class ValidadorReserva (IRepositorioReserva repoReserva, IRepositorioPers
         {
             mensajeError += "No existe persona con id";
         }
-        if (!repoReserva.ExisteReservaAsociadaPersona(reserva.Persona_id)) //Borrar
-        {
-            mensajeError += "La persona no reservo";
-        }
         if (repoReserva.ExisteReserva(reserva.Persona_id, reserva.EventoDeportivo_id))
         {
             mensajeError += "La persona ingresada ya posee una reserva para este evento";
