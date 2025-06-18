@@ -40,7 +40,7 @@ public class ValidadorPersona (IRepositorioPersona repo_p)
                  mensajeError += "Existe una persona con este dni asociado"; 
             }
         }
-        return (mensajeError == "");
+        return mensajeError == "";
         
     }
 }

@@ -36,7 +36,6 @@
 
                     <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(evento)">Eliminar</button>
                     <DialogoConfirmacion @ref=dialogo OnConfirmado="Eliminar" Mensaje="@_mensajeDialogo"/>
-
                 </td>
             </tr>    
         }
@@ -51,7 +50,7 @@
         _lista = EventoDeportivoListarUseCase.Ejecutar();
     }
     DialogoConfirmacion dialogo = null!;
-    EventoDeportivo? _eventoParaEliminar = null;
+    EventoDeportivo? _EliminarEvento = null;
     string _mensajeDialogo = string.Empty;
     private void Editar(EventoDeportivo evento)
     {
@@ -59,16 +58,16 @@
     }
     private void ConfirmarEliminacion(EventoDeportivo evento)
     {
-        _eventoParaEliminar = evento;
-        dialogo.Mensaje = $"¿Desea eliminar el evento {evento.Id} {evento.Nombre}?";
+        _EliminarEvento = evento;
+        _mensajeDialogo = $"¿Desea eliminar el evento {evento.Id} {evento.Nombre}?";
         dialogo.Mostrar();
     }
     private void Eliminar()
     {
-        if(_eventoParaEliminar != null)
-        {
-            EventoDeportivoBajaUseCase.Ejecutar(_eventoParaEliminar.Id,1); //En lugar de 1, debería pasarle el id del usuario actual.
+        if(_EliminarEvento != null){
+            EventoDeportivoBajaUseCase.Ejecutar(_EliminarEvento.Id,1); //En lugar de 1, debería pasarle el id del usuario actual.
             _lista = EventoDeportivoListarUseCase.Ejecutar(); //Se actualiza la lista de eventos
         }
+        
     }
 }

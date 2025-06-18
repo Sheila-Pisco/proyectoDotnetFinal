@@ -1,6 +1,6 @@
 @page "/listadoreserva"
 @rendermode InteractiveServer //Es necesario si queremos que el componente sea interactivo
-@inject ListarReservaUseCase ListarReservaUseCase
+@inject ReservaListarUseCase ReservaListarUseCase
 @inject ReservaModificacionUseCase ReservaModificacionUseCase
 @inject ReservaBajaUseCase ReservaBajaUseCase
 @inject NavigationManager Navegador
@@ -43,7 +43,7 @@
     List<Reserva> _lista = new List<Reserva>();
     protected override void OnInitialized()
     {
-        _lista = ListarReservaUseCase.Ejecutar();
+        _lista = ReservaListarUseCase.Ejecutar();
     }
     DialogoConfirmacion dialogo = null!;
     Reserva? _EliminarReserva = null;
@@ -63,7 +63,7 @@
         if(_EliminarReserva != null)
         {
             ReservaBajaUseCase.Ejecutar(_EliminarReserva.Id,1);
-            _lista = ListarReservaUseCase.Ejecutar(); //Se actualiza la lista de eventos
+            _lista = ReservaListarUseCase.Ejecutar(); //Se actualiza la lista de eventos
         }
     }
 }

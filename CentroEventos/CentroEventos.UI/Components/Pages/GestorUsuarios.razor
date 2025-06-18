@@ -7,62 +7,18 @@
 
 <p>Este componente es provisorio. Su finalidad es realizar pruebas preliminares</p>
 
-@if (idAdmin != 1)
+@if (idAdmin == 1)
 {
     <table class="table">
         <thead>
             <tr>
                 <th>Usuarios</th>
-                <th>Personas</th>
-                <th>Eventos Deportivos</th>
-                <th>Reservas</th>
             </tr>
         </thead>
         <tbody>
            <tr>
                 <th><button class="btn btn-primary" @onclick="ListarU">Listar Usuario</button></th>
-                <th><button class="btn btn-primary" @onclick="ListarP">Listar Persona</button></th>
-                <th><button class="btn btn-primary" @onclick="ListarE">Listar Evento</button></th>
-                <th><button class="btn btn-primary" @onclick="ListarR">Listar Reserva</button></th>
-           </tr>
-        </tbody>
-    </table>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Usuarios</th>
-                <th>Personas</th>
-                <th>Eventos Deportivos</th>
-                <th>Reservas</th>
-            </tr>
-        </thead>
-        <tbody>
-           <tr>
                 <th><button class="btn btn-primary" @onclick="AgregarU">Agregar Usuario</button></th>
-                <th><button class="btn btn-primary" @onclick="AgregarP">Agregar Persona</button></th>
-                <th><button class="btn btn-primary" @onclick="AgregarE">Agregar Evento</button></th>
-                <th><button class="btn btn-primary" @onclick="AgregarR">Agregar Reserva</button></th>
-           </tr>
-            <tr>
-                <th><button class="btn btn-primary" @onclick="EliminarU">Eliminar Usuario</button></th>
-                <th><button class="btn btn-primary" @onclick="EliminarP">Eliminar Persona</button></th>
-                <th><button class="btn btn-primary" @onclick="EliminarE">Eliminar Evento</button></th>
-                <th><button class="btn btn-primary" @onclick="EliminarR">Eliminar Reserva</button></th>
-           </tr>
-           <tr>
-                <th><button class="btn btn-primary" @onclick="ModificarU">Modificar Usuario</button></th>
-                <th><button class="btn btn-primary" @onclick="ModificarP">Modificar Persona</button></th>
-                <th><button class="btn btn-primary" @onclick="ModificarE">Modificar Evento</button></th>
-                <th><button class="btn btn-primary" @onclick="ModificarR">Modificar Reserva</button></th>
-           </tr>
-           <tr>
-                <th><button class="btn btn-primary" @onclick="ListarU">Listar Usuario</button></th>
-                <th><button class="btn btn-primary" @onclick="ListarP">Listar Persona</button></th>
-                <th><button class="btn btn-primary" @onclick="ListarE">Listar Evento</button></th>
-                <th><button class="btn btn-primary" @onclick="ListarR">Listar Reserva</button></th>
            </tr>
         </tbody>
     </table>
