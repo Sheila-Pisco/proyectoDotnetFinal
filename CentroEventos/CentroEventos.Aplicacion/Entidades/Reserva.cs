@@ -17,7 +17,7 @@ public class Reserva
         this.FechaAltaReserva = Fecha;
         this.EstadoAsistencia = estado;
     }
-    protected Reserva() { } // Constructor vacío (lo utilizará EntityFramework)
+    public Reserva() { } // Constructor vacío (lo utilizará EntityFramework)
     public override string ToString()
     {
         string aux = "";
