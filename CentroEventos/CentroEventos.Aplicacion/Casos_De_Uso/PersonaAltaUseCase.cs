@@ -12,7 +12,7 @@ public class PersonaAltaUseCase(IRepositorioPersona repoPersona, IServicioAutori
 {
     public void Ejecutar(Persona persona, int idUsuario)
     {
-        if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioAlta))
+        if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.PersonaAlta))
         {
             throw new FalloAutorizacionException();
         }
