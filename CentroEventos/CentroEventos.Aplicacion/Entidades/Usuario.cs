@@ -1,6 +1,7 @@
 using System;
 using System.Reflection.PortableExecutable;
 using CentroEventos.Aplicacion.Enumerativos;
+
 namespace CentroEventos.Aplicacion.Entidades;
 
 public class Usuario
@@ -25,6 +26,10 @@ public class Usuario
         if (string.IsNullOrWhiteSpace(email))
         {
             throw new ArgumentException("el campo Email no puede estar Vacio");
+        }
+        if (string.IsNullOrWhiteSpace(contraseña))
+        {
+            throw new ArgumentException("el campo contraseña no puede estar vacio");
         }
         this.Nombre = nombre;
         this.Apellido = apellido;
