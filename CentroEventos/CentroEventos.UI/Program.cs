@@ -70,11 +70,11 @@ builder.Services.AddTransient<PersonaObtenerUseCase>();
 builder.Services.AddTransient<ValidadorPersona>();
 builder.Services.AddTransient<IRepositorioPersona, RepositorioPersona>();
 
-/*builder.Services.AddTransient<ReservaAltaUseCase>();
+builder.Services.AddTransient<ReservaAltaUseCase>();
 builder.Services.AddTransient<ReservaBajaUseCase>();
 builder.Services.AddTransient<ReservaModificacionUseCase>();
 builder.Services.AddTransient<ReservaListarUseCase>();
-builder.Services.AddTransient<ValidadorReserva>();*/
+builder.Services.AddTransient<ValidadorReserva>();
 builder.Services.AddTransient<IRepositorioReserva, RepositorioReserva>();
 
 builder.Services.AddTransient<CentroEventoContext>();
