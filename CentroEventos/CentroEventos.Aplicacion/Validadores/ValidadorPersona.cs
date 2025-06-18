@@ -6,7 +6,7 @@ namespace CentroEventos.Aplicacion.Validadores;
 
 public class ValidadorPersona (IRepositorioPersona repo_p)
 {
-    public bool Validador(Persona persona, out string mensajeError){
+    public bool Validador(Persona persona, out string mensajeError,bool ok){
 
         mensajeError ="";
         if (string.IsNullOrWhiteSpace(persona.Nombre))
@@ -23,7 +23,7 @@ public class ValidadorPersona (IRepositorioPersona repo_p)
         }
         else
         {
-            if (repo_p.ExisteEmail(persona.Email))
+            if (repo_p.ExisteEmail(persona.Email)&& ok)
             {
                 mensajeError += $"Existe una persona asociada a este email{persona.Email}";
 
@@ -35,7 +35,7 @@ public class ValidadorPersona (IRepositorioPersona repo_p)
         }
         else
         {
-            if (repo_p.ExisteDniPersona(persona.Dni))
+            if (repo_p.ExisteDniPersona(persona.Dni)&& ok)
             {
                  mensajeError += "Existe una persona con este dni asociado"; 
             }

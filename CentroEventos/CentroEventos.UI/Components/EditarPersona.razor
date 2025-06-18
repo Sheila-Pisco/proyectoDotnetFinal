@@ -33,20 +33,24 @@
     [Parameter] public int? Id {get;set;}
     bool nueva= true;
     protected override void OnParametersSet(){
-        if(Id !=null){
-            var perObt = personaObtenerUseCase.Ejecutar(Id.Value);
-            if(perObt !=null){
-                _persona = perObt;
-                nueva =false;
+            if (Id != null)
+            {
+                var perObt = personaObtenerUseCase.Ejecutar(Id.Value);
+                if (perObt != null)
+                {
+                    _persona = perObt;
+                    nueva = false;
+                }
             }
-        }
+        
+    
     }
     void Aceptar(){
         if(nueva){
-            personaAltaUseCase.Ejecutar(_persona,1);
+            personaAltaUseCase.Ejecutar(_persona,1,true);
 
         }else{
-            personaModificacionUseCase.Ejecutar(_persona,1);
+            personaModificacionUseCase.Ejecutar(_persona,1,false);
         }
         _persona = new Persona();
         Navegador.NavigateTo("listadopersonas");
