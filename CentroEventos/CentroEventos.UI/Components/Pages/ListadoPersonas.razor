@@ -6,7 +6,7 @@
 @inject PersonaBajaUseCase personaBajaUseCase
 
 <h2>Listado de Personas</h2>
-<DialogoConfirmacion @ref="dialogo" OnConfirmado="Eliminar"/>
+
 <div class="table-responsive-lg">
   <table class="table">
     <thead>
@@ -32,7 +32,8 @@
                 <td>@persona.Telefono</td>
                 <td>    
                     <button class="btn btn-primary" @onclick="()=>ModificarPersona(persona)">Editar</button>
-                    <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(persona)">Eliminar</button>          
+                    <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(persona)">Eliminar</button>
+                    <DialogoConfirmacion @ref="dialogo" OnConfirmado="Eliminar" Mensaje="@_mensaje"/>          
                 </td>
             </tr>
         }
@@ -46,16 +47,13 @@
     }
     DialogoConfirmacion dialogo = null!;
     Persona? personaElim = null;
+    string _mensaje = string.Empty;
     
     private void ConfirmarEliminacion(Persona persona){
 
-       if (dialogo == null)
-        {
-            Console.WriteLine("DialogoConfirmacion no está inicializado todavía.");
-            return;
-        }
         personaElim = persona;
-        dialogo.Mensaje = $"¿Seguro que desea eliminar a {persona.Nombre} {persona.Apellido}?";
+        _mensaje= $"¿Seguro que desea eliminar a {persona.Nombre} {persona.Apellido}?" ;
+        
         dialogo.Mostrar();
     }
     private void Eliminar(){
