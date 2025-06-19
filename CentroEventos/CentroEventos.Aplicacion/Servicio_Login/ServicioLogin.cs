@@ -14,9 +14,6 @@ public class ServicioLogin(IRepositorioUsuario repoU) : IServicioLogin
     public Usuario RecuperarUsuario(string email, string contraseña)
     {
         //chequear que mail sea valido con try catch y la contraseña hacerle un hash 
-        using SHA256 funcionHash = SHA256.Create();
-        string codigoHash = contraseña.GetHashCode().ToString();
-        Usuario usuario = repoU.BuscarUsuarioPorEmailyHash(email,codigoHash);
-        return usuario; 
+        return repoU.BuscarUsuarioPorEmailyHash(email,contraseña);
     }
 }

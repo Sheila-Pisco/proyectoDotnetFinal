@@ -56,17 +56,7 @@ else
         }
         else
         {   
-            /*
-            <DialogoConfirmacion @ref=dialogo OnConfirmado="Editar" Mensaje="@_mensajeDialogo"/>
-             DialogoConfirmacion dialogo = null!;
-            EventoDeportivo? _eventoParaEditar = null; 
-            private void ConfirmarEdicion(EventoDeportivo evento)
-            {
-                _eventoParaEditar = evento;
-                _mensajeDialogo = $"¿Desea editar el evento {evento.Id} {evento.Nombre}?";
-                dialogo.Mostrar();
-            }
-            */
+            
             EventoDeportivoModificacionUseCase.Ejecutar(_evento,1);
         }
         _evento = new EventoDeportivo();
