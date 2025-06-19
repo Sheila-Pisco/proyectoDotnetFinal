@@ -3,6 +3,7 @@
 @inject EventoDeportivoListarUseCase EventoDeportivoListarUseCase
 @inject EventoDeportivoModificacionUseCase EventoDeportivoModificacionUseCase
 @inject EventoDeportivoBajaUseCase EventoDeportivoBajaUseCase
+@inject ServicioLogin servicioLogin
 @inject NavigationManager Navegador
 
 <h3>Listado Eventos</h3>
@@ -31,7 +32,7 @@
                 <td>@evento.DuracionHoras</td>
                 <td>@evento.CupoMaximo</td>
                 <td>@evento.ResponsableId</td>
-                @if(UsuarioSesionId == 1) {
+                @if( servicioLogin.User.Id == 1) {
                     <td>
                         <button class="btn btn-outline-primary" @onclick="()=>Editar(evento)">Editar</button>
                         <button class="btn btn-outline-danger" @onclick="()=>ConfirmarEliminacion(evento)">Eliminar</button>
@@ -48,7 +49,7 @@
     List<EventoDeportivo> _lista = new List<EventoDeportivo>();
     [Parameter]
     public bool SoloLectura {get; set;} = false; 
-    int UsuarioSesionId = 1; 
+     
     protected override void OnInitialized()
     {
         _lista = EventoDeportivoListarUseCase.Ejecutar();
@@ -69,7 +70,7 @@
     private void Eliminar()
     {
         if(_EliminarEvento != null){
-            EventoDeportivoBajaUseCase.Ejecutar(_EliminarEvento.Id, UsuarioSesionId); //En lugar de 1, debería pasarle el id del usuario actual.
+            EventoDeportivoBajaUseCase.Ejecutar(_EliminarEvento.Id, servicioLogin.User.Id); //En lugar de 1, debería pasarle el id del usuario actual.
             _lista = EventoDeportivoListarUseCase.Ejecutar(); //Se actualiza la lista de eventos
         }
         

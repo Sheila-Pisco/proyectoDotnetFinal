@@ -5,6 +5,7 @@
 @inject UsuarioObtenerUseCase UsuariobtenerUseCase
 @inject UsuarioModificacionesUseCase UsuarioModificacionesUseCase
 @inject UsuarioAltaUseCase UsuarioAltaUseCase
+@inject ServicioLogin servicioLogin
 
 
 @if(_esNuevo){
@@ -167,9 +168,9 @@
     }
     void Aceptar(){
         if(_esNuevo){
-            UsuarioAltaUseCase.Ejecutar(_usuario,1,true);
+            UsuarioAltaUseCase.Ejecutar(_usuario, servicioLogin.User.Id,true);
         }else{
-            UsuarioModificacionesUseCase.Ejecutar(_usuario,1,true);
+            UsuarioModificacionesUseCase.Ejecutar(_usuario, servicioLogin.User.Id,false);
         }
         _usuario = new Usuario();
         Navegador.NavigateTo("listadousuarios");

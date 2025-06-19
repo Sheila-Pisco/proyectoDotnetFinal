@@ -4,6 +4,7 @@
 @inject ReservaObtenerUseCase ReservaObtenerUseCase
 @inject ReservaAltaUseCase ReservaAltaUseCase
 @inject ReservaModificacionUseCase ReservaModificacionUseCase
+@inject ServicioLogin servicioLogin
 
 @if(nueva){
     <h3 class="mx-auto" style="width: fit-content;" >Agregar Reserva</h3>
@@ -42,10 +43,10 @@
     }
     void Aceptar(){
         if(nueva){
-            ReservaAltaUseCase.Ejecutar(_reserva,1); //si tira error puede ser el 1 XD
+            ReservaAltaUseCase.Ejecutar(_reserva, servicioLogin.User.Id); //si tira error puede ser el 1 XD
 
         }else{
-            ReservaModificacionUseCase.Ejecutar(_reserva,1);
+            ReservaModificacionUseCase.Ejecutar(_reserva, servicioLogin.User.Id);
         }
         _reserva = new Reserva();
         Navegador.NavigateTo("listadoreseva");

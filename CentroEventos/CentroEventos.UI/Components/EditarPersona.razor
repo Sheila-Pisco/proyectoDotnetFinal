@@ -4,6 +4,7 @@
 @inject PersonaObtenerUseCase personaObtenerUseCase
 @inject PersonaAltaUseCase personaAltaUseCase
 @inject PersonaModificacionUseCase personaModificacionUseCase
+@inject ServicioLogin servicioLogin
 
 @if(nueva){
     <h3 class="mx-auto" style="width: fit-content;" >Agregar Persona</h3>
@@ -45,10 +46,10 @@
     }
     void Aceptar(){
         if(nueva){
-            personaAltaUseCase.Ejecutar(_persona,1,true);
+            personaAltaUseCase.Ejecutar(_persona, servicioLogin.User.Id,true);
 
         }else{
-            personaModificacionUseCase.Ejecutar(_persona,1,false);
+            personaModificacionUseCase.Ejecutar(_persona, servicioLogin.User.Id,false);
         }
         _persona = new Persona();
         Navegador.NavigateTo("listadopersonas");

@@ -13,5 +13,7 @@ public interface IRepositorioUsuario
     public Usuario ObtenerUsuario(int id_Usuario);
     public bool BuscarPermiso(int Id_Usuario, Permiso permiso);
     public Usuario BuscarUsuarioPorEmailyHash(string email, string codigoHash);
+    public bool ExisteEmail(string email);
+    public void RegistrarUsuario(Usuario usuario);
     
 }

@@ -5,6 +5,7 @@ using CentroEventos.Aplicacion.Excepciones_Personalizadas;
 using CentroEventos.Aplicacion.Enumerativos;
 using System.Security.Cryptography;
 using System.Text;
+using CentroEventos.Aplicacion.Validadores;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace CentroEventos.Repositorios;
@@ -99,6 +100,15 @@ public class RepositorioUsuario : IRepositorioUsuario
         {
             throw new EntidadNotFoundException("Usuario no encontrado. Contraseña o Email incorrectos.");
         }
-        return usu; 
+        return usu;
+    }
+    public bool ExisteEmail(string email)
+    {
+        return _context.Usuarios.Any(u => u.Email == email);
+
+    }
+    public void RegistrarUsuario(Usuario usuario)
+    {
+        this.AgregarUsuario(usuario);
     }
 }

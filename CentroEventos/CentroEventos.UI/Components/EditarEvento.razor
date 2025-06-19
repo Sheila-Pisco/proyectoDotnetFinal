@@ -3,6 +3,7 @@
 @inject NavigationManager Navegador; //Inyectamos un objeto Navigator que nos permite navegar entre las páginas
 @inject EventoDeportivoAltaUseCase EventoDeportivoAltaUseCase
 @inject EventoDeportivoModificacionUseCase EventoDeportivoModificacionUseCase
+@inject ServicioLogin servicioLogin
 @inject EventoDeportivoObtenerUseCase EventoDeportivoObtenerUseCase
 
 @if(_esNuevoEvento)
@@ -52,18 +53,18 @@ else
     {
         if(_esNuevoEvento)
         {
-            EventoDeportivoAltaUseCase.Ejecutar(_evento,1);
+            EventoDeportivoAltaUseCase.Ejecutar(_evento, servicioLogin.User.Id);
         }
         else
         {   
             
-            EventoDeportivoModificacionUseCase.Ejecutar(_evento,1);
+            EventoDeportivoModificacionUseCase.Ejecutar(_evento, servicioLogin.User.Id);
         }
         _evento = new EventoDeportivo();
         Navegador.NavigateTo("listadoeventos");
     }
     void Cancelar(){
-        Navegador.NavigateTo("/");
+        Navegador.NavigateTo("home");
     }
 
 }
