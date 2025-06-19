@@ -4,6 +4,7 @@
 @inject IJSRuntime JSRuntime;
 @inject UsuarioBajaUseCase usuarioBajaUseCase
 @inject NavigationManager Navegador
+@inject ServicioLogin servicioLogin
 
 <h2>Listado de Usuarios</h2>
 <DialogoConfirmacion @ref="dialogo" OnConfirmado="Eliminar" Mensaje="@Mensaje"/>
@@ -32,9 +33,9 @@
                     }
                 </td>
 
-                <td class="button-container">    
-                        <button class="btn btn-outline-primary" @onclick="()=>ModificarUsuario(usuario)">Editar</button>
-                        <button class="btn btn-outline-danger" @onclick="()=>ConfirmarEliminacion(usuario)">Eliminar</button>          
+                <td>   
+                    <button class="btn btn-outline-primary" @onclick="()=>ModificarUsuario(usuario)">Editar</button>
+                    <button class="btn btn-outline-danger" @onclick="()=>ConfirmarEliminacion(usuario)">Eliminar</button>          
 
                 </td>
             </tr>
@@ -59,7 +60,7 @@
     }
     private void Eliminar(){
         if(_usEliminar !=null){
-            usuarioBajaUseCase.Ejecutar(_usEliminar.Id, 1);
+            usuarioBajaUseCase.Ejecutar(_usEliminar.Id, servicioLogin.User.Id);
             listaus = usuarioListarUseCase.Ejecutar();
         }
     }

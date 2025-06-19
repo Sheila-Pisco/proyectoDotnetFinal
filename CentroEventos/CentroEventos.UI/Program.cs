@@ -26,10 +26,11 @@ context.Usuarios.Add(new Usuario("Juan", "Perez", "juanP@gmail", "123456", new L
                         Permiso.ReservaAlta, Permiso.ReservaBaja, Permiso.ReservaModificacion,
                         Permiso.UsuarioAlta,Permiso.UsuarioBaja, Permiso.UsuarioModificacion,
                         Permiso.PersonaAlta,Permiso.PersonaBaja,Permiso.PersonaModificacion }));
-context.Usuarios.Add(new Usuario("Luciana", "Aimar", "luA@gmail", "234567", new List<Permiso> { }));
+/*context.Usuarios.Add(new Usuario("Luciana", "Aimar", "luA@gmail", "234567", new List<Permiso> { }));
 context.Usuarios.Add(new Usuario("Paula", "Pareto", "pauP@gmail", "345678", new List<Permiso> { Permiso.EventoBaja }));
 context.Usuarios.Add(new Usuario("Leonel", "Messi", "leoM@gmail", "456789", new List<Permiso> { }));
-context.Usuarios.Add(new Usuario("Soledad", "Silveira", "soleS@gmail", "567891", new List<Permiso> {  }));
+context.Usuarios.Add(new Usuario("Soledad", "Silveira", "soleS@gmail", "567891", new List<Permiso> { }));
+*/
 
 context.Reservas.Add(new Reserva(3, 1, new DateTime(2025, 1, 1), Estado.Pendiente));
 
@@ -54,6 +55,7 @@ builder.Services.AddTransient<UsuarioModificacionesUseCase>();
 builder.Services.AddTransient<UsuarioListarUseCase>();
 builder.Services.AddTransient<ValidadorUsuario>();
 builder.Services.AddTransient<UsuarioObtenerUseCase>();
+builder.Services.AddTransient<UsuarioRegistrarUseCase>();
 builder.Services.AddTransient<IRepositorioUsuario, RepositorioUsuario>();
 
 builder.Services.AddTransient<EventoDeportivoAltaUseCase>();
@@ -82,7 +84,7 @@ builder.Services.AddTransient<IRepositorioReserva, RepositorioReserva>();
 
 builder.Services.AddTransient<CentroEventoContext>();
 builder.Services.AddTransient<IServicioAutorizacion, ServicioAutorizacion>();
-builder.Services.AddScoped<IServicioLogin, ServicioLogin>();
+builder.Services.AddScoped<CentroEventos.Aplicacion.Servicio_Login.ServicioLogin>();
 
 var app = builder.Build();
 

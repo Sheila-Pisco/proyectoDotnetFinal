@@ -1,10 +1,14 @@
 @page "/"
 @rendermode InteractiveServer
 @inject ServicioLogin servicioLogin
+@inject NavigationManager navegador
+@inject UsuarioRegistrarUseCase usuarioRegistrarUseCase
+@inject UsuarioObtenerUseCase usuarioObtenerUseCase
 
 
 <h1>Centro Deportivo Universitario</h1>
-@if(ok){
+
+     @if(!visible){
     <div class="container-fluid justify-content-center align-items-center min-vh-100 p-5" style="max-width: 900px;">
     <div class="text-center border p-4 rounded shadow-sm bg-light" >
         <div class="mb-3">
@@ -12,11 +16,13 @@
             <input placeholder="Contraseña" @bind="_Contraseña" class="form-control w-70 mb-2">
         </div>
         <button class="btn btn-outline-info mb-2" @onclick="()=>InicioSesion(_Email,_Contraseña)">Iniciar Sesion</button>
+        <button class="btn btn-outline-primary mb-2" @onclick="()=>Registrar()"> Registrar</button>
     </div>
-        <!-- #registar  -->
+       
     </div>
-}else{
-    <div div class="container-fluid justify-content-center align-items-center min-vh-100 p-5" style="max-width: 900px;">
+    }else
+        {
+        <div div class="container-fluid justify-content-center align-items-center min-vh-100 p-5" style="max-width: 900px;">
         <div class="text-center border p-4 rounded shadow-sm bg-light" >
             <div class="mb-3">
                 <input placeholder="Nombre" @bind="_usuarioAct.Nombre" class="form-control w-70 mb-2 ">
@@ -24,25 +30,35 @@
                 <input placeholder="Email" @bind="_usuarioAct.Email" class="form-control w-70 mb-2">
                 <input placeholder="Contraseña" @bind="_usuarioAct.Contraseña" class="form-control w-70 mb-2">
             </div>
+               <button class="btn btn-outline-primary" @onclick="()=>RegistrarUsuario(_usuarioAct)"> Registrar</button>
         </div>
     </div>
-}
-
-<button class="btn btn-outline-primary" @onclick="()=>RegistarUsuario()"> Registarse</button>
+    }
 
 @code{
     Usuario _usuarioAct=null!;
     string _Email= string.Empty;
     string _Contraseña = string.Empty;
-
-    bool ok=true;
-    public void InicioSesion(string email, string contraseña){
-        
-
+    
+    public bool visible = false;
+    public void InicioSesion(string email, string contraseña)
+    {   
         _usuarioAct= servicioLogin.RecuperarUsuario(email,contraseña);
-        
+        navegador.NavigateTo($"home");
     }
-    public void RegistarUsuario(){
-        ok=false;
+    public void Registrar()
+    {
+        _usuarioAct = new Usuario();
+        visible = true;
+        StateHasChanged(); //fuerza el render
+    }
+    public void RegistrarUsuario(Usuario usuario){
+        
+        usuarioRegistrarUseCase.Ejecutar(usuario,true);/// se le asigna un ID al usuario nuevo
+        _usuarioAct= usuarioObtenerUseCase.Ejecutar(usuario.Id); // Se recupera al usuario
+
+        servicioLogin.AlmacenarUsuario(_usuarioAct); //se almacena en el scoped el usuario
+
+        navegador.NavigateTo("home");
     }
 }   

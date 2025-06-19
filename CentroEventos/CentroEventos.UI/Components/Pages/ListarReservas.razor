@@ -3,6 +3,7 @@
 @inject ReservaListarUseCase ReservaListarUseCase
 @inject ReservaModificacionUseCase ReservaModificacionUseCase
 @inject ReservaBajaUseCase ReservaBajaUseCase
+@inject ServicioLogin servicioLogin
 @inject NavigationManager Navegador
 
 <h3>Listado Reservas</h3>
@@ -63,7 +64,7 @@
     {
         if(_EliminarReserva != null)
         {
-            ReservaBajaUseCase.Ejecutar(_EliminarReserva.Id,1);
+            ReservaBajaUseCase.Ejecutar(_EliminarReserva.Id, servicioLogin.User.Id);
             _lista = ReservaListarUseCase.Ejecutar(); //Se actualiza la lista de eventos
         }
     }

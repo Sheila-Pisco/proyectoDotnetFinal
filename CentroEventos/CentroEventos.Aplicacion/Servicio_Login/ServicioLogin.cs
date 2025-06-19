@@ -7,13 +7,15 @@ namespace CentroEventos.Aplicacion.Servicio_Login;
 
 public class ServicioLogin(IRepositorioUsuario repoU) : IServicioLogin
 {
-    public void RegistrarUsuario(Usuario usuario)
+    public Usuario? User { get; set; } 
+    public void AlmacenarUsuario(Usuario usuario)
     {
-        repoU.AgregarUsuario(usuario);
+        User = usuario;
     }
     public Usuario RecuperarUsuario(string email, string contraseña)
     {
         //chequear que mail sea valido con try catch y la contraseña hacerle un hash 
-        return repoU.BuscarUsuarioPorEmailyHash(email,contraseña);
+        User = repoU.BuscarUsuarioPorEmailyHash(email, contraseña);
+        return User;
     }
 }

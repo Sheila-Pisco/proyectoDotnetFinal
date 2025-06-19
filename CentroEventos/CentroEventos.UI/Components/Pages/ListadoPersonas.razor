@@ -4,6 +4,7 @@
 @inject NavigationManager Navegador
 @inject PersonaListarUseCase personaListarUseCase
 @inject PersonaBajaUseCase personaBajaUseCase
+@inject ServicioLogin servicioLogin
 
 <h2>Listado de Personas</h2>
 
@@ -61,7 +62,7 @@
     private void Eliminar(){
         
         if(personaElim != null){
-            personaBajaUseCase.Ejecutar(personaElim.Id, 1);
+            personaBajaUseCase.Ejecutar(personaElim.Id,  servicioLogin.User.Id);
             _listaper = personaListarUseCase.Ejecutar();
         }
         
