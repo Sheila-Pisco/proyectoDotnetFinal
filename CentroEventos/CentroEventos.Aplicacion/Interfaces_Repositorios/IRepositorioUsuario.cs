@@ -12,5 +12,6 @@ public interface IRepositorioUsuario
     public void ModificarUsuario(Usuario usuario);
     public Usuario ObtenerUsuario(int id_Usuario);
     public bool BuscarPermiso(int Id_Usuario, Permiso permiso);
+    public Usuario BuscarUsuarioPorEmailyHash(string email, string codigoHash);
     
 }

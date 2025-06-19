@@ -10,27 +10,27 @@
 <div class="table-responsive-lg">
   <table class="table">
     <thead>
-        <tr class="table-info">
-            <th >#</th>
+        <tr>
+            <th>#</th>
             <th>DNI</th>
-            <th> Nombre</th>
+            <th>Nombre</th>
             <th>Apellido</th>
-            <th> Email</th>
-            <th> Telefono</th>
+            <th>Email</th>
+            <th>Telefono</th>
             <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
         @foreach(var persona in _listaper ?? new List<Persona>())
         {
-            <tr class="table-info">
+            <tr>
                 <td> @persona.Id </td>
                 <td>@persona.Dni</td>
                 <td>@persona.Nombre</td>
                 <td>@persona.Apellido</td>
                 <td>@persona.Email</td>
                 <td>@persona.Telefono</td>
-                <td class="button-container">    
+                <td>    
                     <button class="btn btn-primary" @onclick="()=>ModificarPersona(persona)">Editar</button>
                     <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(persona)">Eliminar</button>          
                 </td>

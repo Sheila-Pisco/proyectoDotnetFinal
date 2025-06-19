@@ -10,7 +10,7 @@
 <div class="table-responsive-lg">
   <table class="table">
     <thead>
-        <tr class="table-info">
+        <tr>
             <th>#</th>
             <th>Nombre</th>
             <th>Apellido</th>
@@ -21,7 +21,7 @@
     </thead>
     <tbody>
         @foreach(var usuario in listaus ){
-            <tr class="table-info">
+            <tr>
                 <td>@usuario.Id </td>
                 <td>@usuario.Nombre</td>
                 <td>@usuario.Apellido</td>
@@ -31,7 +31,7 @@
                         <div>@permiso</div>
                     }
                 </td>
-                <td class="button-container">    
+                <td>    
                         <button class="btn btn-primary" @onclick="()=>ModificarUsuario(usuario)">Editar</button>
                         <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(usuario)">Eliminar</button>          
                 </td>

@@ -14,20 +14,20 @@ public class RepositorioUsuario : IRepositorioUsuario
     {
         _context = context;
     }
-public void AgregarUsuario(Usuario usuario)
-{
-    var existe = _context.Usuarios.Any(u => u.Email == usuario.Email);
-    if (!existe)
+    public void AgregarUsuario(Usuario usuario)
     {
-        _context.Usuarios.Add(usuario);
-        _context.SaveChanges();
-        Console.WriteLine("Usuario Agregado con Éxito");
+        var existe = _context.Usuarios.Any(u => u.Email == usuario.Email);
+        if (!existe)
+        {
+            _context.Usuarios.Add(usuario);
+            _context.SaveChanges();
+            Console.WriteLine("Usuario Agregado con Éxito");
+        }
+        else
+        {
+            Console.WriteLine("El usuario ya existe");
+        }
     }
-    else
-    {
-        Console.WriteLine("El usuario ya existe");
-    }
-}
 
     public void EliminarUsuario(int id)
     {
@@ -67,5 +67,15 @@ public void AgregarUsuario(Usuario usuario)
     {
         var usuario = ObtenerUsuario(id_Usuario);
         return usuario?.Permisos != null && usuario.Permisos.Contains(permiso);
+    }
+
+    public Usuario BuscarUsuarioPorEmailyHash(string email, string codigoHash)
+    {
+        var usu = _context.Usuarios.Find(email);
+        if (usu == null || usu.Contraseña != codigoHash)
+        {
+            throw new EntidadNotFoundException("Usuario no encontrado. Contraseña o Email incorrectos.");
+        }
+        return usu; 
     }
 }
