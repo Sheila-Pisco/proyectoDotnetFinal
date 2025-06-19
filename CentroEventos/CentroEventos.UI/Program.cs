@@ -7,6 +7,7 @@ using CentroEventos.UI.Components;
 using CentroEventos.Aplicacion.Interfaces_Otros_Servicios;
 using CentroEventos.Aplicacion.Validadores;
 using CentroEventos.Aplicacion.Servicio_Autorizacion;
+using CentroEventos.Aplicacion.Servicio_Login;
 
 //Inicializa la base de datos:
 CentroEventosSqlite.Inicializar(); //solo tiene efecto si la base de datos no existe
@@ -81,7 +82,7 @@ builder.Services.AddTransient<IRepositorioReserva, RepositorioReserva>();
 
 builder.Services.AddTransient<CentroEventoContext>();
 builder.Services.AddTransient<IServicioAutorizacion, ServicioAutorizacion>();
-builder.Services.AddTransient<IServicioLogin, ServicioLogin>();
+builder.Services.AddScoped<IServicioLogin, ServicioLogin>();
 
 var app = builder.Build();
 
@@ -98,3 +99,4 @@ app.Run();
 
 
 
+ 

@@ -15,6 +15,7 @@
             <th>Id Eventos Deportivo</th> 
             <th>Fecha de alta</th>
             <th>Estado</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -50,7 +51,7 @@
     string _mensajeDialogo = string.Empty;
     private void Editar(Reserva reserva)
     {
-        Navegador.NavigateTo($"listadoreserva/{reserva.Id}");
+        Navegador.NavigateTo($"reserva/{reserva.Id}");
     }
     private void ConfirmarEliminacion(Reserva reserva)
     {
