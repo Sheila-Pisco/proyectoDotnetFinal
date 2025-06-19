@@ -91,10 +91,11 @@ public class RepositorioUsuario : IRepositorioUsuario
         return usuario?.Permisos != null && usuario.Permisos.Contains(permiso);
     }
 
-    public Usuario BuscarUsuarioPorEmailyHash(string email, string codigoHash)
+    public Usuario BuscarUsuarioPorEmailyHash(string email, string contraseña)
     {
-        var usu = _context.Usuarios.Find(email);
-        if (usu == null || usu.Contraseña != codigoHash)
+        string password = HashPassword(contraseña);
+        var usu = _context.Usuarios.Where(e => e.Email == email).FirstOrDefault(); //devuelve el unico valor y devuelve null si no encuentra
+        if (usu == null || usu.Contraseña != password)
         {
             throw new EntidadNotFoundException("Usuario no encontrado. Contraseña o Email incorrectos.");
         }
