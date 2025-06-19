@@ -132,8 +132,8 @@
             </table>
         </div>
         <div class="boton mb-3">
-            <button class="btn btn-primary me-2" @onclick="Aceptar">Aceptar</button>
-            <button class="btn btn-secondary me-2" @onclick="Cancelar">Cancelar</button>
+            <button class="btn btn-outline-success me-2" @onclick="Aceptar">Aceptar</button>
+            <button class="btn btn-outline-secondary me-2" @onclick="Cancelar">Cancelar</button>
         </div>
         
     </div>
@@ -167,9 +167,9 @@
     }
     void Aceptar(){
         if(_esNuevo){
-            UsuarioAltaUseCase.Ejecutar(_usuario,1);
+            UsuarioAltaUseCase.Ejecutar(_usuario,1,true);
         }else{
-            UsuarioModificacionesUseCase.Ejecutar(_usuario,1);
+            UsuarioModificacionesUseCase.Ejecutar(_usuario,1,true);
         }
         _usuario = new Usuario();
         Navegador.NavigateTo("listadousuarios");

@@ -10,13 +10,13 @@ namespace CentroEventos.Aplicacion.Casos_De_Uso;
 
 public class UsuarioAltaUseCase(IRepositorioUsuario repo, IServicioAutorizacion autorizacion, ValidadorUsuario validador)
 {
-     public void Ejecutar(Usuario usuario, int IdUsuario)
+     public void Ejecutar(Usuario usuario, int IdUsuario, bool ok)
      {
          if (!autorizacion.PoseeElPermiso(IdUsuario, Permiso.UsuarioAlta))
          {
              throw new FalloAutorizacionException();  
          }
-         if (!validador.Validador(usuario, out string mensajeError))
+         if (!validador.Validador(usuario, out string mensajeError, ok))
          {
              throw new ValidacionException(mensajeError);
          }
