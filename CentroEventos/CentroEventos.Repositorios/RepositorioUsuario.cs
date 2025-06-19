@@ -90,7 +90,14 @@ public class RepositorioUsuario : IRepositorioUsuario
         var usuario = ObtenerUsuario(id_Usuario);
         return usuario?.Permisos != null && usuario.Permisos.Contains(permiso);
     }
-   
 
-    
+    public Usuario BuscarUsuarioPorEmailyHash(string email, string codigoHash)
+    {
+        var usu = _context.Usuarios.Find(email);
+        if (usu == null || usu.Contraseña != codigoHash)
+        {
+            throw new EntidadNotFoundException("Usuario no encontrado. Contraseña o Email incorrectos.");
+        }
+        return usu; 
+    }
 }

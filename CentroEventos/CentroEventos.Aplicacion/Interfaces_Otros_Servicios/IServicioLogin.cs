@@ -5,5 +5,7 @@ namespace CentroEventos.Aplicacion.Interfaces_Otros_Servicios;
 
 public interface IServicioLogin
 {
-    public void AlmacenarUsuario(Usuario usuario);
+    public void RegistrarUsuario(Usuario usuario);
+    public Usuario RecuperarUsuario(string email, string contraseña);
+
 }
