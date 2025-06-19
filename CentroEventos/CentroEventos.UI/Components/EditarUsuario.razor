@@ -18,6 +18,7 @@
             <input placeholder="Nombre" @bind="_usuario.Nombre" class="form-control w-70 mb-2 ">
             <input placeholder="Apellido" @bind="_usuario.Apellido" class="form-control w-70 mb-2">
             <input placeholder="Email" @bind="_usuario.Email" class="form-control w-70 mb-2">
+            <input placeholder="Contraseña" @bind="_usuario.Contraseña" class="form-control w-70 mb-2">
             <table style="margin-top: 25px;" class="table">
                 <thead>
                     <td colspan="3">Permisos</td>
@@ -131,8 +132,8 @@
             </table>
         </div>
         <div class="boton mb-3">
-            <button class="btn btn-primary me-2" @onclick="Aceptar">Aceptar</button>
-            <button class="btn btn-secondary me-2" @onclick="Cancelar">Cancelar</button>
+            <button class="btn btn-outline-success me-2" @onclick="Aceptar">Aceptar</button>
+            <button class="btn btn-outline-secondary me-2" @onclick="Cancelar">Cancelar</button>
         </div>
         
     </div>
@@ -166,9 +167,9 @@
     }
     void Aceptar(){
         if(_esNuevo){
-            UsuarioAltaUseCase.Ejecutar(_usuario,1);
+            UsuarioAltaUseCase.Ejecutar(_usuario,1,true);
         }else{
-            UsuarioModificacionesUseCase.Ejecutar(_usuario,1);
+            UsuarioModificacionesUseCase.Ejecutar(_usuario,1,true);
         }
         _usuario = new Usuario();
         Navegador.NavigateTo("listadousuarios");

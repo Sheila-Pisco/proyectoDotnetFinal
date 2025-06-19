@@ -6,11 +6,11 @@
 @inject NavigationManager Navegador
 
 <h2>Listado de Usuarios</h2>
-<DialogoConfirmacion @ref="dialogo" OnConfirmado="Eliminar"/>
+<DialogoConfirmacion @ref="dialogo" OnConfirmado="Eliminar" Mensaje="@Mensaje"/>
 <div class="table-responsive-lg">
   <table class="table">
     <thead>
-        <tr class="table-info">
+        <tr>
             <th>#</th>
             <th>Nombre</th>
             <th>Apellido</th>
@@ -21,7 +21,7 @@
     </thead>
     <tbody>
         @foreach(var usuario in listaus ){
-            <tr class="table-info">
+            <tr>
                 <td>@usuario.Id </td>
                 <td>@usuario.Nombre</td>
                 <td>@usuario.Apellido</td>
@@ -31,9 +31,11 @@
                         <div>@permiso</div>
                     }
                 </td>
+
                 <td class="button-container">    
-                        <button class="btn btn-primary" @onclick="()=>ModificarUsuario(usuario)">Editar</button>
-                        <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(usuario)">Eliminar</button>          
+                        <button class="btn btn-outline-primary" @onclick="()=>ModificarUsuario(usuario)">Editar</button>
+                        <button class="btn btn-outline-danger" @onclick="()=>ConfirmarEliminacion(usuario)">Eliminar</button>          
+
                 </td>
             </tr>
         }
@@ -48,10 +50,11 @@
     }
     DialogoConfirmacion dialogo =null!;
     Usuario? _usEliminar = null;
+    string Mensaje=string.Empty;
     private void ConfirmarEliminacion(Usuario usuario){
         
         _usEliminar = usuario;
-        dialogo.Mensaje = $"Desea Eliminar al usuario {usuario.Nombre} {usuario.Apellido }?";
+        Mensaje = $"Desea Eliminar al usuario {usuario.Nombre} {usuario.Apellido }?";
         dialogo.Mostrar();
     }
     private void Eliminar(){

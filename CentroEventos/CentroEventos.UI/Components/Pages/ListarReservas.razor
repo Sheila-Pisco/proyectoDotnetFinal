@@ -15,6 +15,7 @@
             <th>Id Eventos Deportivo</th> 
             <th>Fecha de alta</th>
             <th>Estado</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -27,9 +28,9 @@
                 <td>@reserva.FechaAltaReserva</td>
                 <td>@reserva.EstadoAsistencia</td>
                 <td>
-                    <button class="btn btn-primary" @onclick="()=>Editar(reserva)">Editar</button>
+                    <button class="btn btn-outline-primary" @onclick="()=>Editar(reserva)">Editar</button>
 
-                    <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(reserva)">Eliminar</button>
+                    <button class="btn btn-outline-danger" @onclick="()=>ConfirmarEliminacion(reserva)">Eliminar</button>
                     <DialogoConfirmacion @ref=dialogo OnConfirmado="Eliminar" Mensaje="@_mensajeDialogo"/>
 
                 </td>
@@ -50,7 +51,7 @@
     string _mensajeDialogo = string.Empty;
     private void Editar(Reserva reserva)
     {
-        Navegador.NavigateTo($"listadoreserva/{reserva.Id}");
+        Navegador.NavigateTo($"reserva/{reserva.Id}");
     }
     private void ConfirmarEliminacion(Reserva reserva)
     {

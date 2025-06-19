@@ -6,33 +6,36 @@
 @inject PersonaBajaUseCase personaBajaUseCase
 
 <h2>Listado de Personas</h2>
-<DialogoConfirmacion @ref="dialogo" OnConfirmado="Eliminar"/>
+
 <div class="table-responsive-lg">
   <table class="table">
     <thead>
-        <tr class="table-info">
-            <th >#</th>
+        <tr>
+            <th>#</th>
             <th>DNI</th>
-            <th> Nombre</th>
+            <th>Nombre</th>
             <th>Apellido</th>
-            <th> Email</th>
-            <th> Telefono</th>
+            <th>Email</th>
+            <th>Telefono</th>
             <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
         @foreach(var persona in _listaper ?? new List<Persona>())
         {
-            <tr class="table-info">
+            <tr>
                 <td> @persona.Id </td>
                 <td>@persona.Dni</td>
                 <td>@persona.Nombre</td>
                 <td>@persona.Apellido</td>
                 <td>@persona.Email</td>
                 <td>@persona.Telefono</td>
+
                 <td class="button-container">    
-                    <button class="btn btn-primary" @onclick="()=>ModificarPersona(persona)">Editar</button>
-                    <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(persona)">Eliminar</button>          
+                    <button class="btn btn-outline-primary" @onclick="()=>ModificarPersona(persona)">Editar</button>
+                    <button class="btn btn-outline-danger" @onclick="()=>ConfirmarEliminacion(persona)">Eliminar</button>
+
+                    <DialogoConfirmacion @ref="dialogo" OnConfirmado="Eliminar" Mensaje="@_mensaje"/>          
                 </td>
             </tr>
         }
@@ -46,16 +49,13 @@
     }
     DialogoConfirmacion dialogo = null!;
     Persona? personaElim = null;
+    string _mensaje = string.Empty;
     
     private void ConfirmarEliminacion(Persona persona){
 
-       if (dialogo == null)
-        {
-            Console.WriteLine("DialogoConfirmacion no está inicializado todavía.");
-            return;
-        }
         personaElim = persona;
-        dialogo.Mensaje = $"¿Seguro que desea eliminar a {persona.Nombre} {persona.Apellido}?";
+        _mensaje= $"¿Seguro que desea eliminar a {persona.Nombre} {persona.Apellido}?" ;
+        
         dialogo.Mostrar();
     }
     private void Eliminar(){

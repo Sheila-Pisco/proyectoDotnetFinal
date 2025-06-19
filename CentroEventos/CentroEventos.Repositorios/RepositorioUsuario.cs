@@ -3,6 +3,8 @@ using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Interfaces_Repositorios;
 using CentroEventos.Aplicacion.Excepciones_Personalizadas;
 using CentroEventos.Aplicacion.Enumerativos;
+using System.Security.Cryptography;
+using System.Text;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace CentroEventos.Repositorios;
@@ -14,11 +16,31 @@ public class RepositorioUsuario : IRepositorioUsuario
     {
         _context = context;
     }
+
+    private static string HashPassword(string password)
+    {
+        using (SHA256 sha256 = SHA256.Create())
+        {
+            // Convertir la cadena en un array de bytes
+            byte[] bytes = Encoding.UTF8.GetBytes(password);
+            // Calcular el hash
+            byte[] hashBytes = sha256.ComputeHash(bytes);
+            // Convertir el hash a una cadena hexadecimal
+            StringBuilder sb = new StringBuilder();
+            foreach (var b in hashBytes)
+            {
+                sb.Append(b.ToString("x2"));
+            }
+            return sb.ToString();
+        }
+    }
     public void AgregarUsuario(Usuario usuario)
     {
+        string hashedPassword = HashPassword(usuario.Contraseña!);
         var existe = _context.Usuarios.Any(u => u.Email == usuario.Email); //si la persona se quiere registrar con un mail que esta regustrado no lo va a dejar
         if (!existe)
         {
+            usuario.Contraseña = hashedPassword;
             _context.Usuarios.Add(usuario);
             _context.SaveChanges();
             Console.WriteLine("Usuario Agregado con Éxito");
@@ -68,5 +90,14 @@ public class RepositorioUsuario : IRepositorioUsuario
         var usuario = ObtenerUsuario(id_Usuario);
         return usuario?.Permisos != null && usuario.Permisos.Contains(permiso);
     }
-    
+
+    public Usuario BuscarUsuarioPorEmailyHash(string email, string codigoHash)
+    {
+        var usu = _context.Usuarios.Find(email);
+        if (usu == null || usu.Contraseña != codigoHash)
+        {
+            throw new EntidadNotFoundException("Usuario no encontrado. Contraseña o Email incorrectos.");
+        }
+        return usu; 
+    }
 }

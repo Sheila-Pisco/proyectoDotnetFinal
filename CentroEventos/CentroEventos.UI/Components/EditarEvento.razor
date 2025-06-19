@@ -7,20 +7,30 @@
 
 @if(_esNuevoEvento)
 {
-    <h3>Agregando un nuevo Evento Deportivo</h3>
+    <h3 class="mx-auto" style="width: fit-content;">Agregar Evento Deportivo</h3>
 }
 else 
 {
-    <h3>Modificando el Evento Deportivo "@_evento.Nombre"</h3>
+    <h3 class="mx-auto" style="width: fit-content;">Modificar Evento Deportivo "@_evento.Nombre"</h3>
 }
 
-<input placeholder="Nombre" @bind="_evento.Nombre" class="form-control"> 
-<input placeholder="Descripcion" @bind="_evento.Descripcion" class="form-control">
-<input placeholder="Fecha y hora de inicio" @bind="_evento.FechaHoraInicio" class="form-control"> 
-<input placeholder="Duración (horas)" @bind="_evento.DuracionHoras" class="form-control"> 
-<input placeholder="Cupo máximo" @bind="_evento.CupoMaximo" class="form-control"> 
-<input placeholder="Id del reponsable" @bind="_evento.ResponsableId" class="form-control">  
-<button class="btn btn-primary" @onclick="Aceptar">Aceptar</button>
+<div class="container-fluid justify-content-center align-items-center min-vh-100 p-5" style="max-width: 900px;">
+    <div class="text-center border p-4 rounded shadow-sm bg-light" >
+        <div class="mb-3">
+            <input placeholder="Nombre" @bind="_evento.Nombre" class="form-control"> 
+            <input placeholder="Descripcion" @bind="_evento.Descripcion" class="form-control">
+            <input placeholder="Fecha y hora de inicio" @bind="_evento.FechaHoraInicio" class="form-control"> 
+            <input placeholder="Duración (horas)" @bind="_evento.DuracionHoras" class="form-control"> 
+            <input placeholder="Cupo máximo" @bind="_evento.CupoMaximo" class="form-control"> 
+            <input placeholder="Id del reponsable" @bind="_evento.ResponsableId" class="form-control">  
+        </div>
+        <div class="boton mb-3">
+            <button class="btn btn-outline-success" @onclick="Aceptar">Aceptar</button>
+            <button class="btn btn-outline-secondary me-2" @onclick="Cancelar">Cancelar</button>
+        </div>
+    </div>
+</div>
+
 
 @code {
     EventoDeportivo _evento = new EventoDeportivo();
@@ -62,6 +72,8 @@ else
         _evento = new EventoDeportivo();
         Navegador.NavigateTo("listadoeventos");
     }
-    
+    void Cancelar(){
+        Navegador.NavigateTo("/");
+    }
 
 }

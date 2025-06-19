@@ -20,8 +20,8 @@
             <input placeholder="Telefono" @bind="_persona.Telefono" class="form-control w-70 mb-2">
         </div>
         <div class="boton mb-3">
-            <button class="btn btn-primary me-2" @onclick="Aceptar">Aceptar</button>
-            <button class="btn btn-secondary me-2" @onclick="Cancelar">Cancelar</button>
+            <button class="btn btn-outline-success me-2" @onclick="Aceptar">Aceptar</button>
+            <button class="btn btn-outline-secondary me-2" @onclick="Cancelar">Cancelar</button>
         </div>
         
     </div>
@@ -33,17 +33,15 @@
     [Parameter] public int? Id {get;set;}
     bool nueva= true;
     protected override void OnParametersSet(){
-            if (Id != null)
+        if (Id != null)
+        {
+            var perObt = personaObtenerUseCase.Ejecutar(Id.Value);
+            if (perObt != null)
             {
-                var perObt = personaObtenerUseCase.Ejecutar(Id.Value);
-                if (perObt != null)
-                {
-                    _persona = perObt;
-                    nueva = false;
-                }
+                _persona = perObt;
+                nueva = false;
             }
-        
-    
+        }
     }
     void Aceptar(){
         if(nueva){
