@@ -21,24 +21,16 @@ context.EventosDeportivos.Add(new EventoDeportivo("Funcional", "Desafío", new D
 context.EventosDeportivos.Add(new EventoDeportivo("G.A.P", "Movimiento", new DateTime(2025, 9, 1), 1.5, 20, 5));
 context.EventosDeportivos.Add(new EventoDeportivo("Judo", "Lucha", new DateTime(2025, 8, 9), 1.5, 10, 6));
 
-/*context.Usuarios.Add(new Usuario("Juan", "Perez", "juanP@gmail", "123456", new List<Permiso> 
-                        { Permiso.EventoAlta, Permiso.EventoBaja, Permiso.EventoModificacion,
-                        Permiso.ReservaAlta, Permiso.ReservaBaja, Permiso.ReservaModificacion,
-                        Permiso.UsuarioAlta,Permiso.UsuarioBaja, Permiso.UsuarioModificacion,
-                        Permiso.PersonaAlta,Permiso.PersonaBaja,Permiso.PersonaModificacion }));
-context.Usuarios.Add(new Usuario("Luciana", "Aimar", "luA@gmail", "234567", new List<Permiso> { }));
-context.Usuarios.Add(new Usuario("Paula", "Pareto", "pauP@gmail", "345678", new List<Permiso> { Permiso.EventoBaja }));
-context.Usuarios.Add(new Usuario("Leonel", "Messi", "leoM@gmail", "456789", new List<Permiso> { }));
-context.Usuarios.Add(new Usuario("Soledad", "Silveira", "soleS@gmail", "567891", new List<Permiso> { }));
-*/
-
-context.Reservas.Add(new Reserva(3, 1, new DateTime(2025, 1, 1), Estado.Pendiente));
+context.Reservas.Add(new Reserva(3, 1, DateTime.Now, Estado.Pendiente));
+context.Reservas.Add(new Reserva(2, 3, DateTime.Now, Estado.Pendiente));
+context.Reservas.Add(new Reserva(2, 2, DateTime.Now, Estado.Pendiente));
+context.Reservas.Add(new Reserva(4, 3, DateTime.Now, Estado.Pendiente));
+context.Reservas.Add(new Reserva(3, 1, DateTime.Now, Estado.Pendiente));
 
 context.Personas.Add(new Persona("123456", "Jota", "Paula", "jotaP@gmail", "221567890"));
 context.Personas.Add(new Persona("15870", "Jurez", "Paola", "janjiP@gmail", "111594420"));
 context.Personas.Add(new Persona("233569", "Ceballo", "Julia", "taPbh@gmail", "157896290"));
 context.Personas.Add(new Persona("785426","Jota", "Paula", "jotaP@gmail", "221567890") );
-
 
 context.SaveChanges();
 
@@ -84,7 +76,7 @@ builder.Services.AddTransient<IRepositorioReserva, RepositorioReserva>();
 
 builder.Services.AddTransient<CentroEventoContext>();
 builder.Services.AddTransient<IServicioAutorizacion, ServicioAutorizacion>();
-builder.Services.AddScoped<CentroEventos.Aplicacion.Servicio_Login.ServicioLogin>();
+builder.Services.AddScoped<ServicioLogin>();
 
 var app = builder.Build();
 
