@@ -33,11 +33,13 @@
                     }
                 </td>
 
-                <td>   
-                    <button class="btn btn-outline-primary" @onclick="()=>ModificarUsuario(usuario)">Editar</button>
-                    <button class="btn btn-outline-danger" @onclick="()=>ConfirmarEliminacion(usuario)">Eliminar</button>          
-
-                </td>
+                @if(servicioLogin.User.Permisos.Contains(Permiso.EventoModificacion)) {   
+                    <td><button class="btn btn-outline-primary" @onclick="()=>ModificarUsuario(usuario)">Editar</button></td>
+                }
+                @if(servicioLogin.User.Permisos.Contains(Permiso.EventoBaja)){    
+                    <td><button class="btn btn-outline-danger" @onclick="()=>ConfirmarEliminacion(usuario)">Eliminar</button></td>          
+                }
+                
             </tr>
         }
     </tbody>
