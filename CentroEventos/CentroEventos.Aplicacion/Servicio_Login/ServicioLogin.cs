@@ -7,7 +7,7 @@ namespace CentroEventos.Aplicacion.Servicio_Login;
 
 public class ServicioLogin(IRepositorioUsuario repoU) : IServicioLogin
 {
-    public Usuario? User { get; set; } 
+    public Usuario User { get; set; } = new Usuario(); 
     public void AlmacenarUsuario(Usuario usuario)
     {
         User = usuario;

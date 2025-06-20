@@ -37,7 +37,12 @@ public class RepositorioUsuario : IRepositorioUsuario
     }
     public void AgregarUsuario(Usuario usuario)
     {
+        if (_context.Usuarios.Count() == 0)
+        {
+            usuario.Permisos = [.. Enum.GetValues<Permiso>()];
+        }
         string hashedPassword = HashPassword(usuario.Contraseña!);
+
         var existe = _context.Usuarios.Any(u => u.Email == usuario.Email); //si la persona se quiere registrar con un mail que esta regustrado no lo va a dejar
         if (!existe)
         {

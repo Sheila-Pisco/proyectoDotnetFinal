@@ -20,11 +20,13 @@
             <input placeholder="Email" @bind="_persona.Email" class="form-control w-70 mb-2">
             <input placeholder="Telefono" @bind="_persona.Telefono" class="form-control w-70 mb-2">
         </div>
-        <div class="boton mb-3">
-            <button class="btn btn-outline-success me-2" @onclick="Aceptar">Aceptar</button>
-            <button class="btn btn-outline-secondary me-2" @onclick="Cancelar">Cancelar</button>
-        </div>
-        
+        @if((nueva && servicioLogin.User.Permisos.Contains(Permiso.PersonaAlta)) || (!nueva && servicioLogin.User.Permisos.Contains(Permiso.PersonaModificacion))){
+
+            <div class="boton mb-3">
+                <button class="btn btn-outline-success me-2" @onclick="Aceptar">Aceptar</button>
+                <button class="btn btn-outline-secondary me-2" @onclick="Cancelar">Cancelar</button>
+            </div>
+        }
     </div>
 </div>
 

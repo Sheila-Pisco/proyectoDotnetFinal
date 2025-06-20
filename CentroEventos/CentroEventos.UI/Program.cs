@@ -21,12 +21,12 @@ context.EventosDeportivos.Add(new EventoDeportivo("Funcional", "Desafío", new D
 context.EventosDeportivos.Add(new EventoDeportivo("G.A.P", "Movimiento", new DateTime(2025, 9, 1), 1.5, 20, 5));
 context.EventosDeportivos.Add(new EventoDeportivo("Judo", "Lucha", new DateTime(2025, 8, 9), 1.5, 10, 6));
 
-context.Usuarios.Add(new Usuario("Juan", "Perez", "juanP@gmail", "123456", new List<Permiso> 
+/*context.Usuarios.Add(new Usuario("Juan", "Perez", "juanP@gmail", "123456", new List<Permiso> 
                         { Permiso.EventoAlta, Permiso.EventoBaja, Permiso.EventoModificacion,
                         Permiso.ReservaAlta, Permiso.ReservaBaja, Permiso.ReservaModificacion,
                         Permiso.UsuarioAlta,Permiso.UsuarioBaja, Permiso.UsuarioModificacion,
                         Permiso.PersonaAlta,Permiso.PersonaBaja,Permiso.PersonaModificacion }));
-/*context.Usuarios.Add(new Usuario("Luciana", "Aimar", "luA@gmail", "234567", new List<Permiso> { }));
+context.Usuarios.Add(new Usuario("Luciana", "Aimar", "luA@gmail", "234567", new List<Permiso> { }));
 context.Usuarios.Add(new Usuario("Paula", "Pareto", "pauP@gmail", "345678", new List<Permiso> { Permiso.EventoBaja }));
 context.Usuarios.Add(new Usuario("Leonel", "Messi", "leoM@gmail", "456789", new List<Permiso> { }));
 context.Usuarios.Add(new Usuario("Soledad", "Silveira", "soleS@gmail", "567891", new List<Permiso> { }));

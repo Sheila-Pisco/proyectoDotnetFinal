@@ -1,4 +1,4 @@
-@page "/"
+@page "/login"
 @rendermode InteractiveServer
 @inject ServicioLogin servicioLogin
 @inject NavigationManager navegador
@@ -44,7 +44,7 @@
     public void InicioSesion(string email, string contraseña)
     {   
         _usuarioAct= servicioLogin.RecuperarUsuario(email,contraseña);
-        navegador.NavigateTo($"home");
+        navegador.NavigateTo("listadousuarios");
     }
     public void Registrar()
     {
@@ -53,12 +53,12 @@
         StateHasChanged(); //fuerza el render
     }
     public void RegistrarUsuario(Usuario usuario){
-        
-        usuarioRegistrarUseCase.Ejecutar(usuario,true);/// se le asigna un ID al usuario nuevo
-        _usuarioAct= usuarioObtenerUseCase.Ejecutar(usuario.Id); // Se recupera al usuario
 
-        servicioLogin.AlmacenarUsuario(_usuarioAct); //se almacena en el scoped el usuario
+        string email = usuario.Email ?? string.Empty;
+        string contraseña = usuario.Contraseña ?? string.Empty;
 
-        navegador.NavigateTo("home");
+        usuarioRegistrarUseCase.Ejecutar(usuario,true); // carga al nuevo usuario en la base de datos
+        _usuarioAct= servicioLogin.RecuperarUsuario(email,contraseña); //se recupera el usuario
+        navegador.NavigateTo("listadousuarios");
     }
 }   

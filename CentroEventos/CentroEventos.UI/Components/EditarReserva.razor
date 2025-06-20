@@ -19,11 +19,12 @@
             <input placeholder="Estado (Pendiente/Presente/Ausente)" @bind="_reserva.EstadoAsistencia" class="form-control w-70 mb-2">
             <input placeholder="Fecha" @bind="_reserva.FechaAltaReserva" class="form-control w-70 mb-2">
         </div>
-        <div class="boton mb-3">
-            <button class="btn btn-outline-success me-2" @onclick="Aceptar">Aceptar</button>
-            <button class="btn btn-outline-secondary me-2" @onclick="Cancelar">Cancelar</button>
-        </div>
-        
+        @if((nueva && servicioLogin.User.Permisos.Contains(Permiso.ReservaAlta)) || (!nueva && servicioLogin.User.Permisos.Contains(Permiso.ReservaModificacion))){
+            <div class="boton mb-3">
+                <button class="btn btn-outline-success me-2" @onclick="Aceptar">Aceptar</button>
+                <button class="btn btn-outline-secondary me-2" @onclick="Cancelar">Cancelar</button>
+            </div>
+        }
     </div>
 </div>
 
