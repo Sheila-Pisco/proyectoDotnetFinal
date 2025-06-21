@@ -11,16 +11,16 @@ public class ValidadorReserva (IRepositorioReserva repoReserva, IRepositorioPers
 
         if (!repoPersona.ExisteIdPersona(reserva.Persona_id))
         {
-            mensajeError += "No existe persona con id";
+            mensajeError += $"No existe persona con id {reserva.Persona_id}. \n";
         }
         if (repoReserva.ExisteReserva(reserva.Persona_id, reserva.EventoDeportivo_id))
         {
-            mensajeError += "La persona ingresada ya posee una reserva para este evento";
+            mensajeError += "La persona ingresada ya posee una reserva para este evento. \n";
         }
         if (!repoReserva.ExisteCupo(reserva.EventoDeportivo_id))
         {
-            mensajeError += "No hay cupo en este evento";
+            mensajeError += "No hay cupo en este evento. \n";
         }
-        return (mensajeError == "");
+        return mensajeError == "";
     }
 }

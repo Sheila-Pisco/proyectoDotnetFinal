@@ -11,28 +11,27 @@ public class ValidadorUsuario(IRepositorioUsuario repo)
         mensajeError = "";
         if (string.IsNullOrWhiteSpace(usuario.Nombre) )
         {
-            mensajeError += "el campo nombre no puede estar vacio";
+            mensajeError = "El campo Nombre no puede estar vacio. \n";
         }
         if (string.IsNullOrWhiteSpace(usuario.Apellido))
         {
-            mensajeError +="El campo apellido no puede estar vacio";
+            mensajeError +="El campo Apellido no puede estar vacio. \n";
         }
         if (string.IsNullOrWhiteSpace(usuario.Email))
         {
-            mensajeError += "el campo Email no puede estar Vacio";
+            mensajeError += "El campo Email no puede estar Vacio. \n";
         }
         else
         {
             if (repo.ExisteEmail(usuario.Email) && ok)
             {
-                mensajeError += "Email Existente";
+                mensajeError += "Email Existente. \n";
             }
         }
         if (string.IsNullOrWhiteSpace(usuario.Contraseña))
         {
-            mensajeError += "el campo contraseña no puede estar vacio";
+            mensajeError += "El campo contraseña no puede estar vacio. \n";
         }
-        
         return mensajeError == "";
     }
 }
