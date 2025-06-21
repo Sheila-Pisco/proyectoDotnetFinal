@@ -20,22 +20,26 @@
             <input placeholder="Email" @bind="_persona.Email" class="form-control w-70 mb-2">
             <input placeholder="Telefono" @bind="_persona.Telefono" class="form-control w-70 mb-2">
         </div>
-        @if((nueva && servicioLogin.User.Permisos.Contains(Permiso.PersonaAlta)) || (!nueva && servicioLogin.User.Permisos.Contains(Permiso.PersonaModificacion))){
-
+        @if((nueva && servicioLogin.User.Permisos.Contains(Permiso.PersonaAlta)) || (!nueva && servicioLogin.User.Permisos.Contains(Permiso.PersonaModificacion)))
+        {
             <div class="boton mb-3">
                 <button class="btn btn-outline-success me-2" @onclick="Aceptar">Aceptar</button>
                 <button class="btn btn-outline-secondary me-2" @onclick="Cancelar">Cancelar</button>
             </div>
         }
     </div>
+    @if (!string.IsNullOrEmpty(MensajeError)) //muestra el mensaje de error en pantalla
+    {
+        <div class="alert alert-danger" style="marging-top: 10px;">@MensajeError</div>
+    }
 </div>
-
 
 @code{
     Persona _persona = new Persona();
     [Parameter] public int? Id {get;set;}
     bool nueva= true;
-    protected override void OnParametersSet(){
+    protected override void OnParametersSet()
+    {
         if (Id != null)
         {
             var perObt = personaObtenerUseCase.Ejecutar(Id.Value);
@@ -46,17 +50,29 @@
             }
         }
     }
-    void Aceptar(){
-        if(nueva){
-            personaAltaUseCase.Ejecutar(_persona, servicioLogin.User.Id,true);
-
-        }else{
-            personaModificacionUseCase.Ejecutar(_persona, servicioLogin.User.Id,false);
+    string? MensajeError;
+    void Aceptar()
+    {
+        try
+        {
+            if(nueva) {
+                personaAltaUseCase.Ejecutar(_persona, servicioLogin.User.Id,true);
+            }else {
+                personaModificacionUseCase.Ejecutar(_persona, servicioLogin.User.Id,false);
+            }
+            MensajeError = null; //Limpia el mensaje si todo sale bien
+        }
+        catch (Exception ex)
+        {
+            MensajeError = ex.Message; //Guarda el mensaje de error
         }
         _persona = new Persona();
-        Navegador.NavigateTo("listadopersonas");
+        if(MensajeError == null) 
+        {
+            Navegador.NavigateTo("listadopersonas");
+        }
     }
     void Cancelar(){
-        Navegador.NavigateTo("/");
+        Navegador.NavigateTo("listadopersonas");
     }
 }
