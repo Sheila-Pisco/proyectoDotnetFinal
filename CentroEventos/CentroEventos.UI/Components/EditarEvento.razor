@@ -32,8 +32,11 @@ else
             </div>
         }
     </div>
+    @if (!string.IsNullOrEmpty(MensajeError)) //muestra el mensaje de error en pantalla
+    {
+        <div class="alert alert-danger" style="marging-top: 10px;">@MensajeError</div>
+    }
 </div>
-
 
 @code {
     EventoDeportivo _evento = new EventoDeportivo();
@@ -51,21 +54,30 @@ else
             } 
         }
     }
+    string? MensajeError;
     void Aceptar()
     {
-        if(_esNuevoEvento)
+        try 
         {
-            EventoDeportivoAltaUseCase.Ejecutar(_evento, servicioLogin.User.Id);
+            if(_esNuevoEvento) {   
+                EventoDeportivoAltaUseCase.Ejecutar(_evento, servicioLogin.User.Id);
+            } else {   
+                EventoDeportivoModificacionUseCase.Ejecutar(_evento, servicioLogin.User.Id);
+            }
+            MensajeError = null; //Limpia el mensaje si todo sale bien
         }
-        else
-        {   
-            EventoDeportivoModificacionUseCase.Ejecutar(_evento, servicioLogin.User.Id);
+        catch (Exception ex)
+        {
+            MensajeError = ex.Message; //Guarda el mensaje de error
         }
         _evento = new EventoDeportivo();
-        Navegador.NavigateTo("listadoeventos");
+        if(MensajeError == null)
+        {
+            Navegador.NavigateTo("listadoeventos");
+        }
     }
     void Cancelar(){
-        Navegador.NavigateTo("/");
+        Navegador.NavigateTo("listadoeventos");
     }
 
 }

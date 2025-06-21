@@ -139,6 +139,10 @@
             </div>
         }
     </div>
+    @if (!string.IsNullOrEmpty(MensajeError)) //muestra el mensaje de error en pantalla
+    {
+        <div class="alert alert-danger" style="marging-top: 10px;">@MensajeError</div>
+    }
 </div>
 
 @code {
@@ -167,17 +171,30 @@
             if(_usuario.Permisos.Contains(permiso)) _usuario.Permisos.Remove(permiso);
         }
     }
-    void Aceptar(){
-        if(_esNuevo){
-            UsuarioAltaUseCase.Ejecutar(_usuario, servicioLogin.User.Id,true);
-        }else{
-            UsuarioModificacionesUseCase.Ejecutar(_usuario, servicioLogin.User.Id,false);
+    string? MensajeError;
+    void Aceptar()
+    {
+        try
+        {
+            if(_esNuevo) {
+                UsuarioAltaUseCase.Ejecutar(_usuario, servicioLogin.User.Id,true);
+            } else {
+                UsuarioModificacionesUseCase.Ejecutar(_usuario, servicioLogin.User.Id,false);
+            }
+            MensajeError = null; //Limpia el mensaje si todo sale bien
+        }
+        catch (Exception ex)
+        {
+            MensajeError = ex.Message; //Guarda el mensaje de error
         }
         _usuario = new Usuario();
-        Navegador.NavigateTo("listadousuarios");
-
+        if(MensajeError == null) 
+        {
+            Navegador.NavigateTo("listadousuarios");
+        }
     }
-    void Cancelar(){
+    void Cancelar()
+    {
         Navegador.NavigateTo("listadousuarios");
     }
 }
