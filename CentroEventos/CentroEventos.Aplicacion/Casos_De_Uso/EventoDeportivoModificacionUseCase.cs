@@ -17,7 +17,7 @@ public class EventoDeportivoModificacionUseCase(IRepositorioEventoDeportivo repo
         {
             throw new FalloAutorizacionException();
         }
-        if (validador.Validar(evento, out string mensajeError))
+        if (!validador.Validar(evento, out string mensajeError))
         {
             throw new ValidacionException(mensajeError);
         }
