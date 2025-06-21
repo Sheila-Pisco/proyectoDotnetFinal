@@ -31,20 +31,29 @@
                 <td>@persona.Apellido</td>
                 <td>@persona.Email</td>
                 <td>@persona.Telefono</td>
-                @if(servicioLogin.User.Permisos.Contains(Permiso.EventoModificacion)) {   
-                    <td><button class="btn btn-outline-primary" @onclick="()=>ModificarPersona(persona)">Editar</button></td>
-                }
-                @if(servicioLogin.User.Permisos.Contains(Permiso.EventoBaja))
-                {
-                    <td><button class="btn btn-outline-danger" @onclick="()=>ConfirmarEliminacion(persona)">Eliminar</button></td>
-                    <DialogoConfirmacion @ref="dialogo" OnConfirmado="Eliminar" Mensaje="@_mensaje"/>          
-                }
+                <td>
+                    @if(servicioLogin.User.Permisos.Contains(Permiso.EventoModificacion)) 
+                    {   
+                        <td><button class="btn btn-outline-primary" @onclick="()=>ModificarPersona(persona)">Editar</button></td>
+                    }
+                    @if(servicioLogin.User.Permisos.Contains(Permiso.EventoBaja))
+                    {
+                        <td><button class="btn btn-outline-danger" @onclick="()=>ConfirmarEliminacion(persona)">Eliminar</button></td>
+                        <DialogoConfirmacion @ref="dialogo" OnConfirmado="Eliminar" Mensaje="@_mensaje"/>          
+                    }
+                </td>
             </tr>
         }
     </tbody>
   </table>
 </div>
-@code{
+
+@if (!string.IsNullOrEmpty(MensajeError)) //muestra el mensaje de error en pantalla
+{
+    <div class="alert alert-danger">@MensajeError</div>
+}
+
+@code {
     public List<Persona> _listaper = new List<Persona>();
     protected override void OnInitialized(){
         _listaper = personaListarUseCase.Ejecutar() ?? new List<Persona>();
@@ -60,16 +69,25 @@
         
         dialogo.Mostrar();
     }
-    private void Eliminar(){
-        
-        if(personaElim != null){
-            personaBajaUseCase.Ejecutar(personaElim.Id,  servicioLogin.User.Id);
-            _listaper = personaListarUseCase.Ejecutar();
+    string? MensajeError; 
+    private void Eliminar()
+    {
+        try
+        {
+            if(personaElim != null)
+            {
+                personaBajaUseCase.Ejecutar(personaElim.Id,  servicioLogin.User.Id);
+                _listaper = personaListarUseCase.Ejecutar();
+                MensajeError = null; //Limpia el mensaje si todo sale bien
+            }
+        } 
+        catch (Exception ex)
+        {
+            MensajeError = ex.Message; //Guarda el mensaje de error
         }
-        
-        
     }
-    void ModificarPersona(Persona persona){
+    void ModificarPersona(Persona persona)
+    {
         Navegador.NavigateTo($"persona/{persona.Id}");
     }
 }
