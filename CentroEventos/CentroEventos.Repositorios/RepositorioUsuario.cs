@@ -96,7 +96,6 @@ public class RepositorioUsuario : IRepositorioUsuario
         var usuario = ObtenerUsuario(id_Usuario);
         return usuario?.Permisos != null && usuario.Permisos.Contains(permiso);
     }
-
     public Usuario BuscarUsuarioPorEmailyHash(string email, string contraseña)
     {
         string password = HashPassword(contraseña);

@@ -8,43 +8,54 @@
 
 <h1>Centro Deportivo Universitario</h1>
 
-     @if(!visible){
-    <div class="container-fluid justify-content-center align-items-center min-vh-100 p-5" style="max-width: 900px;">
+<div class="container-fluid justify-content-center align-items-center min-vh-100 p-5" style="max-width: 900px;">
     <div class="text-center border p-4 rounded shadow-sm bg-light" >
-        <div class="mb-3">
-            <input placeholder="Email" @bind="_Email" class="form-control w-70 mb-2">
-            <input placeholder="Contraseña" @bind="_Contraseña" class="form-control w-70 mb-2">
-        </div>
-        <button class="btn btn-outline-info mb-2" @onclick="()=>InicioSesion(_Email,_Contraseña)">Iniciar Sesion</button>
-        <button class="btn btn-outline-primary mb-2" @onclick="()=>Registrar()"> Registrar</button>
-    </div>
-       
-    </div>
-    }else
+        @if(!visible)
         {
-        <div div class="container-fluid justify-content-center align-items-center min-vh-100 p-5" style="max-width: 900px;">
-        <div class="text-center border p-4 rounded shadow-sm bg-light" >
+            <div class="mb-3">
+                <input placeholder="Email" @bind="_Email" class="form-control w-70 mb-2">
+                <input placeholder="Contraseña" @bind="_Contraseña" class="form-control w-70 mb-2">
+            </div>
+            <button class="btn btn-outline-info mb-2" @onclick="()=>InicioSesion(_Email,_Contraseña)">Iniciar Sesion</button>
+            <button class="btn btn-outline-primary mb-2" @onclick="()=>Registrar()"> Registrar</button>
+        } else {
             <div class="mb-3">
                 <input placeholder="Nombre" @bind="_usuarioAct.Nombre" class="form-control w-70 mb-2 ">
                 <input placeholder="Apellido" @bind="_usuarioAct.Apellido" class="form-control w-70 mb-2">
                 <input placeholder="Email" @bind="_usuarioAct.Email" class="form-control w-70 mb-2">
                 <input placeholder="Contraseña" @bind="_usuarioAct.Contraseña" class="form-control w-70 mb-2">
             </div>
-               <button class="btn btn-outline-primary" @onclick="()=>RegistrarUsuario(_usuarioAct)"> Registrar</button>
-        </div>
+            <button class="btn btn-outline-primary" @onclick="()=>RegistrarUsuario(_usuarioAct)"> Registrar</button>
+            <button class="btn btn-outline-secondary me-2" @onclick="Cancelar">Cancelar</button>
+        }
     </div>
-    }
+    @if (!string.IsNullOrEmpty(MensajeError)) //muestra el mensaje de error en pantalla
+    {
+        <div class="alert alert-danger">@MensajeError</div>
+    }   
+</div>  
 
 @code{
     Usuario _usuarioAct=null!;
     string _Email= string.Empty;
     string _Contraseña = string.Empty;
-    
     public bool visible = false;
+    string? MensajeError; 
     public void InicioSesion(string email, string contraseña)
     {   
-        _usuarioAct= servicioLogin.RecuperarUsuario(email,contraseña);
-        navegador.NavigateTo("listadousuarios");
+        try
+        {
+            _usuarioAct= servicioLogin.RecuperarUsuario(email,contraseña);
+            MensajeError = null; //Limpia el mensaje si todo sale bien
+        }
+        catch (Exception ex)
+        {
+            MensajeError = ex.Message; //Guarda el mensaje de error
+        }
+        if(MensajeError == null)
+        {
+            navegador.NavigateTo("listadousuarios");
+        }
     }
     public void Registrar()
     {
@@ -56,9 +67,24 @@
 
         string email = usuario.Email ?? string.Empty;
         string contraseña = usuario.Contraseña ?? string.Empty;
-
-        usuarioRegistrarUseCase.Ejecutar(usuario,true); // carga al nuevo usuario en la base de datos
-        _usuarioAct= servicioLogin.RecuperarUsuario(email,contraseña); //se recupera el usuario
-        navegador.NavigateTo("listadousuarios");
+        try
+        {
+            usuarioRegistrarUseCase.Ejecutar(usuario,true); // carga al nuevo usuario en la base de datos
+            _usuarioAct= servicioLogin.RecuperarUsuario(email,contraseña); //se recupera el usuario
+            MensajeError = null; //Limpia el mensaje si todo sale bien
+        }
+        catch (Exception ex)
+        {
+            MensajeError = ex.Message; //Guarda el mensaje de error
+        }
+        if(MensajeError == null)
+        {
+            navegador.NavigateTo("listadousuarios");
+        }
+    }
+    public void Cancelar(){
+        MensajeError = null;
+        visible = false;
+        StateHasChanged();
     }
 }   
