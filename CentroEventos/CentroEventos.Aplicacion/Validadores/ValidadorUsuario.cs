@@ -9,13 +9,16 @@ public class ValidadorUsuario(IRepositorioUsuario repo)
     public bool Validador(Usuario usuario, out string mensajeError, bool ok)
     {
         mensajeError = "";
-        if (string.IsNullOrWhiteSpace(usuario.Nombre) )
-        {
-            mensajeError = "El campo Nombre no puede estar vacio. \n";
-        }
-        if (string.IsNullOrWhiteSpace(usuario.Apellido))
-        {
-            mensajeError +="El campo Apellido no puede estar vacio. \n";
+        if (ok)
+        { 
+            if (string.IsNullOrWhiteSpace(usuario.Nombre))
+            {
+                mensajeError = "El campo Nombre no puede estar vacio. \n";
+            }
+            if (string.IsNullOrWhiteSpace(usuario.Apellido))
+            {
+                mensajeError +="El campo Apellido no puede estar vacio. \n";
+            }
         }
         if (string.IsNullOrWhiteSpace(usuario.Email))
         {
