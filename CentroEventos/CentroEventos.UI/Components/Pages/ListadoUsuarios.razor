@@ -32,41 +32,60 @@
                         <div>@permiso</div>
                     }
                 </td>
-
-                @if(servicioLogin.User.Permisos.Contains(Permiso.EventoModificacion)) {   
-                    <td><button class="btn btn-outline-primary" @onclick="()=>ModificarUsuario(usuario)">Editar</button></td>
-                }
-                @if(servicioLogin.User.Permisos.Contains(Permiso.EventoBaja)){    
-                    <td><button class="btn btn-outline-danger" @onclick="()=>ConfirmarEliminacion(usuario)">Eliminar</button></td>          
-                }
-                
+                <td>
+                    @if(servicioLogin.User.Permisos.Contains(Permiso.EventoModificacion)) 
+                    {   
+                        <td><button class="btn btn-outline-primary" @onclick="()=>ModificarUsuario(usuario)">Editar</button></td>
+                    }
+                    @if(servicioLogin.User.Permisos.Contains(Permiso.EventoBaja)){    
+                        <td><button class="btn btn-outline-danger" @onclick="()=>ConfirmarEliminacion(usuario)">Eliminar</button></td>          
+                    }
+                </td>
             </tr>
         }
     </tbody>
   </table>
 </div>
 
-@code{
+@if (!string.IsNullOrEmpty(MensajeError)) //muestra el mensaje de error en pantalla
+{
+    <div class="alert alert-danger">@MensajeError</div>
+}
+
+@code {
     List<Usuario> listaus = new List<Usuario>();
-    protected override void OnInitialized(){
+    protected override void OnInitialized()
+    {
         listaus = usuarioListarUseCase.Ejecutar();   
     }
     DialogoConfirmacion dialogo =null!;
     Usuario? _usEliminar = null;
     string Mensaje=string.Empty;
-    private void ConfirmarEliminacion(Usuario usuario){
-        
+    private void ConfirmarEliminacion(Usuario usuario)
+    {    
         _usEliminar = usuario;
         Mensaje = $"Desea Eliminar al usuario {usuario.Nombre} {usuario.Apellido }?";
         dialogo.Mostrar();
     }
-    private void Eliminar(){
-        if(_usEliminar !=null){
-            usuarioBajaUseCase.Ejecutar(_usEliminar.Id, servicioLogin.User.Id);
-            listaus = usuarioListarUseCase.Ejecutar();
+    string? MensajeError; 
+    private void Eliminar()
+    {
+        try
+        {
+            if (_usEliminar !=null)
+            {
+                usuarioBajaUseCase.Ejecutar(_usEliminar.Id, servicioLogin.User.Id);
+                listaus = usuarioListarUseCase.Ejecutar();
+                MensajeError = null; //Limpia el mensaje si todo sale bien
+            }
+        }
+        catch (Exception ex)
+        {
+            MensajeError = ex.Message; //Guarda el mensaje de error
         }
     }
-    void ModificarUsuario(Usuario usuario){
+    void ModificarUsuario(Usuario usuario)
+    {
         Navegador.NavigateTo($"usuario/{usuario.Id}");
     }
 }

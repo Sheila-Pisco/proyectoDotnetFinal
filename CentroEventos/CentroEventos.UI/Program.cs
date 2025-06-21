@@ -13,7 +13,7 @@ using CentroEventos.Aplicacion.Servicio_Login;
 CentroEventosSqlite.Inicializar(); //solo tiene efecto si la base de datos no existe
 using var context = new CentroEventoContext();
 
-//Agrego algunos datos
+/*Agrego algunos datos
 
 context.EventosDeportivos.Add(new EventoDeportivo("Aerobicos", "Movimiento", new DateTime(2025, 1, 1), 1.5, 15, 2));
 context.EventosDeportivos.Add(new EventoDeportivo("Zumba", "Baile", new DateTime(2025, 7, 7), 1.5, 25, 3));
@@ -33,6 +33,7 @@ context.Personas.Add(new Persona("233569", "Ceballo", "Julia", "taPbh@gmail", "1
 context.Personas.Add(new Persona("785426","Jota", "Paula", "jotaP@gmail", "221567890") );
 
 context.SaveChanges();
+*/
 
 var builder = WebApplication.CreateBuilder(args);
 
