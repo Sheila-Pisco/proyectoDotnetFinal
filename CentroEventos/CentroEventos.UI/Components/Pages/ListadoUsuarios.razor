@@ -33,11 +33,11 @@
                     }
                 </td>
                 <td>
-                    @if(servicioLogin.User.Permisos.Contains(Permiso.EventoModificacion)) 
+                    @if(servicioLogin.User.Permisos.Contains(Permiso.UsuarioModificacion)) 
                     {   
                         <td><button class="btn btn-outline-primary" @onclick="()=>ModificarUsuario(usuario)">Editar</button></td>
                     }
-                    @if(servicioLogin.User.Permisos.Contains(Permiso.EventoBaja)){    
+                    @if(servicioLogin.User.Permisos.Contains(Permiso.UsuarioBaja)){    
                         <td><button class="btn btn-outline-danger" @onclick="()=>ConfirmarEliminacion(usuario)">Eliminar</button></td>          
                     }
                 </td>
