@@ -9,13 +9,13 @@ namespace CentroEventos.Aplicacion.Casos_De_Uso;
 
 public class ReservaModificacionUseCase(IRepositorioReserva repoR, IServicioAutorizacion autorizacion, ValidadorReserva validador)
 {
-    public void Ejecutar(Reserva reserva,int idUsuario)
+    public void Ejecutar(Reserva reserva,int idUsuario, bool ok)
     {
         if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.ReservaModificacion))
         {
             throw new FalloAutorizacionException();
         }
-        if (!validador.Validar(reserva, out string mensajeError))
+        if (!validador.Validar(reserva, out string mensajeError,ok))
         {
             throw new ValidacionException(mensajeError);
         }
