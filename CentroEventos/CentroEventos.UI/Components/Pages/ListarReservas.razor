@@ -29,11 +29,11 @@
                 <td>@reserva.FechaAltaReserva</td>
                 <td>@reserva.EstadoAsistencia</td>
                 <td>
-                    @if(servicioLogin.User.Permisos.Contains(Permiso.EventoModificacion)) 
+                    @if(servicioLogin.User.Permisos.Contains(Permiso.ReservaModificacion)) 
                     { 
                         <td><button class="btn btn-outline-primary" @onclick="()=>Editar(reserva)">Editar</button></td>
                     }
-                    @if(servicioLogin.User.Permisos.Contains(Permiso.EventoBaja)){      
+                    @if(servicioLogin.User.Permisos.Contains(Permiso.ReservaBaja)){      
                         <td><button class="btn btn-outline-danger" @onclick="()=>ConfirmarEliminacion(reserva)">Eliminar</button></td>
                         <DialogoConfirmacion @ref=dialogo OnConfirmado="Eliminar" Mensaje="@_mensajeDialogo"/>
                     }

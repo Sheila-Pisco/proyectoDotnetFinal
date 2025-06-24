@@ -10,13 +10,13 @@ namespace CentroEventos.Aplicacion.Casos_De_Uso;
 
 public class ReservaAltaUseCase(IRepositorioReserva repoR, IServicioAutorizacion autorizacion, ValidadorReserva validacion)
 {
-    public void Ejecutar(Reserva reserva, int idUsuario)
+    public void Ejecutar(Reserva reserva, int idUsuario, bool ok)
     {
         if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.ReservaAlta))
         {
             throw new FalloAutorizacionException();
         }
-        if (!validacion.Validar(reserva, out string error))
+        if (!validacion.Validar(reserva, out string error, ok))
         {
             throw new Exception("Error al subir la reserva: "+ error);
         }
