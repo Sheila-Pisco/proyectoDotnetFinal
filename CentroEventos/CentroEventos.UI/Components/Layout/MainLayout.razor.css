@@ -7,7 +7,7 @@
 main {
     flex: 1;
 }
-article.no-padding {
+article.content.no-padding {
     padding-left: 0 !important;
     padding-right: 0 !important;
     padding-top: 0 !important;
