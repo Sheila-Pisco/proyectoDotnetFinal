@@ -13,7 +13,7 @@
     <div class="text-center border p-4 rounded shadow-sm bg-light" >
         <div class="mb-3">
             <input placeholder="Email" @bind="_Email" class="form-control w-70 mb-2">
-            <input placeholder="Contraseña" @bind="_Contraseña" class="form-control w-70 mb-2">
+            <input type="password" placeholder="Contraseña" @bind="_Contraseña" class="form-control w-70 mb-2">
         </div>
         <button class="btn btn-outline-info mb-2" @onclick="()=>InicioSesion(_Email,_Contraseña)">Iniciar Sesion</button>
         <button class="btn btn-outline-primary mb-2" @onclick="()=>Registrar()"> Registrar</button>
@@ -28,7 +28,7 @@
                 <input placeholder="Nombre" @bind="_usuarioAct.Nombre" class="form-control w-70 mb-2 ">
                 <input placeholder="Apellido" @bind="_usuarioAct.Apellido" class="form-control w-70 mb-2">
                 <input placeholder="Email" @bind="_usuarioAct.Email" class="form-control w-70 mb-2">
-                <input placeholder="Contraseña" @bind="_usuarioAct.Contraseña" class="form-control w-70 mb-2">
+                <input type="password" placeholder="Contraseña" @bind="_usuarioAct.Contraseña" class="form-control w-70 mb-2">
             </div>
                <button class="btn btn-outline-primary" @onclick="()=>RegistrarUsuario(_usuarioAct)"> Registrar</button>
         </div>
