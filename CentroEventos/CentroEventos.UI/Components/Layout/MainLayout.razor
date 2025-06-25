@@ -1,20 +1,24 @@
-﻿@inherits LayoutComponentBase
+﻿
 @inject ServicioLogin servicioLogin
+@inject NavigationManager NavigationManager
+@inherits LayoutComponentBase
 
 <div class="page">
     <div class="sidebar">
         <NavMenu />
     </div>
 
-    <main>        
-        <div class="top-row px-4">
+    <main class="main-container">        
+        <div class="top-row">
             <a href="login">Iniciar Sesión</a>
             <a href="/" target="_self">Cerrar Sesión</a> 
         </div>
 
-        <article class="content px-4">
-            @Body
-        </article>
+        <article>
+             @Body
+        </article> <!--se agrega condicion para que el home tome toda la imagen-->
+           
+       
     </main>
 </div>
 

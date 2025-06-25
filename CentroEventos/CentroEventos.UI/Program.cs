@@ -58,6 +58,8 @@ builder.Services.AddTransient<EventoDeportivoListarUseCase>();
 builder.Services.AddTransient<EventoDeportivoObtenerUseCase>();
 builder.Services.AddTransient<IRepositorioEventoDeportivo, RepositorioEventoDeportivo>();
 builder.Services.AddTransient<ValidadorEventoDeportivo>();
+builder.Services.AddTransient<ListarEventosConCupoDisponibleUseCase>();
+builder.Services.AddTransient<ListarAsistenciaAEventoUseCase>();
 
 builder.Services.AddTransient<PersonaAltaUseCase>();
 builder.Services.AddTransient<PersonaBajaUseCase>();

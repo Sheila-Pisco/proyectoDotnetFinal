@@ -18,6 +18,7 @@
             <th>Duracion en Horas</th>
             <th>Cupo Maximo</th>
             <th>Responsable</th>
+            <th>Asistencias</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -32,6 +33,9 @@
                 <td>@evento.DuracionHoras</td>
                 <td>@evento.CupoMaximo</td>
                 <td>@evento.ResponsableId</td>
+                <td> 
+                <button class="btn btn-outline-info mb-2" @onclick="()=>IrAListadoAsistencia(evento.Id)">Listar</button>
+                </td>
                 <td>
                     @if(servicioLogin.User.Permisos.Contains(Permiso.EventoModificacion)) 
                     {
@@ -43,10 +47,13 @@
                         <DialogoConfirmacion @ref=dialogo OnConfirmado="Eliminar" Mensaje="@_mensajeDialogo"/>
                     }
                 </td>
+               
             </tr>    
         }
     </tbody>
 </table>
+ <button class="btn btn-outline-primary" @onclick="IrAEventosConCupo">Eventos con Cupo</button>
+
 
 @if (!string.IsNullOrEmpty(MensajeError)) //muestra el mensaje de error en pantalla
 {
@@ -54,7 +61,14 @@
 }
 
 @code { // Sección de código C#
-
+    private void IrAEventosConCupo()
+    {
+        Navegador.NavigateTo("/listadoEventosConCupo");
+    }
+    private void IrAListadoAsistencia(int EventoId)
+    {
+        Navegador.NavigateTo($"/listadoAsistenciaAEvento/{EventoId}");
+    }
     List<EventoDeportivo> _lista = new List<EventoDeportivo>();
     [Parameter]
     public bool SoloLectura {get; set;} = false; 

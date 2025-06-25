@@ -1,0 +1,48 @@
+@page "/listadoAsistenciaAEvento/{EventoId:int}"
+@rendermode InteractiveServer
+@inject IJSRuntime JSRuntime
+@inject NavigationManager Navegador
+@inject ListarAsistenciaAEventoUseCase ListarAsistenciaAEventoUseCase
+@inject ServicioLogin servicioLogin
+
+<h2>Listado de Personas a Evento</h2>
+
+<div class="table-responsive-lg">
+  <table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>DNI</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Telefono</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var persona in _lista ?? new List<Persona>())
+        {
+            <tr>
+                <td> @persona.Id </td>
+                <td>@persona.Dni</td>
+                <td>@persona.Nombre</td>
+                <td>@persona.Apellido</td>
+                <td>@persona.Email</td>
+                <td>@persona.Telefono</td>
+            </tr>
+        }
+    </tbody>
+  </table>
+</div>
+
+@code {
+    [Parameter]
+    public int EventoId { get; set; }
+
+    private List<Persona> _lista = new();
+
+    protected override void OnInitialized()
+    {
+        _lista= ListarAsistenciaAEventoUseCase.Ejecutar(EventoId) ?? new List<Persona>();
+    }
+}

@@ -60,7 +60,7 @@
     }
 
     .nav-item ::deep .nav-link {
-        color: #d7d7d7;
+        color: #333 !important;/*este se cambio el color era #d7d7d7*/
         background: none;
         border: none;
         border-radius: 4px;
@@ -72,17 +72,22 @@
     }
 
 .nav-item ::deep a.active {
-    background-color: rgba(255,255,255,0.37);
-    color: white;
+    background-color: #d2b48c; /* tono beige más fuerte */
+    color: black;
+   /* background-color: rgba(255,255,255,0.37);
+    color: white;*/
 }
 
 .nav-item ::deep .nav-link:hover {
-    background-color: rgba(255,255,255,0.1);
-    color: white;
+    background-color: #e6ccb2 !important; /* hover beige suave */
+    color: black;
+   /* background-color: rgba(255,255,255,0.1);
+    color: white;*/
 }
 
 .nav-scrollable {
     display: none;
+    background-color: rgb(167, 155, 119) !important;/*se agrego esta line*/
 }
 
 .navbar-toggler:checked ~ .nav-scrollable {
@@ -93,10 +98,17 @@
     .navbar-toggler {
         display: none;
     }
+    .top-row,
+    article:not(.no-padding) { /*cuando tiene la clase no-paddding no se deberia aplicar los bordes*/
+        padding: 0%;
+       /* padding-left: 2rem !important;
+        padding-right: 1.5rem !important;*/
+    }
 
     .nav-scrollable {
         /* Never collapse the sidebar for wide screens */
         display: block;
+        
 
         /* Allow sidebar to scroll for tall menus */
         height: calc(100vh - 3.5rem);

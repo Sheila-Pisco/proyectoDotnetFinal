@@ -51,9 +51,9 @@
         try
         {
             if(nueva) {
-                ReservaAltaUseCase.Ejecutar(_reserva, servicioLogin.User.Id); //si tira error puede ser el 1 XD
+                ReservaAltaUseCase.Ejecutar(_reserva, servicioLogin.User.Id, true);
             } else {
-                ReservaModificacionUseCase.Ejecutar(_reserva, servicioLogin.User.Id);
+                ReservaModificacionUseCase.Ejecutar(_reserva, servicioLogin.User.Id, false);
             }
             MensajeError = null; //Limpia el mensaje si todo sale bien
         }
