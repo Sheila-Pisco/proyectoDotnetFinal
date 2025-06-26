@@ -10,8 +10,16 @@
 
     <main class="main-container">        
         <div class="top-row">
-            <a href="login">Iniciar Sesión</a>
-            <a href="/" target="_self">Cerrar Sesión</a> 
+            @if (servicioLogin.EstaLogueado)
+            {
+                <span>Usuario: @servicioLogin.NombreUsuario</span>
+                <a href="" @onclick="CerrarSesion">Cerrar Sesión</a>
+            }
+            else
+            {
+                <a href="/login">Iniciar Sesión</a>
+            }
+
         </div>
 
         <article>
@@ -27,3 +35,10 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
+@code{
+    private void CerrarSesion()
+    {
+        servicioLogin.CerrarSesion();
+        NavigationManager.NavigateTo("/");
+    }
+}
