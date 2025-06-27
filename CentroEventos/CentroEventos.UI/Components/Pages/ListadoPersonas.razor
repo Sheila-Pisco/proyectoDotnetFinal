@@ -6,9 +6,9 @@
 @inject PersonaBajaUseCase personaBajaUseCase
 @inject ServicioLogin servicioLogin
 
-<h2>Listado de Personas</h2>
+<div class="text-center" style="padding-top: 30px;"><h3>Listado de Personas</h3></div>
 
-<div class="table-responsive-lg">
+<div style="margin: 20px;">
   <table class="table">
     <thead>
         <tr>
@@ -32,14 +32,16 @@
                 <td>@persona.Email</td>
                 <td>@persona.Telefono</td>
                 <td>
-                    @if(servicioLogin.User.Permisos.Contains(Permiso.PersonaModificacion)) 
-                    {   
-                        <td><button class="btn btn-outline-primary" @onclick="()=>ModificarPersona(persona)">Editar</button></td>
-                    }
-                    @if(servicioLogin.User.Permisos.Contains(Permiso.PersonaBaja))
-                    {
-                        <td><button class="btn btn-outline-danger" @onclick="()=>ConfirmarEliminacion(persona)">Eliminar</button></td>
-                        <DialogoConfirmacion @ref="dialogo" OnConfirmado="Eliminar" Mensaje="@_mensaje"/>          
+                    @if(servicioLogin.User != null){
+                        if(servicioLogin.User.Permisos.Contains(Permiso.PersonaModificacion)) 
+                        {   
+                            <td><button class="btn btn-outline-primary" @onclick="()=>ModificarPersona(persona)">Editar</button></td>
+                        }
+                        if(servicioLogin.User.Permisos.Contains(Permiso.PersonaBaja))
+                        {
+                            <td><button class="btn btn-outline-danger" @onclick="()=>ConfirmarEliminacion(persona)">Eliminar</button></td>
+                            <DialogoConfirmacion @ref="dialogo" OnConfirmado="Eliminar" Mensaje="@_mensaje"/>          
+                        }
                     }
                 </td>
             </tr>
@@ -76,7 +78,7 @@
         {
             if(personaElim != null)
             {
-                personaBajaUseCase.Ejecutar(personaElim.Id,  servicioLogin.User.Id);
+                personaBajaUseCase.Ejecutar(personaElim.Id,  servicioLogin.User!.Id);
                 _listaper = personaListarUseCase.Ejecutar();
                 MensajeError = null; //Limpia el mensaje si todo sale bien
             }

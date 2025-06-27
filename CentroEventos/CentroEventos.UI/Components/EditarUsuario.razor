@@ -9,9 +9,9 @@
 
 
 @if(_esNuevo){
-    <h3 class="mx-auto" style="width: fit-content;" >Agregar Usuario</h3>
+    <div class="text-center" style="padding-top: 30px;"><h3>Agregar Usuario</h3></div>
 }else{
-    <h3>Modificando Usuario: @_usuario.Nombre</h3>
+    <div class="text-center" style="padding-top: 30px;"><h3>Modificando Usuario: @_usuario.Nombre</h3></div>
 }
 <div class="container-fluid justify-content-center align-items-center min-vh-100 p-5" style="max-width: 900px;">
     <div class="text-center border p-4 rounded shadow-sm bg-light" >
@@ -132,7 +132,8 @@
                 </tbody>
             </table>
         </div>
-        @if((_esNuevo && servicioLogin.User.Permisos.Contains(Permiso.UsuarioAlta)) || (!_esNuevo && servicioLogin.User.Permisos.Contains(Permiso.UsuarioModificacion))){
+        @if(servicioLogin.User != null && ((_esNuevo && servicioLogin.User.Permisos.Contains(Permiso.UsuarioAlta)) || (!_esNuevo && servicioLogin.User.Permisos.Contains(Permiso.UsuarioModificacion))))
+        {
             <div class="boton mb-3">
                 <button class="btn btn-outline-success me-2" @onclick="Aceptar">Aceptar</button>
                 <button class="btn btn-outline-secondary me-2" @onclick="Cancelar">Cancelar</button>
@@ -177,9 +178,9 @@
         try
         {
             if(_esNuevo) {
-                UsuarioAltaUseCase.Ejecutar(_usuario, servicioLogin.User.Id,true);
+                UsuarioAltaUseCase.Ejecutar(_usuario, servicioLogin.User!.Id,true);
             } else {
-                UsuarioModificacionesUseCase.Ejecutar(_usuario, servicioLogin.User.Id,false);
+                UsuarioModificacionesUseCase.Ejecutar(_usuario, servicioLogin.User!.Id,false);
             }
             MensajeError = null; //Limpia el mensaje si todo sale bien
         }

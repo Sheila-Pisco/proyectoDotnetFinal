@@ -8,11 +8,11 @@
 
 @if(_esNuevoEvento)
 {  
-    <div><h3 class="mx-auto" style="width: fit-content;">Agregar Evento Deportivo</h3></div> 
+    <div class="text-center" style="padding-top: 30px;"><h3>Agregar Evento Deportivo</h3></div> 
 }
 else 
 {
-    <div><h3 class="mx-auto" style="width: fit-content;">Modificar Evento Deportivo "@_evento.Nombre"</h3></div>
+    <div class="text-center" style="padding-top: 30px;"><h3>Modificar Evento Deportivo "@_evento.Nombre"</h3></div>
 }
 
 <div class="container-fluid justify-content-center align-items-center min-vh-100 p-5" style="max-width: 900px;">
@@ -25,7 +25,7 @@ else
             <input placeholder="Cupo máximo" @bind="_evento.CupoMaximo" class="form-control"> 
             <input placeholder="Id del reponsable" @bind="_evento.ResponsableId" class="form-control">  
         </div>
-        @if((_esNuevoEvento && servicioLogin.User.Permisos.Contains(Permiso.EventoAlta)) || (!_esNuevoEvento && servicioLogin.User.Permisos.Contains(Permiso.EventoModificacion))){
+        @if(servicioLogin.User!= null && ((_esNuevoEvento && servicioLogin.User.Permisos.Contains(Permiso.EventoAlta)) || (!_esNuevoEvento && servicioLogin.User.Permisos.Contains(Permiso.EventoModificacion)))){
             <div class="boton mb-3">
                 <button class="btn btn-outline-success" @onclick="Aceptar">Aceptar</button>
                 <button class="btn btn-outline-secondary me-2" @onclick="Cancelar">Cancelar</button>
@@ -60,9 +60,9 @@ else
         try 
         {
             if(_esNuevoEvento) {   
-                EventoDeportivoAltaUseCase.Ejecutar(_evento, servicioLogin.User.Id);
+                EventoDeportivoAltaUseCase.Ejecutar(_evento, servicioLogin.User!.Id); //Puedo suprimir el warning porque sé que el boton Aceptar sólo se muestra si el usuario es != null
             } else {   
-                EventoDeportivoModificacionUseCase.Ejecutar(_evento, servicioLogin.User.Id);
+                EventoDeportivoModificacionUseCase.Ejecutar(_evento, servicioLogin.User!.Id);
             }
             MensajeError = null; //Limpia el mensaje si todo sale bien
         }

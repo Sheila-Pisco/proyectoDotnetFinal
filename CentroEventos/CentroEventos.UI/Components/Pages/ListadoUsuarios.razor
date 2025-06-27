@@ -6,9 +6,9 @@
 @inject NavigationManager Navegador
 @inject ServicioLogin servicioLogin
 
-<h2>Listado de Usuarios</h2>
+<div class="text-center" style="padding-top: 30px;"><h3>Listado de Usuarios</h3></div>
 <DialogoConfirmacion @ref="dialogo" OnConfirmado="Eliminar" Mensaje="@Mensaje"/>
-<div class="table-responsive-lg">
+<div style="margin: 20px;">
   <table class="table">
     <thead>
         <tr>
@@ -33,12 +33,14 @@
                     }
                 </td>
                 <td>
-                    @if(servicioLogin.User.Permisos.Contains(Permiso.UsuarioModificacion)) 
-                    {   
-                        <td><button class="btn btn-outline-primary" @onclick="()=>ModificarUsuario(usuario)">Editar</button></td>
-                    }
-                    @if(servicioLogin.User.Permisos.Contains(Permiso.UsuarioBaja)){    
-                        <td><button class="btn btn-outline-danger" @onclick="()=>ConfirmarEliminacion(usuario)">Eliminar</button></td>          
+                    @if(servicioLogin.User != null){
+                        if(servicioLogin.User.Permisos.Contains(Permiso.UsuarioModificacion)) 
+                        {   
+                            <td><button class="btn btn-outline-primary" @onclick="()=>ModificarUsuario(usuario)">Editar</button></td>
+                        }
+                        if(servicioLogin.User.Permisos.Contains(Permiso.UsuarioBaja)){    
+                            <td><button class="btn btn-outline-danger" @onclick="()=>ConfirmarEliminacion(usuario)">Eliminar</button></td>          
+                        }
                     }
                 </td>
             </tr>
@@ -74,7 +76,7 @@
         {
             if (_usEliminar !=null)
             {
-                usuarioBajaUseCase.Ejecutar(_usEliminar.Id, servicioLogin.User.Id);
+                usuarioBajaUseCase.Ejecutar(_usEliminar.Id, servicioLogin.User!.Id);
                 listaus = usuarioListarUseCase.Ejecutar();
                 MensajeError = null; //Limpia el mensaje si todo sale bien
             }

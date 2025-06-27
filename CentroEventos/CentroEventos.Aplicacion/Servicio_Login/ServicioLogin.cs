@@ -8,7 +8,7 @@ namespace CentroEventos.Aplicacion.Servicio_Login;
 
 public class ServicioLogin(IRepositorioUsuario repoU, ValidadorUsuario validador) : IServicioLogin
 {
-    public Usuario User { get; set; } = new Usuario();
+    public Usuario? User { get; private set; }
     public void AlmacenarUsuario(Usuario usuario)
     {
         if (!validador.Validador(usuario, out string mensajeError, true))
@@ -19,6 +19,7 @@ public class ServicioLogin(IRepositorioUsuario repoU, ValidadorUsuario validador
     }
     public Usuario RecuperarUsuario(string email, string contraseña)
     {
+        User = new Usuario();
         User.Email = email;
         User.Contraseña = contraseña;
         if (!validador.Validador(User, out string mensajeError, false))
@@ -28,10 +29,8 @@ public class ServicioLogin(IRepositorioUsuario repoU, ValidadorUsuario validador
         User = repoU.BuscarUsuarioPorEmailyHash(email, contraseña);
         return User;
     }
-    /*
-    public void Salir()
+    public void CerrarSesion()
     {
         User = null;
     }
-    */
 }
