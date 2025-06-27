@@ -5,7 +5,6 @@
 @inject UsuarioRegistrarUseCase usuarioRegistrarUseCase
 @inject UsuarioObtenerUseCase usuarioObtenerUseCase
 
-
 <h1>Centro Deportivo Universitario</h1>
 
 <div class="container-fluid justify-content-center align-items-center min-vh-100 p-5" style="max-width: 900px;">
@@ -41,11 +40,11 @@
     string _Contraseña = string.Empty;
     public bool visible = false;
     string? MensajeError; 
-    public void InicioSesion(string email, string contraseña)
+    public async Task InicioSesion(string email, string contraseña)
     {   
         try
         {
-            _usuarioAct= servicioLogin.RecuperarUsuario(email,contraseña);
+            _usuarioAct = await Task.Run(()=> servicioLogin.RecuperarUsuario(email, contraseña));
             MensajeError = null; //Limpia el mensaje si todo sale bien
         }
         catch (Exception ex)

@@ -7,12 +7,12 @@
 @inject EventoDeportivoObtenerUseCase EventoDeportivoObtenerUseCase
 
 @if(_esNuevoEvento)
-{
-    <h3 class="mx-auto" style="width: fit-content;">Agregar Evento Deportivo</h3>
+{  
+    <div><h3 class="mx-auto" style="width: fit-content;">Agregar Evento Deportivo</h3></div> 
 }
 else 
 {
-    <h3 class="mx-auto" style="width: fit-content;">Modificar Evento Deportivo "@_evento.Nombre"</h3>
+    <div><h3 class="mx-auto" style="width: fit-content;">Modificar Evento Deportivo "@_evento.Nombre"</h3></div>
 }
 
 <div class="container-fluid justify-content-center align-items-center min-vh-100 p-5" style="max-width: 900px;">
