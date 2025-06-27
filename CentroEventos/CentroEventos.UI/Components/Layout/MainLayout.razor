@@ -1,5 +1,4 @@
-﻿
-@inject ServicioLogin servicioLogin
+﻿@inject ServicioLogin servicioLogin
 @inject NavigationManager NavigationManager
 @inherits LayoutComponentBase
 
@@ -10,20 +9,17 @@
 
     <main class="main-container">        
         <div class="top-row">
-            @if (servicioLogin.EstaLogueado)
-            {
-                <span>Usuario: @servicioLogin.NombreUsuario</span>
-                <a href="" @onclick="CerrarSesion">Cerrar Sesión</a>
-            }
-            else
-            {
+            @if (servicioLogin.User != null) {
+                <span>Usuario: @servicioLogin.User.Nombre</span>
+                <a href="/">Cerrar Sesión</a>}
+            else {
                 <a href="/login">Iniciar Sesión</a>
+                //una vez que el usuario se logea, el Main debería refrescarse para cambiar la opción "Iniciar Sesión" por la opción "Cerrar Sesion"
             }
-
         </div>
 
-        <article>
-             @Body
+        <article class="no-padding">
+            @Body
         </article> <!--se agrega condicion para que el home tome toda la imagen-->
            
        
@@ -35,10 +31,11 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
-@code{
-    private void CerrarSesion()
-    {
-        servicioLogin.CerrarSesion();
-        NavigationManager.NavigateTo("/");
-    }
-}
+
+<!-- 
+¿Por qué podría no verse el usuario en el layout?
+Causas posibles:
+El usuario no se encuentra en la base de datos o la contraseña no coincide. (solucionado)
+El layout se renderiza antes de que el usuario esté disponible. (?
+El scope se pierde por recarga de página o navegación externa. (solucionado) 
+--> 

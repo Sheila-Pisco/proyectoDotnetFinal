@@ -7,9 +7,9 @@
 @inject ServicioLogin servicioLogin
 
 @if(nueva){
-    <h3 class="mx-auto" style="width: fit-content;" >Agregar Persona</h3>
+    <div class="text-center" style="padding-top: 30px;"><h3>Agregar Persona</h3></div>
 }else{
-    <h3>Modificando Persona: @_persona.Nombre</h3>
+    <div class="text-center" style="padding-top: 30px;"><h3>Modificando Persona: @_persona.Nombre</h3></div>
 }
 <div class="container-fluid justify-content-center align-items-center min-vh-100 p-5" style="max-width: 900px;">
     <div class="text-center border p-4 rounded shadow-sm bg-light" >
@@ -20,7 +20,7 @@
             <input placeholder="Email" @bind="_persona.Email" class="form-control w-70 mb-2">
             <input placeholder="Telefono" @bind="_persona.Telefono" class="form-control w-70 mb-2">
         </div>
-        @if((nueva && servicioLogin.User.Permisos.Contains(Permiso.PersonaAlta)) || (!nueva && servicioLogin.User.Permisos.Contains(Permiso.PersonaModificacion)))
+        @if(servicioLogin.User != null && ((nueva && servicioLogin.User.Permisos.Contains(Permiso.PersonaAlta)) || (!nueva && servicioLogin.User.Permisos.Contains(Permiso.PersonaModificacion))))
         {
             <div class="boton mb-3">
                 <button class="btn btn-outline-success me-2" @onclick="Aceptar">Aceptar</button>
@@ -56,9 +56,9 @@
         try
         {
             if(nueva) {
-                personaAltaUseCase.Ejecutar(_persona, servicioLogin.User.Id,true);
+                personaAltaUseCase.Ejecutar(_persona, servicioLogin.User!.Id,true);
             }else {
-                personaModificacionUseCase.Ejecutar(_persona, servicioLogin.User.Id,false);
+                personaModificacionUseCase.Ejecutar(_persona, servicioLogin.User!.Id,false);
             }
             MensajeError = null; //Limpia el mensaje si todo sale bien
         }

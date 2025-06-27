@@ -6,42 +6,46 @@
 @inject ServicioLogin servicioLogin
 @inject NavigationManager Navegador
 
-<h3>Listado Reservas</h3>
+<div class="text-center" style="padding-top: 30px;"><h3>Listado Reservas</h3></div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Id Persona</th> 
-            <th>Id Eventos Deportivo</th> 
-            <th>Fecha de alta</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var reserva in _lista) // Utilizamos la @ para cambiar de código HTML a C#
-        {
+<div style="margin: 20px;">
+    <table class="table">
+        <thead>
             <tr>
-                <td>@reserva.Id</td>
-                <td>@reserva.Persona_id</td>
-                <td>@reserva.EventoDeportivo_id</td>
-                <td>@reserva.FechaAltaReserva</td>
-                <td>@reserva.EstadoAsistencia</td>
-                <td>
-                    @if(servicioLogin.User.Permisos.Contains(Permiso.ReservaModificacion)) 
-                    { 
-                        <td><button class="btn btn-outline-primary" @onclick="()=>Editar(reserva)">Editar</button></td>
-                    }
-                    @if(servicioLogin.User.Permisos.Contains(Permiso.ReservaBaja)){      
-                        <td><button class="btn btn-outline-danger" @onclick="()=>ConfirmarEliminacion(reserva)">Eliminar</button></td>
-                        <DialogoConfirmacion @ref=dialogo OnConfirmado="Eliminar" Mensaje="@_mensajeDialogo"/>
-                    }
-                </td>
-            </tr>    
-        }
-    </tbody>
-</table>
+                <th>Id</th>
+                <th>Id Persona</th> 
+                <th>Id Eventos Deportivo</th> 
+                <th>Fecha de alta</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reserva in _lista) // Utilizamos la @ para cambiar de código HTML a C#
+            {
+                <tr>
+                    <td>@reserva.Id</td>
+                    <td>@reserva.Persona_id</td>
+                    <td>@reserva.EventoDeportivo_id</td>
+                    <td>@reserva.FechaAltaReserva</td>
+                    <td>@reserva.EstadoAsistencia</td>
+                    <td>
+                        @if(servicioLogin.User != null){
+                            if(servicioLogin.User.Permisos.Contains(Permiso.ReservaModificacion)) 
+                            { 
+                                <td><button class="btn btn-outline-primary" @onclick="()=>Editar(reserva)">Editar</button></td>
+                            }
+                            if(servicioLogin.User.Permisos.Contains(Permiso.ReservaBaja)){      
+                                <td><button class="btn btn-outline-danger" @onclick="()=>ConfirmarEliminacion(reserva)">Eliminar</button></td>
+                                <DialogoConfirmacion @ref=dialogo OnConfirmado="Eliminar" Mensaje="@_mensajeDialogo"/>
+                            }
+                        }
+                    </td>
+                </tr>    
+            }
+        </tbody>
+    </table>
+</div>
 
 @if (!string.IsNullOrEmpty(MensajeError)) //muestra el mensaje de error en pantalla
 {
@@ -75,7 +79,7 @@
         {
             if(_EliminarReserva != null)
             {
-                ReservaBajaUseCase.Ejecutar(_EliminarReserva.Id, servicioLogin.User.Id);
+                ReservaBajaUseCase.Ejecutar(_EliminarReserva.Id, servicioLogin.User!.Id);
                 _lista = ReservaListarUseCase.Ejecutar(); //Se actualiza la lista de eventos
                 MensajeError = null; //Limpia el mensaje si todo sale bien
             }
