@@ -1,0 +1,49 @@
+﻿@inject ServicioLogin servicioLogin
+@implements IDisposable
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+
+<div class="top-row ps-3">
+    <div>
+        @if (servicioLogin.User != null) 
+        {
+            <span>Usuario Actual: @servicioLogin.User.Nombre </span>
+            <button @onclick="CerrarSesion">Cerrar Sesión</button>
+        }
+        else 
+        {
+            <button @onclick="IniciarSesion">Iniciar Sesión</button>
+            @*una vez que el usuario se logea, se dispara un evento en ServicioLogin. TopRow suscribe a dicho evento
+            para "saber" cuándo cambiar la opción "Iniciar Sesión" por la opción "Cerrar Sesion" *@
+        }
+    </div>   
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        servicioLogin.UsuarioLogeado += OnUsuarioLogeadoHandler;
+    }
+
+    private void OnUsuarioLogeadoHandler(object? sender, EventArgs e)
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        servicioLogin.UsuarioLogeado -= OnUsuarioLogeadoHandler;
+    }
+
+    private void CerrarSesion()
+    {
+        servicioLogin.CerrarSesion();
+        NavigationManager.NavigateTo("/");
+    }
+
+    private void IniciarSesion()
+    {
+        Console.WriteLine("El botón anda");
+        NavigationManager.NavigateTo("/login");
+    }
+}
