@@ -30,7 +30,8 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
                                     checked="@(_usuario.Permisos?.Contains(Permiso.UsuarioAlta) ?? false)" 
-                                    @onchange="(e)=>OnPermisoChanged(Permiso.UsuarioAlta, ((ChangeEventArgs)e).Value!)">
+                                    @onchange="(e) => OnPermisoChanged(Permiso.UsuarioAlta, ((ChangeEventArgs)e).Value!)"> 
+                                    @*(e) => OnPermisoChanged() en una expresión lambda de tipo Action<object>*@
                                 <label class="form-check-label" for="flexCheckDefault">Usuario Alta </label>
                             </div>
                         </td>

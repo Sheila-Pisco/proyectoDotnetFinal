@@ -8,22 +8,12 @@
     </div>
 
     <main class="main-container">        
-        <div class="top-row">
-            @if (servicioLogin.User != null) {
-                <span>Usuario: @servicioLogin.User.Nombre</span>
-                <a href="/">Cerrar Sesión</a>}
-            else {
-                <a href="/login">Iniciar Sesión</a>
-                //una vez que el usuario se logea, el Main debería refrescarse para cambiar la opción "Iniciar Sesión" por la opción "Cerrar Sesion"
-            }
-        </div>
-
+        <TopRow />
         <article class="no-padding">
             @Body
-        </article> <!--se agrega condicion para que el home tome toda la imagen-->
-           
-       
+        </article> 
     </main>
+    
 </div>
 
 <div id="blazor-error-ui">
