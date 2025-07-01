@@ -42,7 +42,7 @@ public class Usuario
     
     public override string ToString(){
         string aux="";
-        aux+= $"Usuario: {this.Id} , nombre: {this.Nombre} , apellido: {this.Apellido}";
+        aux+= $"Usuario Actual: {this.Nombre} {this.Apellido} ";
         return aux;
     }
 }

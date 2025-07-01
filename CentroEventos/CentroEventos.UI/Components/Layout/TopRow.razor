@@ -7,7 +7,7 @@
     <div>
         @if (servicioLogin.User != null) 
         {
-            <span>Usuario Actual: @servicioLogin.User.Nombre </span>
+            <span>@servicioLogin.User.ToString()</span>
             <button @onclick="CerrarSesion">Cerrar Sesión</button>
         }
         else 

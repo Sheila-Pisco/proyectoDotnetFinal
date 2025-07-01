@@ -36,6 +36,7 @@ public class ServicioLogin(IRepositorioUsuario repoU, ValidadorUsuario validador
         OnUsuarioLogeado();
         return User;
     }
+    
     public void CerrarSesion()
     {
         User = null;
