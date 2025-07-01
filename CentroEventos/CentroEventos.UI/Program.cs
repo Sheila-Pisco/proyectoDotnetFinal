@@ -27,10 +27,10 @@ context.Reservas.Add(new Reserva(2, 2, DateTime.Now, Estado.Pendiente));
 context.Reservas.Add(new Reserva(4, 3, DateTime.Now, Estado.Pendiente));
 context.Reservas.Add(new Reserva(3, 1, DateTime.Now, Estado.Pendiente));
 
-context.Personas.Add(new Persona("123456", "Jota", "Paula", "jotaP@gmail", "221567890"));
-context.Personas.Add(new Persona("15870", "Jurez", "Paola", "janjiP@gmail", "111594420"));
-context.Personas.Add(new Persona("233569", "Ceballo", "Julia", "taPbh@gmail", "157896290"));
-context.Personas.Add(new Persona("785426","Jota", "Paula", "jotaP@gmail", "221567890") );
+context.Personas.Add(new Persona("123456", "Tomas", "Emma", "tiene@gmail.com", "221567890"));
+context.Personas.Add(new Persona("15870", "Gado", "Leandro", "alperro@gmail.com", "111594420"));
+context.Personas.Add(new Persona("233569", "Ceballo", "Julia", "rando@gmail.com", "157896290"));
+context.Personas.Add(new Persona("785426","Quito", "Esteban", "roto@gmail", "221567890") );
 
 context.SaveChanges();
 */

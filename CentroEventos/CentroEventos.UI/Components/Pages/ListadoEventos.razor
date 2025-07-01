@@ -7,7 +7,6 @@
 @inject NavigationManager Navegador
 
 <div class="text-center" style="padding-top: 30px;"><h3>Listado Eventos</h3></div>
-
 <div style="margin: 30px;">
     <table class="table">
         <thead>
@@ -23,6 +22,7 @@
                 <th> Acciones </th>
             </tr>
         </thead>
+
         <tbody>
             @foreach (var evento in _lista) // Utilizamos la @ para cambiar de código HTML a C#
             {
@@ -34,11 +34,9 @@
                     <td> @evento.DuracionHoras </td>
                     <td> @evento.CupoMaximo </td>
                     <td> @evento.ResponsableId </td>
-                    <td> 
-                        <button class="btn btn-outline-info mb-2" @onclick="()=>IrAListadoAsistencia(evento.Id)">Listar</button>
-                    </td>
-                    <td>
-                        @if(servicioLogin.User != null){
+                    <td> <button class="btn btn-outline-info mb-2" @onclick="()=>IrAListadoAsistencia(evento.Id)">Listar</button> </td>
+                    <td> @if(servicioLogin.User != null)
+                        {
                             if(servicioLogin.User.Permisos.Contains(Permiso.EventoModificacion)) 
                             {
                                 <td><button class="btn btn-outline-primary" @onclick="()=>Editar(evento)">Editar</button></td>
@@ -50,7 +48,6 @@
                             }
                         }
                     </td>
-                
                 </tr>    
             }
         </tbody>
@@ -58,13 +55,19 @@
     <button class="btn btn-outline-primary" @onclick="IrAEventosConCupo">Eventos con Cupo</button>
 </div>
 
-
 @if (!string.IsNullOrEmpty(MensajeError)) //muestra el mensaje de error en pantalla
 {
     <div class="alert alert-danger">@MensajeError</div>
 }
 
 @code { // Sección de código C#
+    List<EventoDeportivo> _lista = new List<EventoDeportivo>();
+    [Parameter]
+    public bool SoloLectura {get; set;} = false; 
+    DialogoConfirmacion dialogo = null!;
+    EventoDeportivo? _EliminarEvento = null;
+    string _mensajeDialogo = string.Empty;
+    string? MensajeError;
     private void IrAEventosConCupo()
     {
         Navegador.NavigateTo("/listadoEventosConCupo");
@@ -73,17 +76,10 @@
     {
         Navegador.NavigateTo($"/listadoAsistenciaAEvento/{EventoId}");
     }
-    List<EventoDeportivo> _lista = new List<EventoDeportivo>();
-    [Parameter]
-    public bool SoloLectura {get; set;} = false; 
-     
     protected override void OnInitialized()
     {
         _lista = EventoDeportivoListarUseCase.Ejecutar();
     }
-    DialogoConfirmacion dialogo = null!;
-    EventoDeportivo? _EliminarEvento = null;
-    string _mensajeDialogo = string.Empty;
     private void Editar(EventoDeportivo evento)
     {
         Navegador.NavigateTo($"evento/{evento.Id}");
@@ -94,12 +90,12 @@
         _mensajeDialogo = $"¿Desea eliminar el evento {evento.Id} {evento.Nombre}?";
         dialogo.Mostrar();
     }
-    string? MensajeError; 
+    
     private void Eliminar()
     {
-        try
-        {
-            if(_EliminarEvento != null && servicioLogin.User != null){
+        try {
+            if(_EliminarEvento != null && servicioLogin.User != null)
+            {
                 EventoDeportivoBajaUseCase.Ejecutar(_EliminarEvento.Id, servicioLogin.User.Id); 
                 _lista = EventoDeportivoListarUseCase.Ejecutar(); //Se actualiza la lista de eventos
                 MensajeError = null; //Limpia el mensaje si todo sale bien

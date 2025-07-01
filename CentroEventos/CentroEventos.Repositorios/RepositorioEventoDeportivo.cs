@@ -52,7 +52,6 @@ public class RepositorioEventoDeportivo : IRepositorioEventoDeportivo
             throw new EntidadNotFoundException("El evento no existe."); 
         }
     }
-
     public EventoDeportivo ObtenerEvento(int? id_evento)
     {
         var evento = context.EventosDeportivos.Find(id_evento);
