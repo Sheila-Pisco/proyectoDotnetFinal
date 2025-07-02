@@ -53,3 +53,15 @@ h1:focus {
     border-color: #929292;
 }
 
+.boton-inicio {
+    color: #fff;
+    border-radius: 5%;
+    border-color: transparent;
+    background-color: transparent;
+    padding: 5px;
+    padding-inline: 10px;
+}
+.boton-inicio:hover{
+    color: #613412;
+    background-color: #d2b48c;
+}
