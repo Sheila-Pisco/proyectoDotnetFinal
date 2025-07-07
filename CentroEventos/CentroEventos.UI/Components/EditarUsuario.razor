@@ -20,118 +20,123 @@
             <input placeholder="Apellido" @bind="_usuario.Apellido" class="form-control w-70 mb-2">
             <input placeholder="Email" @bind="_usuario.Email" class="form-control w-70 mb-2">
             <input type="password" placeholder="Contraseña"  @bind="_usuario.Contraseña" class="form-control w-70 mb-2">
-            <table style="margin-top: 25px;" class="table">
-                <thead>
-                    <td colspan="3">Permisos</td>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
-                                    checked="@(_usuario.Permisos?.Contains(Permiso.UsuarioAlta) ?? false)" 
-                                    @onchange="(e) => OnPermisoChanged(Permiso.UsuarioAlta, ((ChangeEventArgs)e).Value!)"> 
-                                    @*(e) => OnPermisoChanged() en una expresión lambda de tipo Action<object>*@
-                                <label class="form-check-label" for="flexCheckDefault">Usuario Alta </label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
-                                    checked="@(_usuario.Permisos?.Contains(Permiso.UsuarioBaja) ?? false)" 
-                                    @onchange="(e)=>OnPermisoChanged(Permiso.UsuarioBaja, ((ChangeEventArgs)e).Value!)">
-                                <label class="form-check-label" for="flexCheckDefault">Usuario Baja </label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
-                                    checked="@(_usuario.Permisos?.Contains(Permiso.UsuarioModificacion) ?? false)" 
-                                    @onchange="(e)=>OnPermisoChanged(Permiso.UsuarioModificacion, ((ChangeEventArgs)e).Value!)">
-                                <label class="form-check-label" for="flexCheckDefault">Usuario Modificacion </label>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
-                                    checked="@(_usuario.Permisos?.Contains(Permiso.PersonaAlta) ?? false)" 
-                                    @onchange="(e)=>OnPermisoChanged(Permiso.PersonaAlta, ((ChangeEventArgs)e).Value!)">
-                                <label class="form-check-label" for="flexCheckDefault">Persona Alta </label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
-                                    checked="@(_usuario.Permisos?.Contains(Permiso.PersonaBaja) ?? false)"
-                                    @onchange="(e)=>OnPermisoChanged(Permiso.PersonaBaja, ((ChangeEventArgs)e).Value!)">
-                                <label class="form-check-label" for="flexCheckDefault">Persona Baja </label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
-                                    checked="@(_usuario.Permisos?.Contains(Permiso.PersonaModificacion) ?? false)" 
-                                    @onchange="(e)=>OnPermisoChanged(Permiso.PersonaModificacion, ((ChangeEventArgs)e).Value!)">
-                                <label class="form-check-label" for="flexCheckDefault">Persona Modificacion </label>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
-                                    checked="@(_usuario.Permisos?.Contains(Permiso.EventoAlta) ?? false)" 
-                                    @onchange="(e)=>OnPermisoChanged(Permiso.EventoAlta, ((ChangeEventArgs)e).Value!)">
-                                <label class="form-check-label" for="flexCheckDefault">Evento Alta </label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
-                                    checked="@(_usuario.Permisos?.Contains(Permiso.EventoBaja) ?? false)" 
-                                    @onchange="(e)=>OnPermisoChanged(Permiso.EventoBaja, ((ChangeEventArgs)e).Value!)">
-                                <label class="form-check-label" for="flexCheckDefault">Evento Baja </label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
-                                    checked="@(_usuario.Permisos?.Contains(Permiso.EventoModificacion) ?? false)" 
-                                    @onchange="(e)=>OnPermisoChanged(Permiso.EventoModificacion, ((ChangeEventArgs)e).Value!)">
-                                <label class="form-check-label" for="flexCheckDefault">Evento Modificacion </label>
-                            </div>
-                        </td>
-                    </tr>
-                   <tr>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
-                                    checked="@(_usuario.Permisos?.Contains(Permiso.ReservaAlta) ?? false)" 
-                                    @onchange="(e)=>OnPermisoChanged(Permiso.ReservaAlta, ((ChangeEventArgs)e).Value!)">
-                                <label class="form-check-label" for="flexCheckDefault">Reserva Alta </label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
-                                    checked="@(_usuario.Permisos?.Contains(Permiso.ReservaBaja) ?? false)" 
-                                    @onchange="(e)=>OnPermisoChanged(Permiso.ReservaBaja, ((ChangeEventArgs)e).Value!)">
-                                <label class="form-check-label" for="flexCheckDefault">Reserva Baja </label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
-                                    checked="@(_usuario.Permisos?.Contains(Permiso.ReservaModificacion) ?? false)" 
-                                    @onchange="(e)=>OnPermisoChanged(Permiso.ReservaModificacion, ((ChangeEventArgs)e).Value!)">
-                                <label class="form-check-label" for="flexCheckDefault">Reserva Modificacion </label>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+
+            @if(servicioLogin.User != null) {
+                if (servicioLogin.User.Id == 1 && servicioLogin.User.Id != Id) {
+                    <table style="margin-top: 25px;" class="table">
+                        <thead>
+                            <td colspan="3">Permisos</td>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
+                                            checked="@(_usuario.Permisos?.Contains(Permiso.UsuarioAlta) ?? false)" 
+                                            @onchange="(e) => OnPermisoChanged(Permiso.UsuarioAlta, ((ChangeEventArgs)e).Value!)"> 
+                                            @*(e) => OnPermisoChanged() en una expresión lambda de tipo Action<object>*@
+                                        <label class="form-check-label" for="flexCheckDefault">Usuario Alta </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
+                                            checked="@(_usuario.Permisos?.Contains(Permiso.UsuarioBaja) ?? false)" 
+                                            @onchange="(e)=>OnPermisoChanged(Permiso.UsuarioBaja, ((ChangeEventArgs)e).Value!)">
+                                        <label class="form-check-label" for="flexCheckDefault">Usuario Baja </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
+                                            checked="@(_usuario.Permisos?.Contains(Permiso.UsuarioModificacion) ?? false)" 
+                                            @onchange="(e)=>OnPermisoChanged(Permiso.UsuarioModificacion, ((ChangeEventArgs)e).Value!)">
+                                        <label class="form-check-label" for="flexCheckDefault">Usuario Modificacion </label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
+                                            checked="@(_usuario.Permisos?.Contains(Permiso.PersonaAlta) ?? false)" 
+                                            @onchange="(e)=>OnPermisoChanged(Permiso.PersonaAlta, ((ChangeEventArgs)e).Value!)">
+                                        <label class="form-check-label" for="flexCheckDefault">Persona Alta </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
+                                            checked="@(_usuario.Permisos?.Contains(Permiso.PersonaBaja) ?? false)"
+                                            @onchange="(e)=>OnPermisoChanged(Permiso.PersonaBaja, ((ChangeEventArgs)e).Value!)">
+                                        <label class="form-check-label" for="flexCheckDefault">Persona Baja </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
+                                            checked="@(_usuario.Permisos?.Contains(Permiso.PersonaModificacion) ?? false)" 
+                                            @onchange="(e)=>OnPermisoChanged(Permiso.PersonaModificacion, ((ChangeEventArgs)e).Value!)">
+                                        <label class="form-check-label" for="flexCheckDefault">Persona Modificacion </label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
+                                            checked="@(_usuario.Permisos?.Contains(Permiso.EventoAlta) ?? false)" 
+                                            @onchange="(e)=>OnPermisoChanged(Permiso.EventoAlta, ((ChangeEventArgs)e).Value!)">
+                                        <label class="form-check-label" for="flexCheckDefault">Evento Alta </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
+                                            checked="@(_usuario.Permisos?.Contains(Permiso.EventoBaja) ?? false)" 
+                                            @onchange="(e)=>OnPermisoChanged(Permiso.EventoBaja, ((ChangeEventArgs)e).Value!)">
+                                        <label class="form-check-label" for="flexCheckDefault">Evento Baja </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
+                                            checked="@(_usuario.Permisos?.Contains(Permiso.EventoModificacion) ?? false)" 
+                                            @onchange="(e)=>OnPermisoChanged(Permiso.EventoModificacion, ((ChangeEventArgs)e).Value!)">
+                                        <label class="form-check-label" for="flexCheckDefault">Evento Modificacion </label>
+                                    </div>
+                                </td>
+                            </tr>
+                        <tr>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
+                                            checked="@(_usuario.Permisos?.Contains(Permiso.ReservaAlta) ?? false)" 
+                                            @onchange="(e)=>OnPermisoChanged(Permiso.ReservaAlta, ((ChangeEventArgs)e).Value!)">
+                                        <label class="form-check-label" for="flexCheckDefault">Reserva Alta </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
+                                            checked="@(_usuario.Permisos?.Contains(Permiso.ReservaBaja) ?? false)" 
+                                            @onchange="(e)=>OnPermisoChanged(Permiso.ReservaBaja, ((ChangeEventArgs)e).Value!)">
+                                        <label class="form-check-label" for="flexCheckDefault">Reserva Baja </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
+                                            checked="@(_usuario.Permisos?.Contains(Permiso.ReservaModificacion) ?? false)" 
+                                            @onchange="(e)=>OnPermisoChanged(Permiso.ReservaModificacion, ((ChangeEventArgs)e).Value!)">
+                                        <label class="form-check-label" for="flexCheckDefault">Reserva Modificacion </label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
+            }
         </div>
         @if(servicioLogin.User != null && ((_esNuevo && servicioLogin.User.Permisos.Contains(Permiso.UsuarioAlta)) || (!_esNuevo && servicioLogin.User.Permisos.Contains(Permiso.UsuarioModificacion))))
         {
@@ -178,9 +183,11 @@
     {
         try
         {
-            if(_esNuevo) {
+            if(_esNuevo) 
+            {
                 UsuarioAltaUseCase.Ejecutar(_usuario, servicioLogin.User!.Id,true);
-            } else {
+            } else 
+            {
                 UsuarioModificacionesUseCase.Ejecutar(_usuario, servicioLogin.User!.Id,false);
             }
             MensajeError = null; //Limpia el mensaje si todo sale bien

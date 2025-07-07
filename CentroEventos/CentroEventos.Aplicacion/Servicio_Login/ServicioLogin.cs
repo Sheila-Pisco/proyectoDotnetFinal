@@ -26,12 +26,6 @@ public class ServicioLogin(IRepositorioUsuario repoU, ValidadorUsuario validador
     public Usuario RecuperarUsuario(string email, string contraseña)
     {
         User = new Usuario();
-        User.Email = email;
-        User.Contraseña = contraseña;
-        if (!validador.Validador(User, out string mensajeError, false))
-        {
-            throw new ValidacionException(mensajeError);
-        }
         User = repoU.BuscarUsuarioPorEmailyHash(email, contraseña);
         OnUsuarioLogeado();
         return User;

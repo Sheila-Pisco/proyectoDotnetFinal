@@ -48,12 +48,10 @@
     </tbody>
   </table>
 </div>
-
 @if (!string.IsNullOrEmpty(MensajeError)) //muestra el mensaje de error en pantalla
 {
-    <div class="alert alert-danger">@MensajeError</div>
+    <div class="alert alert-danger alert-mensaje">@MensajeError</div>
 }
-
 @code {
     List<Usuario> listaus = new List<Usuario>();
     protected override void OnInitialized()
@@ -74,11 +72,16 @@
     {
         try
         {
-            if (_usEliminar !=null)
-            {
-                usuarioBajaUseCase.Ejecutar(_usEliminar.Id, servicioLogin.User!.Id);
-                listaus = usuarioListarUseCase.Ejecutar();
-                MensajeError = null; //Limpia el mensaje si todo sale bien
+            if (_usEliminar != null && servicioLogin.User != null)
+            {   
+                if(_usEliminar.Id != 1) {
+                    usuarioBajaUseCase.Ejecutar(_usEliminar.Id, servicioLogin.User.Id);
+                    listaus = usuarioListarUseCase.Ejecutar();
+                    MensajeError = null; //Limpia el mensaje si todo sale bien
+                }
+                else {
+                    MensajeError = "No puede eliminar al administrador";
+                }
             }
         }
         catch (Exception ex)

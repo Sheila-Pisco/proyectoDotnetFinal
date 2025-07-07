@@ -16,7 +16,7 @@ public class PersonaBajaUseCase(IRepositorioPersona repoP, IRepositorioReserva r
         }
         if (repoR.ExisteReservaAsociadaPersona(idPersona) || repoE.EsResponsableDeEvento(idPersona))
         {
-            throw new Exception("No se puede eliminar una persona porque tiene una reserva asociada");
+            throw new Exception($"La operación no pudo concretarse. La persona que intenta eliminar tiene una reserva asociada");
         }
         repoP.EliminarPersona(idPersona);
     }
