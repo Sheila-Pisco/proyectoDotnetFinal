@@ -65,3 +65,15 @@ h1:focus {
     color: #613412;
     background-color: #d2b48c;
 }
+
+.alert-mensaje {
+    position: fixed;
+    top: 50%;
+    left: 60%;
+    transform: translateX(-50%);
+    z-index: 5;
+    min-width: fit-content;
+    max-width: 90vw;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}

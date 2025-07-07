@@ -31,22 +31,28 @@
     </div>
     @if (!string.IsNullOrEmpty(MensajeError)) //muestra el mensaje de error en pantalla
     {
-        <div class="alert alert-danger">@MensajeError</div>
+        <div class="alert alert-danger">@MensajeError</div> 
     }   
 </div>  
 
 @code{
-    Usuario _usuarioAct=null!;
-    string _Email= string.Empty;
-    string _Contraseña = string.Empty;
+    Usuario _usuarioAct = null!;
+    string? _Email;
+    string? _Contraseña;
     public bool visible = false;
     string? MensajeError; 
     public async Task InicioSesion(string email, string contraseña)
     {   
         try
         {
-            _usuarioAct = await Task.Run(()=> servicioLogin.RecuperarUsuario(email, contraseña));
-            MensajeError = null; //Limpia el mensaje si todo sale bien
+            if(string.IsNullOrEmpty(email) || string.IsNullOrEmpty(contraseña))
+            {
+                MensajeError = "Proporcione email y contraseña";
+            }
+            else {
+                _usuarioAct = await Task.Run(()=> servicioLogin.RecuperarUsuario(email, contraseña));
+                MensajeError = null; //Limpia el mensaje si todo sale bien
+            }
         }
         catch (Exception ex)
         {
