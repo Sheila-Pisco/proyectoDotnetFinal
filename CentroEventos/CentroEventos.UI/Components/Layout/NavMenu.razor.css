@@ -17,7 +17,7 @@
 
 .top-row {
     height: 3.5rem;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgb(185 88 39 / 88%)
 }
 
 .navbar-brand {
@@ -60,7 +60,7 @@
     }
 
     .nav-item ::deep .nav-link {
-        color: #333 !important;/*este se cambio el color era #d7d7d7*/
+        color: #f0ecec !important;/*este se cambio el color era #d7d7d7*/
         background: none;
         border: none;
         border-radius: 4px;
@@ -87,7 +87,7 @@
 
 .nav-scrollable {
     display: none;
-    background-color: beige !important;/*se agrego esta line*/
+    background-color: rgb(185 88 39) !important;/*se agrego esta line*/
 }
 
 .navbar-toggler:checked ~ .nav-scrollable {
@@ -100,8 +100,9 @@
     }
     .top-row,
     article:not(.no-padding) { /*cuando tiene la clase no-paddding no se deberia aplicar los bordes*/
-        padding-left: 2rem !important;
-        padding-right: 1.5rem !important;
+        padding: 0%;
+       /* padding-left: 2rem !important;
+        padding-right: 1.5rem !important;*/
     }
 
     .nav-scrollable {

@@ -1,5 +1,4 @@
-﻿
-@inject ServicioLogin servicioLogin
+﻿@inject ServicioLogin servicioLogin
 @inject NavigationManager NavigationManager
 @inherits LayoutComponentBase
 
@@ -9,17 +8,12 @@
     </div>
 
     <main class="main-container">        
-        <div class="top-row">
-            <a href="login">Iniciar Sesión</a>
-            <a href="/" target="_self">Cerrar Sesión</a>
-        </div>
-
-        <article class="content @(IsHome ? "no-padding" : "")">
-             @Body
-        </article> <!--se agrega condicion para que el home tome toda la imagen-->
-           
-       
+        <TopRow />
+        <article class="no-padding">
+            @Body
+        </article> 
     </main>
+    
 </div>
 
 <div id="blazor-error-ui">
@@ -27,6 +21,11 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
-@code{
-    private bool IsHome => new Uri(NavigationManager.Uri).AbsolutePath == "/";
-}
+
+<!-- 
+¿Por qué podría no verse el usuario en el layout?
+Causas posibles:
+El usuario no se encuentra en la base de datos o la contraseña no coincide. (solucionado)
+El layout se renderiza antes de que el usuario esté disponible. (solucionado: TopRow se suscribe a un evento)
+El scope se pierde por recarga de página o navegación externa. (comportamiento esperado) 
+--> 

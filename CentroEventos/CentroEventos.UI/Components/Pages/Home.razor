@@ -2,13 +2,20 @@
 
 <article class="no-padding">
     <div class="home-wrapper">
-        <img src="image/CentroDeportivo-hongos.png" alt="Fondo deportivo con hongos" class="home-bg" />
+       <!-- <img src="image/CentroDeportivo-hongos.png" alt="Fondo deportivo con hongos" class="home-bg">-->
+       <style>
+        body{
+            background-image: url("image/CentroDeportivo-hongos.png");
+            background-repeat: no-repeat;
+            background-size: contain; 
+            background-position: right;
+        }
+        </style>
         <div class="home-text">
-            Bienvenido al Sistema de Gestión del Centro Deportivo Universitario
+            Bienvenid@@ al Sistema de Gestión del Centro Deportivo Universitario
         </div>
     </div>
 </article>
-
 
 <style>
 .home-wrapper {
@@ -17,7 +24,6 @@
     height: calc(100vh - 0px); /* Rellenar según el layout */
     overflow: hidden;
 }
-
 .home-bg {
     position: absolute;
     width: 100%;
@@ -25,7 +31,6 @@
     object-fit: cover;
     z-index: 1;
 }
-
 .home-text {
     position: absolute;
     top: 50%;

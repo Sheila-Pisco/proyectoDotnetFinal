@@ -7,9 +7,9 @@
 @inject ServicioLogin servicioLogin
 
 @if(nueva){
-    <h3 class="mx-auto" style="width: fit-content;" >Agregar Reserva</h3>
+    <div class="text-center" style="padding-top: 30px;"><h3>Agregar Reserva</h3></div>
 }else{
-    <h3>Modificando Reserva: @_reserva.Id</h3>
+    <div class="text-center" style="padding-top: 30px;"><h3>Modificando Reserva: @_reserva.Id</h3></div>
 }
 <div class="container-fluid justify-content-center align-items-center min-vh-100 p-5" style="max-width: 900px;">
     <div class="text-center border p-4 rounded shadow-sm bg-light" >
@@ -19,7 +19,8 @@
             <input placeholder="Estado (Pendiente/Presente/Ausente)" @bind="_reserva.EstadoAsistencia" class="form-control w-70 mb-2">
             <input placeholder="Fecha" @bind="_reserva.FechaAltaReserva" class="form-control w-70 mb-2">
         </div>
-        @if((nueva && servicioLogin.User.Permisos.Contains(Permiso.ReservaAlta)) || (!nueva && servicioLogin.User.Permisos.Contains(Permiso.ReservaModificacion))){
+        @if(servicioLogin.User != null && ((nueva && servicioLogin.User.Permisos.Contains(Permiso.ReservaAlta)) || (!nueva && servicioLogin.User.Permisos.Contains(Permiso.ReservaModificacion))))
+        {
             <div class="boton mb-3">
                 <button class="btn btn-outline-success me-2" @onclick="Aceptar">Aceptar</button>
                 <button class="btn btn-outline-secondary me-2" @onclick="Cancelar">Cancelar</button>
@@ -51,9 +52,9 @@
         try
         {
             if(nueva) {
-                ReservaAltaUseCase.Ejecutar(_reserva, servicioLogin.User.Id, true);
+                ReservaAltaUseCase.Ejecutar(_reserva, servicioLogin.User!.Id, true);
             } else {
-                ReservaModificacionUseCase.Ejecutar(_reserva, servicioLogin.User.Id, false);
+                ReservaModificacionUseCase.Ejecutar(_reserva, servicioLogin.User!.Id, false);
             }
             MensajeError = null; //Limpia el mensaje si todo sale bien
         }
@@ -64,10 +65,10 @@
         _reserva = new Reserva();
         if(MensajeError == null) 
         {
-            Navegador.NavigateTo("listadoreseva");
+            Navegador.NavigateTo("listadoreserva");
         }
     }
     void Cancelar(){
-        Navegador.NavigateTo("listadoreseva");
+        Navegador.NavigateTo("listadoreserva");
     }
 }

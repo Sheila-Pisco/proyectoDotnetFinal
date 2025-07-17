@@ -1,5 +1,4 @@
 using System;
-using System.Security.Cryptography;
 using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Excepciones_Personalizadas;
 using CentroEventos.Aplicacion.Interfaces_Otros_Servicios;
@@ -9,25 +8,32 @@ namespace CentroEventos.Aplicacion.Servicio_Login;
 
 public class ServicioLogin(IRepositorioUsuario repoU, ValidadorUsuario validador) : IServicioLogin
 {
-    public Usuario User { get; set; } = new Usuario(); 
+    public Usuario? User { get; private set; }
+    public event EventHandler? UsuarioLogeado;
+    private void OnUsuarioLogeado()
+    {
+        UsuarioLogeado?.Invoke(this, EventArgs.Empty);
+    }
     public void AlmacenarUsuario(Usuario usuario)
     {
         if (!validador.Validador(usuario, out string mensajeError, true))
         {
-            throw new ValidacionException(mensajeError); 
+            throw new ValidacionException(mensajeError);
         }
         User = usuario;
+        OnUsuarioLogeado();
     }
     public Usuario RecuperarUsuario(string email, string contraseña)
     {
-        //chequear que mail sea valido con try catch y la contraseña hacerle un hash 
-        User.Email = email;
-        User.Contraseña = contraseña;
-        if (!validador.Validador(User, out string mensajeError, false))
-        {
-            throw new ValidacionException(mensajeError);
-        }
+        User = new Usuario();
         User = repoU.BuscarUsuarioPorEmailyHash(email, contraseña);
+        OnUsuarioLogeado();
         return User;
+    }
+    
+    public void CerrarSesion()
+    {
+        User = null;
+        OnUsuarioLogeado();
     }
 }

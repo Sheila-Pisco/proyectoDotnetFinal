@@ -1,20 +1,19 @@
 ﻿@page "/evento/{Id:int?}"
 @rendermode InteractiveServer
-@inject NavigationManager Navegador; //Inyectamos un objeto Navigator que nos permite navegar entre las páginas
+@inject NavigationManager Navegador 
 @inject EventoDeportivoAltaUseCase EventoDeportivoAltaUseCase
 @inject EventoDeportivoModificacionUseCase EventoDeportivoModificacionUseCase
 @inject ServicioLogin servicioLogin
 @inject EventoDeportivoObtenerUseCase EventoDeportivoObtenerUseCase
 
 @if(_esNuevoEvento)
-{
-    <h3 class="mx-auto" style="width: fit-content;">Agregar Evento Deportivo</h3>
+{  
+    <div class="text-center" style="padding-top: 30px;"><h3>Agregar Evento Deportivo</h3></div> 
 }
 else 
 {
-    <h3 class="mx-auto" style="width: fit-content;">Modificar Evento Deportivo "@_evento.Nombre"</h3>
+    <div class="text-center" style="padding-top: 30px;"><h3>Modificar Evento Deportivo "@_evento.Nombre"</h3></div>
 }
-
 <div class="container-fluid justify-content-center align-items-center min-vh-100 p-5" style="max-width: 900px;">
     <div class="text-center border p-4 rounded shadow-sm bg-light" >
         <div class="mb-3">
@@ -25,7 +24,10 @@ else
             <input placeholder="Cupo máximo" @bind="_evento.CupoMaximo" class="form-control"> 
             <input placeholder="Id del reponsable" @bind="_evento.ResponsableId" class="form-control">  
         </div>
-        @if((_esNuevoEvento && servicioLogin.User.Permisos.Contains(Permiso.EventoAlta)) || (!_esNuevoEvento && servicioLogin.User.Permisos.Contains(Permiso.EventoModificacion))){
+        @if(servicioLogin.User != null && 
+        ((_esNuevoEvento && servicioLogin.User.Permisos.Contains(Permiso.EventoAlta)) || 
+        (!_esNuevoEvento && servicioLogin.User.Permisos.Contains(Permiso.EventoModificacion))))
+        {
             <div class="boton mb-3">
                 <button class="btn btn-outline-success" @onclick="Aceptar">Aceptar</button>
                 <button class="btn btn-outline-secondary me-2" @onclick="Cancelar">Cancelar</button>
@@ -40,44 +42,40 @@ else
 
 @code {
     EventoDeportivo _evento = new EventoDeportivo();
-    [Parameter] public int? Id {get; set;} //Debe coincidir con el parámetro de ruta de la directiva @page
+    [Parameter] 
+    public int? Id {get; set;} //Debe coincidir con el parámetro de ruta de la directiva @page
     bool _esNuevoEvento = true;
-    protected override void OnParametersSet() //Este método se invoca cuando el componente ha recibido parámetros y los valores entrantes se han asignado a las propiedades
+    //El método OnParametersSet() se invoca cuando el componente ha recibido parámetros y los valores entrantes se han asignado a las propiedades
+    protected override void OnParametersSet() 
     {
-        if(Id != null)
-        {
+        if(Id != null) {
             var evento_hallado = EventoDeportivoObtenerUseCase.Ejecutar(Id);
-            if(evento_hallado != null)
-            {
+            if(evento_hallado != null) {
                 _evento = evento_hallado;
                 _esNuevoEvento = false; 
             } 
         }
     }
     string? MensajeError;
-    void Aceptar()
-    {
-        try 
-        {
+    void Aceptar() {
+        try {
             if(_esNuevoEvento) {   
-                EventoDeportivoAltaUseCase.Ejecutar(_evento, servicioLogin.User.Id);
-            } else {   
-                EventoDeportivoModificacionUseCase.Ejecutar(_evento, servicioLogin.User.Id);
+                EventoDeportivoAltaUseCase.Ejecutar(_evento, servicioLogin.User!.Id); //Puedo suprimir el warning porque sé que el boton Aceptar sólo se muestra si el usuario es != null
+            } 
+            else {   
+                EventoDeportivoModificacionUseCase.Ejecutar(_evento, servicioLogin.User!.Id);
             }
             MensajeError = null; //Limpia el mensaje si todo sale bien
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             MensajeError = ex.Message; //Guarda el mensaje de error
         }
         _evento = new EventoDeportivo();
-        if(MensajeError == null)
-        {
+        if(MensajeError == null) {
             Navegador.NavigateTo("listadoeventos");
         }
     }
-    void Cancelar(){
+    void Cancelar() {
         Navegador.NavigateTo("listadoeventos");
     }
-
 }

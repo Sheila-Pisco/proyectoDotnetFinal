@@ -1,4 +1,6 @@
 ﻿@inject ServicioLogin servicioLogin
+@implements IDisposable
+@rendermode InteractiveServer
 
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
@@ -11,24 +13,18 @@
 <div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
     <nav class="flex-column">
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+            <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Home
             </NavLink>
         </div>
-        <div class="nav-item px-3"> 
+        @* <div class="nav-item px-3"> 
             <NavLink class="nav-link" href="login">
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Login
             </NavLink>
-        </div>
+        </div> *@
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="listadoeventos">
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Listado de Eventos
-            </NavLink>
-        </div>
-        
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="evento">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Agregar Evento 
             </NavLink>
         </div>
 
@@ -39,34 +35,66 @@
         </div>  
 
         <div class="nav-item px-3">
-        <NavLink class="nav-link" href="reserva">
-            <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Agregar Reserva
-        </NavLink>
-        </div>  
-
-        <div class="nav-item px-3">
             <NavLink class="nav-link" href="listadousuarios">
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Listado de Usuarios
             </NavLink>
-        </div> 
-
-        <div class="nav-item px-3">
-        <NavLink class="nav-link" href="usuario">
-            <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Agregar Usuario
-        </NavLink>
-        </div>   
+        </div>
 
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="listadopersonas">
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Listado de Personas
             </NavLink>
-        </div>   
-
-        <div class="nav-item px-3">
-        <NavLink class="nav-link" href="persona">
-            <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Agregar Persona
-        </NavLink>
         </div>  
+
+        @if(servicioLogin.User != null)
+        {
+            if(servicioLogin.User.Permisos.Contains(Permiso.EventoAlta)) {
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="evento">
+                        <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Agregar Evento 
+                    </NavLink>
+                </div>
+            }
+            if(servicioLogin.User.Permisos.Contains(Permiso.ReservaAlta)) {
+                <div class="nav-item px-3">
+                <NavLink class="nav-link" href="reserva">
+                    <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Agregar Reserva
+                </NavLink>
+                </div>  
+            }
+            if(servicioLogin.User.Permisos.Contains(Permiso.UsuarioAlta)) {
+                <div class="nav-item px-3">
+                <NavLink class="nav-link" href="usuario">
+                    <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Agregar Usuario
+                </NavLink>
+                </div>   
+            }
+            if(servicioLogin.User.Permisos.Contains(Permiso.PersonaAlta)) {
+                <div class="nav-item px-3">
+                <NavLink class="nav-link" href="persona">
+                    <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Agregar Persona
+                </NavLink>
+                </div>
+            }  
+        }
+
     </nav>
 </div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        servicioLogin.UsuarioLogeado += OnUsuarioLogeadoHandler;
+    }
+
+    private void OnUsuarioLogeadoHandler(object? sender, EventArgs e)
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        servicioLogin.UsuarioLogeado -= OnUsuarioLogeadoHandler;
+    }
+}
 

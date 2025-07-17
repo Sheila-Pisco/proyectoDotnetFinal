@@ -4,40 +4,41 @@
 @inject ServicioLogin servicioLogin
 @inject NavigationManager Navegador
 
-<h3>Listado Eventos con Cupo</h3>
+<div class="text-center" style="padding-top: 30px;"><h3>Listado Eventos con Cupo</h3></div>
 @if (_lista == null || !_lista.Any())
 {
     <div class="alert alert-warning">No hay eventos con cupo disponible.</div>
 }
 else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th> 
-                <th>Descripcion</th> 
-                <th>Fecha y Hora de Inicio</th>
-                <th>Duracion en Horas</th>
-                <th>Cupo Maximo</th>
-                <th>Responsable</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var evento in _lista) // Utilizamos la @ para cambiar de código HTML a C#
-            {
+{   <div style="margin: 30px;">
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@evento.Id</td>
-                    <td>@evento.Nombre</td>
-                    <td>@evento.Descripcion</td>
-                    <td>@evento.FechaHoraInicio</td>
-                    <td>@evento.DuracionHoras</td>
-                    <td>@evento.CupoMaximo</td>
-                    <td>@evento.ResponsableId</td>
-                </tr>    
-            }
-        </tbody>
-    </table>
+                    <th>Id</th>
+                    <th>Nombre</th> 
+                    <th>Descripcion</th> 
+                    <th>Fecha y Hora de Inicio</th>
+                    <th>Duracion en Horas</th>
+                    <th>Cupo Maximo</th>
+                    <th>Responsable</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var evento in _lista) // Utilizamos la @ para cambiar de código HTML a C#
+                {
+                    <tr>
+                        <td>@evento.Id</td>
+                        <td>@evento.Nombre</td>
+                        <td>@evento.Descripcion</td>
+                        <td>@evento.FechaHoraInicio</td>
+                        <td>@evento.DuracionHoras</td>
+                        <td>@evento.CupoMaximo</td>
+                        <td>@evento.ResponsableId</td>
+                    </tr>    
+                }
+            </tbody>
+        </table>
+    </div>
 }
 @code { // Sección de código C#
 
