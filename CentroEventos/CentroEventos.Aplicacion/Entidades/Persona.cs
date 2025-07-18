@@ -10,12 +10,9 @@ public class Persona
     public string? Apellido { get; set; }
     public string? Email { get; set; }
     public string? Telefono { get; set; }
-
     public Persona(string? dni ,string? ape,string? nom, string? email , string? tel)
     {
-        // completar aquí las validaciones que aseguren la consistencia de la entidad
-        
-        this.Dni = dni; ///consulta a IrepositorioPersona
+        this.Dni = dni; 
         this.Nombre = nom;
         this.Apellido =ape;
         this.Email = email; 

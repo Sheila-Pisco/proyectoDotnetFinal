@@ -9,17 +9,17 @@ using CentroEventos.Aplicacion.Validadores;
 using CentroEventos.Aplicacion.Servicio_Autorizacion;
 using CentroEventos.Aplicacion.Servicio_Login;
 
-//Inicializa la base de datos:
-CentroEventosSqlite.Inicializar(); //solo tiene efecto si la base de datos no existe
+// Inicializa la base de datos:
+CentroEventosSqlite.Inicializar(); // solo tiene efecto si la base de datos no existe
 using var context = new CentroEventoContext();
 
-/*Agrego algunos datos
+/* Descomentar para agregar datos de prueba: 
 
-context.EventosDeportivos.Add(new EventoDeportivo("Aerobicos", "Movimiento", new DateTime(2025, 1, 1), 1.5, 15, 2));
-context.EventosDeportivos.Add(new EventoDeportivo("Zumba", "Baile", new DateTime(2025, 7, 7), 1.5, 25, 3));
+context.EventosDeportivos.Add(new EventoDeportivo("Aerobicos", "Movimiento", new DateTime(2025, 1, 1), 1.5, 5, 2));
+context.EventosDeportivos.Add(new EventoDeportivo("Zumba", "Baile", new DateTime(2025, 7, 7), 1.5, 5, 3));
 context.EventosDeportivos.Add(new EventoDeportivo("Funcional", "Desafío", new DateTime(2025, 8, 9), 1.5, 10, 4));
-context.EventosDeportivos.Add(new EventoDeportivo("G.A.P", "Movimiento", new DateTime(2025, 9, 1), 1.5, 20, 5));
-context.EventosDeportivos.Add(new EventoDeportivo("Judo", "Lucha", new DateTime(2025, 8, 9), 1.5, 10, 6));
+context.EventosDeportivos.Add(new EventoDeportivo("G.A.P", "Movimiento", new DateTime(2025, 9, 1), 1.5, 8, 5));
+context.EventosDeportivos.Add(new EventoDeportivo("Judo", "Lucha", new DateTime(2025, 8, 9), 1.5, 4, 6));
 
 context.Reservas.Add(new Reserva(3, 1, DateTime.Now, Estado.Pendiente));
 context.Reservas.Add(new Reserva(2, 3, DateTime.Now, Estado.Pendiente));
@@ -27,10 +27,14 @@ context.Reservas.Add(new Reserva(2, 2, DateTime.Now, Estado.Pendiente));
 context.Reservas.Add(new Reserva(4, 3, DateTime.Now, Estado.Pendiente));
 context.Reservas.Add(new Reserva(3, 1, DateTime.Now, Estado.Pendiente));
 
-context.Personas.Add(new Persona("123456", "Tomas", "Emma", "tiene@gmail.com", "221567890"));
-context.Personas.Add(new Persona("15870", "Gado", "Leandro", "alperro@gmail.com", "111594420"));
-context.Personas.Add(new Persona("233569", "Ceballo", "Julia", "rando@gmail.com", "157896290"));
-context.Personas.Add(new Persona("785426","Quito", "Esteban", "roto@gmail", "221567890") );
+context.Personas.Add(new Persona("42345611", "Tomas", "Emma", "tiene@gmail.com", "2215678900"));
+context.Personas.Add(new Persona("15837076", "Gado", "Leandro", "alperro@gmail.com", "2211594420"));
+context.Personas.Add(new Persona("23356989", "Ceballo", "Julia", "rando@gmail.com", "2218962901"));
+context.Personas.Add(new Persona("38542655", "Quito", "Esteban", "roto@gmail.com", "2215678905") );
+context.Personas.Add(new Persona("19552032", "Paredes", "Armando", "encasa@gmail.com", "2215678345") );
+context.Personas.Add(new Persona("23454656", "Cena", "Elmer", "rio@gmail.com", "2215678708") );
+context.Personas.Add(new Persona("25364289", "Porcel", "Blanca", "ana@gmail.com", "2215678092"));
+context.Personas.Add(new Persona("37821090", "Verinto", "Estella", "sinfin@gmail.com", "2216789054"));
 
 context.SaveChanges();
 */

@@ -11,14 +11,6 @@ public class EventoDeportivo
     public int ResponsableId{ get; set; } // Id de la Persona a cargo del evento
     public EventoDeportivo(string nombre, string descripcion, DateTime fecha_hora, double duracion, int cupo_max, int id_responsable)
     {
-        if (string.IsNullOrWhiteSpace(nombre))
-        {
-            throw new ArgumentException("El nombre no puede ser nulo ni estar vacío");
-        }
-        if (string.IsNullOrEmpty(descripcion))
-        {
-            throw new ArgumentException("La descripción no puede estar vacía.");
-        }
         this.Nombre = nombre;
         this.Descripcion = descripcion;
         this.FechaHoraInicio = fecha_hora;

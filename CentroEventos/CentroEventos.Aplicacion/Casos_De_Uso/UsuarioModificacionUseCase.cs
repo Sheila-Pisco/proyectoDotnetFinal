@@ -13,7 +13,7 @@ public class UsuarioModificacionesUseCase(IRepositorioUsuario repo, IServicioAut
 {
      public void Ejecutar( Usuario usuario,int idUsuario,bool ok)
     {
-        if (!autorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioModificacion))
+        if (usuario.Id != idUsuario && !autorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioModificacion))
         {
             throw new FalloAutorizacionException();
         }
