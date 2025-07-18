@@ -9,9 +9,8 @@ public class Reserva
     public int EventoDeportivo_id { get; set; } //evento asignado a la reserva
     public DateTime? FechaAltaReserva { get; set; } //fecha en la que se realizo
     public Estado? EstadoAsistencia { get; set; } = Estado.Pendiente;//asistencia (Pendiente/Presente/Ausente)
-    public Reserva (int idpersona, int eventoid, DateTime? Fecha, Estado estado){
-
-
+    public Reserva (int idpersona, int eventoid, DateTime? Fecha, Estado estado)
+    {
         this.Persona_id = idpersona;
         this.EventoDeportivo_id = eventoid;
         this.FechaAltaReserva = Fecha;

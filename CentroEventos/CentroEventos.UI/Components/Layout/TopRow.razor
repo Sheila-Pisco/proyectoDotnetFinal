@@ -24,23 +24,19 @@
     {
         servicioLogin.UsuarioLogeado += OnUsuarioLogeadoHandler;
     }
-
     private void OnUsuarioLogeadoHandler(object? sender, EventArgs e)
     {
         InvokeAsync(StateHasChanged);
     }
-
     public void Dispose()
     {
         servicioLogin.UsuarioLogeado -= OnUsuarioLogeadoHandler;
     }
-
     private void CerrarSesion()
     {
         servicioLogin.CerrarSesion();
         NavigationManager.NavigateTo("/");
     }
-
     private void IniciarSesion()
     {
         NavigationManager.NavigateTo("/login");

@@ -1,8 +1,9 @@
-﻿@page "/"
+﻿@rendermode InteractiveServer
+@inject ServicioLogin servicioLogin
+@page "/"
 
 <article class="no-padding">
     <div class="home-wrapper">
-       <!-- <img src="image/CentroDeportivo-hongos.png" alt="Fondo deportivo con hongos" class="home-bg">-->
        <style>
         body{
             background-image: url("image/CentroDeportivo-hongos.png");
@@ -11,11 +12,32 @@
             background-position: right;
         }
         </style>
-        <div class="home-text">
-            Bienvenid@@ al Sistema de Gestión del Centro Deportivo Universitario
-        </div>
+        @if(servicioLogin.User != null) {
+            string saludo = $"Hola {servicioLogin.User.Nombre}! Bienvenid@ al Sistema.";
+            <div class="home-text">@saludo</div>
+        }
+        else {
+            <div class="home-text">
+                Sistema de Gestión del Centro Deportivo Universitario
+            </div>
+        }
     </div>
 </article>
+
+@code {
+    protected override void OnInitialized()
+    {
+        servicioLogin.UsuarioLogeado += OnUsuarioLogeadoHandler;
+    }
+    private void OnUsuarioLogeadoHandler(object? sender, EventArgs e)
+    {
+        InvokeAsync(StateHasChanged);
+    }
+    public void Dispose()
+    {
+        servicioLogin.UsuarioLogeado -= OnUsuarioLogeadoHandler;
+    }
+}
 
 <style>
 .home-wrapper {
@@ -42,5 +64,6 @@
     font-weight: bold;
     text-shadow: 2px 2px 5px black;
     text-align: center;
+    width: 600px;
 }
 </style>

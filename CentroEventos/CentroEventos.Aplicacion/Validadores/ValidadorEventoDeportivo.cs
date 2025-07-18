@@ -8,14 +8,13 @@ public class ValidadorEventoDeportivo(IRepositorioPersona repo)
     public bool Validar(EventoDeportivo eventoDeportivo, out string mensajeError)
     {
         mensajeError = "";
-        
         if (string.IsNullOrWhiteSpace(eventoDeportivo.Nombre))
         {
-            mensajeError = "El nombre no es válido. \n";
-        }
-        if(string.IsNullOrWhiteSpace(eventoDeportivo.Descripcion))
+            mensajeError += "El nombre no puede estar vacío. \n";
+        } 
+        if (string.IsNullOrWhiteSpace(eventoDeportivo.Descripcion))
         {
-            mensajeError += "La descripción no es válida. \n";
+            mensajeError += "La descripción no puede estar vacía. \n";
         }
         if(eventoDeportivo.FechaHoraInicio == DateTime.MinValue || eventoDeportivo.FechaHoraInicio < DateTime.Now)
         {

@@ -60,7 +60,7 @@
         }
         if(MensajeError == null)
         {
-            navegador.NavigateTo("listadousuarios");
+            navegador.NavigateTo("/");
         }
     }
     public void Registrar()
@@ -69,8 +69,8 @@
         visible = true;
         StateHasChanged(); //fuerza el render
     }
-    public void RegistrarUsuario(Usuario usuario){
-
+    public void RegistrarUsuario(Usuario usuario)
+    {
         string email = usuario.Email ?? string.Empty;
         string contraseña = usuario.Contraseña ?? string.Empty;
         try

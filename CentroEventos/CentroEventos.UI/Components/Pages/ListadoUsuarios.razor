@@ -1,6 +1,7 @@
 ﻿@page "/listadousuarios"
 @rendermode InteractiveServer
 @inject UsuarioListarUseCase usuarioListarUseCase
+@inject UsuarioObtenerUseCase usuarioObtenerUseCase
 @inject IJSRuntime JSRuntime;
 @inject UsuarioBajaUseCase usuarioBajaUseCase
 @inject NavigationManager Navegador
@@ -34,11 +35,12 @@
                 </td>
                 <td>
                     @if(servicioLogin.User != null){
-                        if(servicioLogin.User.Permisos.Contains(Permiso.UsuarioModificacion)) 
+                        var userActual = servicioLogin.User;
+                        if( (userActual.Id == usuario.Id) || (userActual.Permisos.Contains(Permiso.UsuarioModificacion) && (usuario.Id !=1 )))
                         {   
                             <td><button class="btn btn-outline-primary" @onclick="()=>ModificarUsuario(usuario)">Editar</button></td>
                         }
-                        if(servicioLogin.User.Permisos.Contains(Permiso.UsuarioBaja)){    
+                        if(userActual.Permisos.Contains(Permiso.UsuarioBaja)){    
                             <td><button class="btn btn-outline-danger" @onclick="()=>ConfirmarEliminacion(usuario)">Eliminar</button></td>          
                         }
                     }
@@ -56,7 +58,13 @@
     List<Usuario> listaus = new List<Usuario>();
     protected override void OnInitialized()
     {
-        listaus = usuarioListarUseCase.Ejecutar();   
+        if(servicioLogin.User != null) {
+            if(servicioLogin.User.Permisos.Contains(Permiso.UsuarioBaja) || servicioLogin.User.Permisos.Contains(Permiso.UsuarioModificacion)){
+                listaus = usuarioListarUseCase.Ejecutar();  
+            } else {
+                listaus.Add(usuarioObtenerUseCase.Ejecutar(servicioLogin.User.Id));
+            } 
+        }  
     }
     DialogoConfirmacion dialogo =null!;
     Usuario? _usEliminar = null;
@@ -89,6 +97,7 @@
             MensajeError = ex.Message; //Guarda el mensaje de error
         }
     }
+
     void ModificarUsuario(Usuario usuario)
     {
         Navegador.NavigateTo($"usuario/{usuario.Id}");
